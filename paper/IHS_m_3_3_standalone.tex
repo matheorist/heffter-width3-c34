@@ -169,13 +169,12 @@ finite verification.\\
 
 \section{Introduction}\label{sec:intro}
 
-Heffter arrays were introduced by Archdeacon~\cite{Arch2015} as a framework for constructing
-orientable biembeddings of complete graphs. A unified account of their definitions, variants and
-applications is given by Pasotti and Dinitz~\cite{PasottiDinitz2024}. The subject also connects
-with partial-sum questions~\cite{CostaMoriniPasottiPellegrini2018} and with relative and
-rectangular Heffter arrays~\cite{MoriniPellegrini2020,MoriniPellegrini2022}. More recently,
-Buratti and Pasotti introduced Heffter spaces and developed finite-field constructions for them
-\cite{BurattiPasotti2024,BurattiPasotti2025}.
+Heffter arrays were introduced by Archdeacon~\cite{Arch2015} in the study of orientable
+biembeddings of complete graphs. Their definitions and principal existence results are surveyed
+by Pasotti and Dinitz~\cite{PasottiDinitz2024}. Related work concerns partial sums in abelian
+groups~\cite{CostaMoriniPasottiPellegrini2018}, integer relative arrays~\cite{MoriniPellegrini2020},
+rectangular arrays~\cite{MoriniPellegrini2022}, and the recently introduced Heffter spaces
+~\cite{BurattiPasotti2024,BurattiPasotti2025}.
 
 \begin{definition}[integer Heffter array \cite{Arch2015}]
 An integer Heffter array $\Hm(m,n;s,k)$ is an $m\times n$ partially filled array, with entries from
@@ -196,17 +195,17 @@ pairwise distinct absolute values, collectively equal to $[1,mnc]$. Every row an
 array has sum zero.
 \end{definition}
 
-When $s$ and $k$ are coprime, one may write $m=ck$ and $n=cs$; a single $\IHS(k,s;c)$ then
-assembles an $\Hm(ck,cs;s,k)$ \cite[proof of Theorem~C]{MP2025}. In this formulation the
-remaining short-width cases have $k=3$ or $k=5$. We focus on the width-three case:
+When $s$ and $k$ are coprime, write $m=ck$ and $n=cs$. In this notation, an $\IHS(k,s;c)$
+assembles an $\Hm(ck,cs;s,k)$ \cite[proof of Theorem~C]{MP2025}. The remaining short-width
+cases therefore have $k=3$ or $k=5$. We study the width-three case:
 
 \begin{problem}[{\cite[Problem~1]{MP2025}}]\label{prob:1}
 For every $c\ge1$ and every odd $m\ge3$ with $\gcd(m,3)=1$ and $mc\equiv0,1\pmod4$, construct an
 $\IHS(m,3;c)$.
 \end{problem}
 
-We organize Problem~\ref{prob:1} by the number $c$ of arrays. The case $c=1$ is already
-settled in the literature: an $\IHS(m,3;1)$ is precisely a
+The parameter $c$ separates Problem~\ref{prob:1} into fixed slices. The case $c=1$ is already
+settled: an $\IHS(m,3;1)$ is precisely a
 \emph{tight} integer Heffter array $\Hm(m,3;3,m)$---an $m\times3$ array with no empty cells whose
 support is exactly $[1,3m]$---and Archdeacon, Boothby and Dinitz proved that tight Heffter arrays
 exist for all admissible parameters~\cite{ABD2017}; for width three this covers every admissible $m$
@@ -220,21 +219,17 @@ main result settles that slice as well.
 For every integer $m\ge3$ with $m\equiv3\pmod4$ and $\gcd(m,3)=1$, an $\IHS(m,3;3)$ exists.
 \end{theorem}
 
-Together with the tight case $c=1$ of~\cite{ABD2017}, Theorem~\ref{thm:main} completely solves the
-$c=1$ and $c=3$ cases of Problem~\ref{prob:1}. The $c=3$ construction uses the closed formula
-for the centre-complementary Kotzig arrays of Zhou, Li, Zhang and Su~\cite{Zhou2018DM}.
-Theorem~\ref{thm:c4full} below gives the complete $c=4$ slice.
-Sections~\ref{sec:reduction}--\ref{sec:proof} and~\ref{sec:c4full} establish the support partition,
-the grouping, and the orientation certificates needed for the two fixed-slice theorems. Other values
-of $c$ lie outside the scope of this paper; Section~\ref{sec:remarks} records aspects of the method
-that may extend to $c\ge5$.
+Together with the tight case $c=1$ of~\cite{ABD2017}, Theorem~\ref{thm:main} settles the $c=1$
+and $c=3$ slices of Problem~\ref{prob:1}. Its construction is based on the closed formula for
+the centre-complementary Kotzig arrays of Zhou, Li, Zhang and Su~\cite{Zhou2018DM}. Theorem
+~\ref{thm:c4full} below settles the next admissible slice, $c=4$. Both proofs use the same
+reduction into a support partition, a grouping step, and an orientation certificate, but the
+periodic data and boundary states differ between the two slices.
 
-The manuscript is self-contained at the level of both fixed-slice constructions once the three
-certificate source files listed in the data-availability paragraph are included. Its finite inputs are the
-periodic offset words, printed boundary and orientation tables, exceptional support data, finite bridges,
-and the six compact $c=4$ constructions listed in Sections~\ref{sec:certificates},
-~\ref{sec:small-data}, and~\ref{sec:c4-data}. No $c=5$, $c=7$, or width-five certificate is used in
-the proof.
+The results are fixed-slice theorems, not a solution for arbitrary $c$. In particular, no claim is
+made here for $c\ge5$; the concluding section describes which parts of the certificate method may
+be useful for those cases. The displayed finite data, together with the three certificate source
+files listed in the data-availability paragraph, make the two constructions independently checkable.
 
 \paragraph{Notation.}
 $[1,N]=\{1,\dots,N\}$. A \emph{sum-triple} is a set $\{x,y,x+y\}$ of three distinct positive integers.
