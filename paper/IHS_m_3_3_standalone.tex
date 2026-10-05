@@ -412,31 +412,34 @@ both effective bulk layers.  Under $m\mapsto m+4$ the boundary state follows
 $9\to21\to33\to45\to9\pmod{48}$.  Thus parameter growth inserts periodic bulk blocks and updates one
 of four boundary states; it is not an append-only operation on the arrays.
 
-\section{Grouping, orientation, and the main theorem}\label{sec:proof}
+\section{Grouping, orientation, and the $c=3$ theorem}\label{sec:proof}
 
-Fix the corrected partition of Lemma~\ref{lem:rule}, with triple $T_j$ indexed by column $j\in[1,n]$,
-$n=3m$. Group by residue: $G_r=\{T_j:j\equiv r\pmod3\}$, $r=0,1,2$, each of size $m$.
+Fix the corrected partition from Lemma~\ref{lem:rule}, and write its triples as
+$T_1,\dots,T_n$, where $n=3m$. Group them by their index modulo $3$:
+$G_r=\{T_j:j\equiv r\pmod3\}$ for $r=0,1,2$. Each group contains exactly $m$ triples and will
+become one $m\times3$ array.
 
 \begin{lemma}[periodic orientation]\label{lem:orient}
-Each group $G_r$ is balanceable, and a balancing is given by an explicit rule: orient $T_j$ in the
-decoupled form of Corollary~\ref{cor:cert} (the sum $c_j$ in the third column with sign
-$\varepsilon_j$, the two summands in columns $1,2$ in an order set by a sign $\eta_j$), with one
-designated row in the $\kappa$-window possibly switched to mode $a$ or $b$ to correct parity. The signs
-$(\varepsilon_j,\eta_j)$ are constant on the three bulk zones determined by the bounded windows at
-$m$ and $\kappa$, after further subdivision by $j\bmod24$; the four boundary windows are at
-$1,m,\kappa,n$. There are $24$ such sign patterns---one for each of the eight admissible residues of
-$n$ modulo $144$ and each of the three groups. Every pattern
-fixes the signs of both chains $\{c_j\}$ and $\{b_j-a_j\}$ and is printed in
+Each group $G_r$ is balanceable by an explicit rule. Orient $T_j$ in the decoupled form of
+Corollary~\ref{cor:cert}: the sum element $c_j$ occupies the third column with sign
+$\varepsilon_j$, while a sign $\eta_j$ determines the order of the two summands in the first two
+columns. At most one designated row in the $\kappa$-window is switched to mode $a$ or $b$ to correct
+parity. The signs $(\varepsilon_j,\eta_j)$ are constant on the bulk zones separated by the four
+bounded windows at $1,m,\kappa,n$, after subdivision by $j\bmod24$. There are $24$ printed patterns:
+one for each of the eight admissible residues of $n$ modulo $144$ and each of the three groups.
+Each printed pattern represents two of the $48$ admissible states in the proof below, and fixes the
+signs of both chains $\{c_j\}$ and $\{b_j-a_j\}$. The complete patterns are in
 Section~\ref{sec:orientation-data}.
 \end{lemma}
 \begin{proof}
-By Lemma~\ref{lem:exact} it suffices to exhibit, per group, a mode assignment making both chains
-signable; the decoupled certificate of Corollary~\ref{cor:cert} does this with all modes equal to $c$
-except the one parity-switching row.  The complete $24$ patterns are printed in
+By Lemma~\ref{lem:exact}, it suffices to exhibit, for each group, a mode assignment making both
+chains signable. The decoupled certificate of Corollary~\ref{cor:cert} uses mode $c$ in every row
+except for the possible parity-switching row. The complete $24$ patterns are printed in
 Section~\ref{sec:orientation-data}. To certify the infinite tail, write
 $n=e+24(\tau+12Q)$ with $e\in\{9,21\}$, $15\le\tau\le26$, and $Q\ge0$.  The coprimality restriction
 leaves $16\cdot3=48$ admissible group states. The stored pattern indexed by
-$s=15+((\tau-15)\bmod6)$ is used for both $\tau=s$ and $\tau=s+6$. In a fixed state and sign
+$s=15+((\tau-15)\bmod6)$ is used for both $\tau=s$ and $\tau=s+6$, which explains why the
+$24$ printed patterns cover all $48$ states. In a fixed state and sign
 category, each contribution to either chain is a sum of affine values over an arithmetic progression
 with affine endpoints, hence a polynomial in $Q$ of degree at most two. Direct substitution of the
 decoded signs gives zero at $Q=0,1,\ldots,6$ for both chains and for both values of $\tau$ represented
@@ -445,13 +448,13 @@ certificate, not an assumption about the output of a search program.
 \end{proof}
 
 \begin{lemma}[finite bridge]\label{lem:bridge}
-The same offset and orientation rules produce an $\IHS(m,3;3)$ for
+The same offset and orientation rules produce an $\IHS(m,3;3)$ for every
 \[
 \mathcal B=\{67,71,79,83,91,95,103,107,115,119\}.
 \]
 \end{lemma}
 \begin{proof}
-For $m\ge67$ the four orientation windows at $1,m,\kappa,n$ are disjoint; in particular,
+For $m\ge67$ the four orientation windows at $1,m,\kappa,n$ are disjoint. In particular,
 $\kappa-m=(m+1)/2\ge34>12+20$. Hence the category rule in
 Section~\ref{sec:orientation-data} applies without overlap. For every $m\in\mathcal B$, substitute
 $n=3m$ in the offset words and select the stored orientation row prescribed there. The ten resulting
@@ -471,42 +474,45 @@ For every inherited index $1\le j\le3m$,
  R_j^{(m+d)}=R_j^{(m)}+\frac{9d}{2}(-1)^{j+3m}(1,0,-1)
  +\bigl(\delta_j^{(m+d)}-\delta_j^{(m)}\bigr).
 \end{equation}
-The remaining $3d$ target rows are new, with $d$ in each group modulo $3$.  The support and
-orientation states are the next states in the printed finite tables, so the construction follows the
-single chain
+The remaining $3d$ target rows are new, with exactly $d$ new indices in each residue class modulo
+$3$. The support and orientation states are the next states in the printed finite tables, so the
+canonical constructions follow the single chain
 \[
  67\xrightarrow{+4}71\xrightarrow{+8}79\xrightarrow{+4}83
  \xrightarrow{+8}91\xrightarrow{+4}\cdots .
 \]
 This is a recurrence between the canonical corrected-Kotzig forms, not an extension operator on an
-arbitrary presentation of an $\IHS(m,3;3)$.
+arbitrary presentation of an $\IHS(m,3;3)$; it records transport of the chosen normal form.
 \end{proposition}
 \begin{proof}
 Subtract the closed Kotzig formula at $3m$ from the formula at $3(m+d)$ and then add the two offset
-vectors; this gives~\eqref{eq:c3-standalone-transport}.  The count of new rows is immediate modulo
-$3$.  Equation~\eqref{eq:c3-word-shift} gives the half-period bulk update for the $+4$ step, the four
-boundary tables give the stated boundary-state cycle, and Lemmas~\ref{lem:rule} and~\ref{lem:orient}
-certify the target support and balance states.  No new search is used.
+vectors; this gives~\eqref{eq:c3-standalone-transport}. The count of new rows follows from
+$3(m+d)-3m=3d$, and the residue classes distribute these indices equally. Equation
+~\eqref{eq:c3-word-shift} gives the half-period bulk update for the $+4$ step, while the four
+boundary tables give the stated boundary-state cycle. Lemmas~\ref{lem:rule} and~\ref{lem:orient}
+then certify the target support and balance states. No additional search is used in this transport
+identity.
 \end{proof}
 
-An append-only interpretation is impossible.  If the old entries were left fixed in a $+4$ step,
+\paragraph{Why the transport is not append-only.}
+If the old entries were left fixed in a $+4$ step,
 each new zero-sum row would have to use values from $[9m+1,9m+36]$; but
 $(9m+1)+(9m+2)>9m+36$ for $m\ge4$, so no three values in that interval form a sum-triple.
 
 \begin{proof}[Proof of Theorem~\ref{thm:main}]
-Let $m\equiv3\pmod4$ with $\gcd(m,3)=1$ and put $n=3m$. Then $n\equiv1\pmod4$ and $n$ is odd. For
-$m<67$, the ten admissible values are
+Let $m\equiv3\pmod4$ with $\gcd(m,3)=1$ and put $n=3m$. Then $n\equiv1\pmod4$ and $n$ is odd.
+For $m<67$, the admissible values are
 \[
  7,11,19,23,31,35,43,47,55,59.
 \]
-Complete signed arrays are displayed below for $m=7$, while
-Section~\ref{sec:small-data} gives three exceptional support words for $m=11,19,23$ and six
+Complete signed arrays are displayed below for $m=7$. Section~\ref{sec:small-data} gives three
+exceptional support words for $m=11,19,23$ and six
 preperiod orientation certificates for $m=31,35,43,47,55,59$; the latter six already use the uniform
 support rule.
 Lemma~\ref{lem:bridge} handles the ten admissible values from $67$ to $119$. For every remaining
 admissible $m>119$ (the first is $127$),
-Lemma~\ref{lem:rule} gives the exact sum-triple partition of $[1,3n]$; grouping by $j\bmod3$ and
- orienting by Lemma~\ref{lem:orient} gives three zero-sum $m\times3$ arrays whose absolute-value
+Lemma~\ref{lem:rule} gives the exact sum-triple partition of $[1,3n]$. Grouping by $j\bmod3$ and
+orienting by Lemma~\ref{lem:orient} gives three zero-sum $m\times3$ arrays whose absolute-value
 supports partition $[1,9m]$.
 \end{proof}
 
