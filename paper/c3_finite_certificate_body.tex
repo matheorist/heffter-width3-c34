@@ -2,9 +2,17 @@
 This section prints every finite witness used by the periodic construction and the finite bridge.
 Thus those parts of the existence proof are logically independent of the accompanying programs:
 the programs merely regenerate and check the data below.  All strings are read from left to right.
+Throughout this section \(n=3m\), \(\kappa=(n+1)/2\), and all phases are taken modulo \(24\).
+The symbols \(L\), \(M\), and \(U\) in the boundary table refer to the lower endpoint,
+the \(\kappa\)-window, and the upper endpoint, respectively.  The bulk blocks are denoted
+by \(B_1,B_2,B_3\).  Thus a certificate is read in three steps: decode the offset word,
+lift it with the formula in Section~\ref{sec:construction}, and then apply the displayed orientation
+and sign strings.
 
 \subsection{Offset words and boundary tables}\label{sec:offset-data}
-We encode each zero-sum offset vector by the following alphabet.
+We encode each zero-sum offset vector by the following alphabet.  Every listed symbol belongs
+to \(\{-2,-1,0,1,2\}^3\) and has coordinate sum zero; consequently the row-sum condition
+is built into the encoding rather than checked by a separate search.
 \begingroup\scriptsize
 \[
 \begin{array}{c|ccccccc}
@@ -38,7 +46,8 @@ $n\equiv21\pmod{24}$ use phases $(10,13)$ and
 Thus the formerly separate words for the second class are exact rotations of the displayed words;
 after the phases are inserted, passage between the two classes is a half-period shift by $12$ in
 both bulk layers.
-For a boundary row, the symbols are in increasing order of the indicated relative index.
+For each boundary window, the symbols are listed in increasing order of the indicated relative
+index; no reversal of a printed word is intended.
 Here \(L,M,U\) mean the windows at \(1,\kappa,n\), respectively.
 \[
 \begin{array}{c|c|c|l}
@@ -57,6 +66,18 @@ n\bmod48&\text{window}&\text{indices}&\text{offset word}\\\hline
 45&U&-20:0&\mathtt{33431337534344333447A}\\
 \end{array}
 \]
+For an independent support audit, fix one of the $16$ admissible periodic states described
+below and a residue \(u\in\{1,\ldots,72\}\).  Write $n_0=e+24\tau$, so that
+$n=n_0+288Q$ with $Q\ge0$.  Decoding the two bulk words and the corresponding boundary
+table turns every family of values congruent to $u\pmod{72}$ into an integer interval
+whose endpoints are affine functions of \(Q\).  For each of the $16\times72$ state--residue
+pairs, the displayed boundary word gives the endpoint relation at \(Q=0\), while the period
+words give the same endpoint slopes for every \(Q\ge0\).  Hence the intervals remain consecutive,
+begin at \(0\), and end at
+\(12Q+\lfloor(3n_0-u)/72\rfloor\), exactly as required in
+Lemma~\ref{lem:rule}.  This is a finite comparison of printed affine expressions, not a
+computer-generated existence assertion.
+
 \subsection{The 24 stored orientation patterns for 48 admissible affine states}\label{sec:orientation-data}
 For a row index \(j\), let its category be
 \[
@@ -71,27 +92,45 @@ For a row index \(j\), let its category be
 \end{cases}
 \]
 The cases are applied in the displayed order.  For any admissible parameter using the periodic rule,
-put \(e=n\bmod24\), \(t=(n-e)/24\), and select the stored row with
+put \(e=n\bmod24\) (with the representatives \(e=9,21\) in the periodic range),
+\(t=(n-e)/24\), and select the stored row with
 \(s=15+((t-15)\bmod6)\).  Coprimality gives
 \[
 s\in\{16,17,19,20\}\quad(e=9),\qquad
 s\in\{15,17,18,20\}\quad(e=21).
 \]
-This also specifies the ten finite-bridge cases below.  For the infinite proof, an admissible affine
+This also specifies the ten finite-bridge cases below.  For those bridge values, \(s\) is only
+the table-selection residue; the affine \(\tau\)-range starts at \(15\).  For the infinite proof, an admissible affine
 group state is \((e,\tau,r)\), where
 \(n=e+24(\tau+12Q)\), \(e\in\{9,21\}\), \(15\le\tau\le26\), \(Q\ge0\), and
 the retained indices satisfy \(j\equiv r\pmod3\).  The stored row \((e,s,r)\),
 \(15\le s\le20\), is used for both \(\tau=s\) and \(\tau=s+6\).  For either value of
-\(\tau\), let \(K_{e,\tau,r}\) be the union of its categories for \(Q=0,1,\ldots,6\);
+\(\tau\), let \(\mathcal A_{e,\tau,r}\) be the union of its categories for \(Q=0,1,\ldots,6\);
 the literal category set is the same for the two values represented by a stored row.
 The restrictions above leave $8$ stored parameter states and hence $24=8\cdot3$ stored rows; they
-cover the $48=16\cdot3$ admissible affine group states.
+cover the $48=16\cdot3$ admissible affine group states.  Here \(r\in\{0,1,2\}\) is the group
+index, \(p=j\bmod24\in\{0,\ldots,23\}\), and \(z\in\{1,2,3\}\) is the bulk zone.  The
+category-to-label dictionary used by the printed strings is
+\[
+L\longleftrightarrow\mathtt{('bnd','low',q)},\quad
+M\longleftrightarrow\mathtt{('bnd','m',q)},\quad
+K\longleftrightarrow\mathtt{('bnd','k',q)},\quad
+T\longleftrightarrow\mathtt{('bnd','top',q)}.
+\]
+The letters \(M\) and \(K\) in the category list are deliberately distinct: here \(M\) denotes
+the window centred at the integer \(m\), whereas \(K\) denotes the window centred at \(\kappa\).
+This category notation is independent of the \(L,M,U\) labels used for the offset-table display
+above; the literal labels in the sign strings are the authoritative ones for decoding.
+Thus a switch \(K:q\) refers to the literal key \(\mathtt{('bnd','k',q)}\), while a bulk key
+has the form \(\mathtt{('bulk',z,p)}\) with \(z\in\{1,2,3\}\) and \(p\in\{0,\ldots,23\}\).
 For encoding,
 write the labels literally as \(\mathtt{('bnd','k',q)}\), \(\mathtt{('bnd','low',q)}\),
 \(\mathtt{('bnd','m',q)}\), \(\mathtt{('bnd','top',q)}\), and
 \(\mathtt{('bulk',z,p)}\), and order these literal strings lexicographically.  Each hexadecimal digit below
 expands to four binary digits; retain the first \(\ell\) bits, with \(1=+1\) and \(0=-1\).
-The columns \(C,D\) give respectively the signs of \(\mu_j\) and \(|w_j|\).  A switch
+The columns \(C,D\) give respectively the signs of \(\mu_j\) and \(|w_j|\); these are sign-string
+columns and are unrelated to the column-sum vectors \(C_i\) in the finite-bridge table below.
+Both columns use the same ordered list of literal keys, whose length is \(\ell\).  A switch
 \(X:q;a\) or \(X:q;b\) changes the unique row in category \((X,q)\) from mode \(c\)
 to the displayed mode; ``--'' means that every row uses mode \(c\).
 \begin{longtable}{c@{\,}c@{\,}c|r|c|l|l}
@@ -128,17 +167,21 @@ e&s&r&$\ell$&\text{switch}&C&D\\\hline
 \end{longtable}
 For direct checking, substitute the offsets from Section~\ref{sec:offset-data} in the
 closed lift formula.  For each admissible stored row, for the two values \(\tau=s,s+6\), and in each category,
-the sums of \(\mu_j\) and \(|w_j|\) are quadratic polynomials in \(Q\).  The two decoded
+the sums of \(\mu_j\) and \(|w_j|\) are polynomials in \(Q\) of degree at most two.  The two decoded
 sign rows make their signed totals zero at \(Q=0,1,\ldots,6\) for both values of \(\tau\);
-hence both totals vanish identically in all \(48\) admissible states.  This is a finite
-arithmetic verification, and no search or program is part of the logical implication.
+seven zeros therefore force both polynomials to vanish identically in all \(48\) admissible states.
+This is a finite arithmetic verification, and no search or program is part of the logical implication.
 \subsection{The ten-case finite bridge}\label{sec:bridge-data}
-The offset and orientation rules above are already defined for the following ten parameters
-below the affine range.  Let \(S_m\) be the set of absolute values produced and let
+The periodic support rule is used from \(m\ge123\) onward.  The following ten admissible values
+of \(m\) bridge the remaining interval \(67\le m\le119\).  Let \(S_m\) be the set of absolute
+values produced and let
 \(C_i\) be the three-component column-sum vector of the \(i\)-th array.  Direct substitution
-in the printed rules gives the complete audit table below.  Since every row sum is zero by
-construction, \(\min S_m=1\), \(\max S_m=9m\), and \(|S_m|=9m\) prove
-\(S_m=[1,9m]\); the last column proves all nine column sums vanish.
+in the printed rules gives the complete audit table below.  Here
+\(C_i=(C_{i,1},C_{i,2},C_{i,3})\).  Since every row sum is zero by construction,
+\(S_m\subseteq[1,9m]\); the equalities \(\min S_m=1\), \(\max S_m=9m\), and
+\(|S_m|=9m\) show that \(S_m\) consists of \(9m\) distinct integers in an interval of
+length \(9m\), and hence \(S_m=[1,9m]\).  The last column gives \(C_i=\mathbf0\) for
+each \(i\), which is exactly the vanishing of all nine column sums.
 \[
 \begin{array}{c|c|c|c|c|c}
 m&n&n\bmod48&s&(\min S_m,\max S_m,|S_m|)&(C_0,C_1,C_2)\\\hline

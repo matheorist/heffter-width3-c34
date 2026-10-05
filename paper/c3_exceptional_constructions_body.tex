@@ -1,21 +1,27 @@
 \section{Three exceptional supports and six preperiod orientations}\label{sec:small-data}
-The nine parameters below are recorded in a compact form that uniquely reconstructs every signed
-entry.  Only $m=11,19,23$ require exceptional support words.  The six values
+This section supplies the nine finite cases below the periodic tail that are not covered by the
+displayed $m=7$ example.  The data are compressed but lossless: the parameter $m$, one offset
+word (when needed), one switch, and two hexadecimal sign strings reconstruct every signed entry.
+Only $m=11,19,23$ require exceptional support words.  The six values
 $m=31,35,43,47,55,59$ already use the uniform support rule, but precede the disjoint-window range of
 the periodic orientation theorem and therefore retain separate orientation certificates.  Three
-support words and \(27\) balance records suffice in place of listing all \(969\) rows.
+support words and $27$ orientation records replace an explicit listing of all
+$969=3(11+19+23+31+35+43+47+55+59)$ rows.
 
 Put \(n=3m\), and let \(a_{i,j}\) be the Kotzig entry defined in
 Section~\ref{sec:construction}.  For an offset \(\delta_j=(d_{1j},d_{2j},d_{3j})\), set
 \[
-T_j=\operatorname{sort}\{\,|3a_{-1,j}+d_{1j}|,\ |3j+d_{2j}|,
-|3a_{1,j}+d_{3j}|\,\}=\{a_j,b_j,c_j\},
-\qquad a_j<b_j<c_j,\quad a_j+b_j=c_j.
+\begin{aligned}
+T_j=(a_j,b_j,c_j)&:=\operatorname{sort}\{\,|3a_{-1,j}+d_{1j}|,\ |3j+d_{2j}|,\\
+&\qquad |3a_{1,j}+d_{3j}|\,\},\\
+0&<a_j<b_j<c_j,\qquad a_j+b_j=c_j.
+\end{aligned}
 \]
 For \(m=31,35,43,47,55,59\), the offsets are exactly those given by the rule in
 Section~\ref{sec:offset-data}.
-Direct substitution gives a partition of \([1,9m]\) in all six cases.
-For the three smaller parameters, use the following radius-two alphabet and words.
+Direct substitution gives the partition of \([1,9m]\) in all six cases; no new support word is
+needed.  For the three smaller parameters, use the following radius-two alphabet and words.
+Every listed offset has coordinate sum zero, and each word has length $n=3m$.
 \begingroup\scriptsize
 \[
 \begin{array}{c|ccccccc}
@@ -40,7 +46,8 @@ For the three smaller parameters, use the following radius-two alphabet and word
 \end{array}
 \]
 \endgroup
-The first symbol is \(\delta_1\), and the word is read from left to right:
+The first symbol encodes \(\delta_1\), and the word is read from left to right.  The words
+have exactly $n=3m$ symbols:
 \[
 \begin{array}{c|l}
 m&\text{offset word}\\\hline
@@ -49,25 +56,39 @@ m&\text{offset word}\\\hline
 23&\mathtt{GGGGCDGG97878C39CDDG9847881887778C780787C9778C77CDGEDGGDG97CGDGDGGGD0}\\
 \end{array}
 \]
-It remains to orient the triples.  For \(r=0,1,2\), order the group as
-\(G_r=(T_{3t+r+1})_{t=0}^{m-1}\).  Write \((a_t,b_t,c_t)\) for the ordered
+For reference, the support audit for these three exceptional words is
+\[
+\begin{array}{c|c|c|c}
+m&n&\bigl(\min S_m,\max S_m,|S_m|\bigr)&S_m\\\hline
+11&33&(1,99,99)&[1,99]\\
+19&57&(1,171,171)&[1,171]\\
+23&69&(1,207,207)&[1,207]
+\end{array}
+\]
+Thus the support part of each exceptional construction is checked independently of the
+orientation strings.  It remains to orient the triples.  For \(r=0,1,2\), order the group as
+\(G_r=(T_{3t+r+1})_{t=0}^{m-1}\), and write
+\(T_{3t+r+1}=(a_{r,t},b_{r,t},c_{r,t})\) for the ordered
 entries of its \(t\)-th triple.  The default mode is \(c\); an entry \(t:a\) or
 \(t:b\) in the switch column changes only row \(t\) to that mode.  For a row in mode
 \(c,a,b\), respectively, define
 \[
-(\mu_t,\nu_t,x_t)=
-(c_t,b_t-a_t,c_t),\quad(a_t,b_t+c_t,a_t),\quad(b_t,a_t+c_t,b_t).
+(\mu_{r,t},\nu_{r,t},x_{r,t})=
+(c_{r,t},b_{r,t}-a_{r,t},c_{r,t}),\quad
+(a_{r,t},b_{r,t}+c_{r,t},a_{r,t}),\quad
+(b_{r,t},a_{r,t}+c_{r,t},b_{r,t}).
 \]
-Expand each hexadecimal word into binary, retain its first \(m\) bits, and read
-\(1\) as \(+1\) and \(0\) as \(-1\).  Let the words \(E,H\) give the signs
-\(\varepsilon_t,\eta_t\), respectively.  The reconstructed row is
+Expand each hexadecimal word into binary, retain exactly its first \(m\) bits (including any
+leading zeroes), and read \(1\) as \(+1\) and \(0\) as \(-1\).  Let the words \(E,H\) give the signs
+\(\varepsilon_{r,t},\eta_{r,t}\), respectively.  The reconstructed row is
 \begin{equation}\label{eq:exceptional-row}
-R_{r,t}=\left(\frac{\varepsilon_t\mu_t+\eta_t\nu_t}{2},
-\frac{\varepsilon_t\mu_t-\eta_t\nu_t}{2},-\varepsilon_t x_t\right).
+R_{r,t}=\left(\frac{\varepsilon_{r,t}\mu_{r,t}+\eta_{r,t}\nu_{r,t}}{2},
+\frac{\varepsilon_{r,t}\mu_{r,t}-\eta_{r,t}\nu_{r,t}}{2},-\varepsilon_{r,t}x_{r,t}\right).
 \end{equation}
 \begingroup\scriptsize
 \setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
 \begin{longtable}{@{\extracolsep{\fill}}c@{\quad}c@{\quad}c@{\quad}l@{\quad}l@{}}
+\caption{Compact orientation certificates for the nine preperiod parameters.}\label{tab:c3-preperiod-orientations}\\
 \hline
 \(m\)&\(r\)&\text{switch}&\(E\)&\(H\)\\\hline
 \endfirsthead
@@ -103,12 +124,14 @@ R_{r,t}=\left(\frac{\varepsilon_t\mu_t+\eta_t\nu_t}{2},
 \hline
 \end{longtable}
 \endgroup
-For every row of the table, direct decoding gives
+For every $(m,r)$ row of the table, direct decoding of the two sign strings gives
 \[
-\sum_{t=0}^{m-1}\varepsilon_t\mu_t=0,
-\qquad \sum_{t=0}^{m-1}\eta_t\nu_t=0.
+\sum_{t=0}^{m-1}\varepsilon_{r,t}\mu_{r,t}=0,
+\qquad \sum_{t=0}^{m-1}\eta_{r,t}\nu_{r,t}=0.
 \]
-Hence (\ref{eq:exceptional-row}) has zero row sums and zero column sums.
-The support words and the periodic offset rule give the absolute-value set \([1,9m]\)
-in every case.  Thus the displayed words and table are complete, independently checkable
-constructions for all nine preperiod values.
+Because $x_{r,t}=\mu_{r,t}$ in all three modes, the first identity also controls the
+third column.  Equation~\eqref{eq:exceptional-row} therefore has zero row sums and each
+of its three column sums is zero.  The three exceptional support words are audited above;
+for $m=31,35,43,47,55,59$, the support is supplied by the uniform rule in
+Section~\ref{sec:offset-data}.  Thus the displayed words and table are complete,
+independently checkable constructions for all nine preperiod values.

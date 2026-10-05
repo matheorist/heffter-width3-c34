@@ -543,8 +543,9 @@ supports of the three arrays is exactly $[1,63]$.
 
 \section{The complete \texorpdfstring{$c=4$}{c=4} slice}\label{sec:c4full}
 
-The even parameter $n=4m$ requires period $48$ and four parameter classes, but no new conceptual
-ingredient. For this slice, define $a_{i,j}$ by the same Kotzig formula~\eqref{eq:kotzig}, now with
+The even parameter $n=4m$ changes the parity bookkeeping in the lift.  The resulting construction
+has period $48$, four residue classes, and a finite certificate with $48$ support states and
+$192$ balance states.  Define $a_{i,j}$ by the same Kotzig formula~\eqref{eq:kotzig}, now with
 $n=4m$, $r=2n+1$, $i\in\{-1,0,1\}$ and $j\in[-n,n]$, and put $\kappa=n/2$.
 
 \begin{lemma}[even-$n$ Kotzig array]\label{lem:even-kotzig}
@@ -578,31 +579,32 @@ For every odd $m\ge5$ with $\gcd(m,3)=1$, an $\IHS(m,3;4)$ exists.
 Every row in~\eqref{eq:c4lift} sums to zero: the three Kotzig entries in a column sum to zero,
 and every displayed offset vector has coordinate sum zero. It remains to verify support and column
 balance.
-For a periodic class write
+For a periodic class write uniquely
 $m=m_\rho+12(s_0+12Q)$, where $s_0\in\{0,\ldots,11\}$, $Q\ge0$, and
 
 \[
 (m_1,m_5,m_7,m_{11})=(25,29,31,23).
 \]
-The $4\cdot12=48$ choices of $(\rho,s_0)$ fix all phases, boundary tables and parities. In a bulk
-position $j=j_0+48h$, every
-absolute coordinate of~\eqref{eq:c4lift} is affine in $(Q,h)$, with $h$-coefficient $\pm72$ or
-$\pm144$. Splitting the former by layer parity gives progressions of difference $144$. Direct
-substitution of the printed words and tables makes the quotient intervals adjacent in every residue
-modulo $144$, from $1$ through $3n$; hence the support is exact. The $Q=0$ endpoint values are given
-by the displayed boundary strings, and the fixed affine slopes propagate the adjacency to every
-$Q\ge0$. The same finite substitution verifies that the sorted absolute values in every row satisfy
-$a+b=c$. The resulting $48\times144$ affine
-endpoint comparisons are induced by the compressed finite support certificate printed in Section~\ref{sec:c4-data};
-no search output is used in this implication.
+The $4\cdot12=48$ choices of $(\rho,s_0)$ fix all phases, boundary tables and parities.  Put
+$m_0=m_\rho+12s_0$ and $n_0=4m_0$, so that $n=n_0+576Q$.  In a bulk position
+$j=j_0+48h$, every absolute coordinate of~\eqref{eq:c4lift} is affine in $(Q,h)$, with
+$h$-coefficient $\pm72$ or $\pm144$.  Splitting the former by layer parity gives progressions
+of difference $144$.  For each residue $u\in\{1,\ldots,144\}$, subtracting $u$ and dividing
+by $144$ turns the decoded values into integer intervals.  The printed words and boundary tables
+make these intervals consecutive, beginning at $0$ and ending at
+$12Q+\lfloor(3n_0-u)/144\rfloor$.  Thus the $48\times144$ endpoint comparisons are finite affine
+identities, and the support is exactly $[1,3n]$ for every $Q\ge0$.  The same substitution verifies
+that the sorted absolute values in every row satisfy $a+b=c$.  No search output is used in this
+implication.
 
 For balance, Section~\ref{sec:c4-balance-data} prints one mode-and-two-sign row for each of the
-$4\cdot12\cdot4=192$ group states. On the stated periodic range, each signed category total is a
-polynomial in $Q$ of degree at most two. The printed signs give zero at $Q=1,\ldots,6$, while $Q=0$
-is checked separately, so both independent totals vanish identically. Lemma~\ref{lem:exact} converts them into zero column sums. The periodic
-ranges start at $m=25,29,31,23$ in the four residue classes. The only smaller admissible values are
-$5,7,11,13,17,19$, and Section~\ref{sec:c4-small-data} gives complete compact constructions for all
-six. This covers every admissible $m$.
+$4\cdot12\cdot4=192$ group states.  On the stated periodic range, each signed category total is a
+polynomial in $Q$ of degree at most two.  The printed signs give zero at $Q=1,\ldots,6$, and the
+corresponding $Q=0$ totals are checked separately; hence seven zeros force both independent totals
+to vanish identically.  Lemma~\ref{lem:exact} converts these two sign identities into zero column
+sums.  The periodic ranges start at $m=25,29,31,23$ in the four residue classes.  The only smaller
+admissible values are $5,7,11,13,17,19$, and Section~\ref{sec:c4-small-data} gives complete compact
+constructions for all six.  This covers every admissible $m$.
 \end{proof}
 
 \begin{center}
