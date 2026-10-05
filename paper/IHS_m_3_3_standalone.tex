@@ -236,7 +236,7 @@ $[1,N]=\{1,\dots,N\}$. A \emph{sum-triple} is a set $\{x,y,x+y\}$ of three disti
 A multiset is \emph{signable} if some choice of signs makes it sum to $0$ (equivalently, its total is
 even and half of it is a subset sum).
 
-\section{The reduction and balanceability}\label{sec:reduction}
+\section{Reduction to sum-triples and balanceability}\label{sec:reduction}
 
 \begin{proposition}[width-three reduction]\label{prop:red}
 Let $m\ge3$, $c\ge1$, $N=mc$. An $\IHS(m,3;c)$ exists if and only if
@@ -246,10 +246,11 @@ triple choose a sign and a placement of its three signed values into three colum
 column sums of the group vanish.
 \end{proposition}
 \begin{proof}
-In a width-three zero-sum array the three signed entries of each row are distinct and sum to $0$, so
-one absolute value equals the sum of the other two; thus each row's absolute values form a sum-triple,
-and conversely $\{x,y,x+y\}$ signed as $(x,y,-(x+y))$ is a zero-sum row. Zero column sums are the
-orientation in (ii), and the $c$ arrays covering $[1,3N]$ is the partition in (i).
+Because no entry is zero and the absolute values are distinct, three signed entries in a zero-sum
+row can be reordered as $x$, $y$, and $-(x+y)$, with $x,y>0$. Thus the absolute values in every
+row form a sum-triple. Conversely, every sum-triple $\{x,y,x+y\}$ gives a zero-sum row by using
+the signs $(x,y,-(x+y))$. The zero column sums are exactly the orientation condition in (ii), while
+the $c$ arrays together cover $[1,3N]$ precisely when the triples form the partition in (i).
 \end{proof}
 
 \begin{proposition}[Skolem partition]\label{prop:skolem}
@@ -257,21 +258,22 @@ The interval $[1,3N]$ can be partitioned into $N$ sum-triples if and only if
 $N\equiv0,1\pmod4$.
 \end{proposition}
 \begin{proof}
-Necessity follows because the total $3N(3N+1)/2$ must be even. For sufficiency, a Skolem sequence of
-order $N$ exists precisely when $N\equiv0,1\pmod4$~\cite{Skolem1957}. Thus there are pairs
+Every sum-triple has even total, so necessity is equivalent to the evenness of
+$3N(3N+1)/2$, which is exactly $N\equiv0,1\pmod4$. For sufficiency, a Skolem sequence of
+order $N$ exists precisely when $N\equiv0,1\pmod4$~\cite{Skolem1957}. Hence there are pairs
 $\{x_i,y_i\}$, $i\in[1,N]$, partitioning $[1,2N]$ such that $y_i-x_i=i$. The sets
 $\{i,N+x_i,N+y_i\}$ partition $[1,3N]$ and are sum-triples because
 $i+(N+x_i)=N+y_i$.
 \end{proof}
 
-Thus the support layer is available under exactly the necessary congruence condition. The difficulty
-is the second layer. Because each row is forced to be a sum-triple, only the column sums remain; and
-since the total of all entries is $0$, the third column sum is $-(C_1+C_2)$, so each group carries
-\emph{two} independent constraints. The orientation of a single group is characterised exactly as
-follows. For a triple $\{a,b,c\}$ with $c=a+b$ and $a<b$, a legal orientation is a \emph{mode}
-$\mathrm m\in\{a,b,c\}$ (which element occupies the third column) together with two free signs;
-writing $\mu$ for the magnitude of its contribution to $C_1{+}C_2$ and $|w|$ for that to
-$C_1{-}C_2$,
+Thus the support partition exists under exactly the necessary congruence condition. It remains to
+balance the triples within each group. Let $C_1,C_2,C_3$ denote the three column sums of a fixed
+group. Since every row already sums to zero, $C_1+C_2+C_3=0$; hence zero column sums are
+equivalent to the two conditions $C_1+C_2=0$ and $C_1-C_2=0$. For a triple $\{a,b,c\}$ with
+$c=a+b$ and $a<b$, a legal orientation is a \emph{mode} $\mathrm m\in\{a,b,c\}$ (which element
+occupies the third column), together with an overall sign and a possible interchange of the first
+two columns. Writing $\mu$ for the magnitude of its contribution to $C_1{+}C_2$ and $|w|$ for
+that to $C_1{-}C_2$,
 \[
 (\mathrm m{=}c):\ \mu=c,\ |w|=b-a;\quad
 (\mathrm m{=}a):\ \mu=a,\ |w|=b+c;\quad
@@ -279,7 +281,7 @@ $C_1{-}C_2$,
 \]
 
 \begin{lemma}[exact characterisation of balancing]\label{lem:exact}
-A group of sum-triples can be oriented to zero column sums if and only if there is a mode assignment
+A group of sum-triples can be oriented to zero column sums if and only if it has a mode assignment
 $(\mathrm m_i)_i$ for which both multisets $\{\mu_i\}_i$ and $\{|w_i|\}_i$ are signable.
 \end{lemma}
 \begin{proof}
@@ -294,13 +296,14 @@ b&(\varepsilon c,-\varepsilon a)&-\varepsilon b.
 \]
 Interchanging the first two columns independently changes the sign of their difference. Hence a row
 contributes $\varepsilon\mu$ to $C_1+C_2$ and an independently signed value of magnitude $|w|$ to
-$C_1-C_2$, with the three pairs $(\mu,|w|)$ displayed above. Therefore $C_1=C_2=0$ if and only if
-both associated multisets are signable. These modes, overall signs, and interchanges exhaust all
-zero-sum orientations of the row.
+$C_1-C_2$, with the three pairs $(\mu,|w|)$ displayed above. The overall signs therefore realize
+any signing of the $\mu_i$, while the column interchanges independently realize any signing of the
+$|w_i|$. Thus $C_1=C_2=0$ if and only if both associated multisets are signable. These modes,
+overall signs, and interchanges exhaust all zero-sum orientations of the rows.
 \end{proof}
 
 \begin{corollary}[balance certificate]\label{cor:cert}
-A group is balanceable iff it admits a mode assignment $(\mathrm m_i)_i$ and subsets $U,V$ of indices
+A group is balanceable if and only if it admits a mode assignment $(\mathrm m_i)_i$ and subsets $U,V$ of indices
 with $\sum_{i\in U}\mu_i=\sum_{i\notin U}\mu_i$ and $\sum_{i\in V}|w_i|=\sum_{i\notin V}|w_i|$; the
 orientation is then read off constructively.
 \end{corollary}
