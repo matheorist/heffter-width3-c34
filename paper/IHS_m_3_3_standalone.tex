@@ -113,7 +113,7 @@ Xinxiang 453007, P.~R.~China\\
 \begin{abstract}
 \noindent
 An \emph{integer Heffter array set} $\IHS(m,n;c)$ is a collection of $c$ integer $m\times n$ arrays
-whose union contains $mnc$ entries with distinct absolute values, collectively equal to $[1,mnc]$,
+whose union consists of $mnc$ entries with distinct absolute values, collectively equal to $[1,mnc]$,
 and whose row and column sums all vanish. We solve two
 complete fixed slices of the width-three existence problem: an $\IHS(m,3;3)$ exists for every
 admissible $m$, namely every odd $m\equiv3\pmod4$ with $\gcd(m,3)=1$, and an $\IHS(m,3;4)$ exists
@@ -188,7 +188,8 @@ construction---support partition, grouping, and orientation---and prove the two 
 outside the scope of this paper; Section~\ref{sec:remarks} records the aspects of the method that may
 extend to $c\ge5$.
 
-The paper is self-contained at the level of both fixed-slice constructions. Its finite inputs are the
+The manuscript is self-contained at the level of both fixed-slice constructions once the three
+certificate source files listed in the data-availability paragraph are included. Its finite inputs are the
 periodic offset words, printed boundary and orientation tables, exceptional support data, finite bridges,
 and the six compact $c=4$ constructions listed in Sections~\ref{sec:certificates},
 ~\ref{sec:small-data}, and~\ref{sec:c4-data}. No $c=5$, $c=7$, or width-five certificate is used in
@@ -499,8 +500,23 @@ supports of the three arrays is exactly $[1,63]$.
 The even parameter $n=4m$ requires period $48$ and four parameter classes, but no new conceptual
 ingredient. For this slice, define $a_{i,j}$ by the same Kotzig formula~\eqref{eq:kotzig}, now with
 $n=4m$, $r=2n+1$, $i\in\{-1,0,1\}$ and $j\in[-n,n]$, and put $\kappa=n/2$.
-The formula is integer-valued in this even-$n$ case because the half-integral terms for odd $j$
-cancel, while the terms for even $j$ are integral. We use the corrected lift
+
+\begin{lemma}[even-$n$ Kotzig array]\label{lem:even-kotzig}
+For even $n$, formula~\eqref{eq:kotzig} is integer-valued and defines a $3\times(2n+1)$
+array whose three rows are permutations of $[-n,n]$, whose columns sum to zero, and which satisfies
+$a_{-i,-j}=-a_{i,j}$.
+\end{lemma}
+\begin{proof}
+For $i=0$ one has $a_{0,j}=j$.  Write $j=2q$ or $j=2q+1$.  When $j=2q$, the entries in
+the rows $i=1$ and $i=-1$ are respectively $-n/2-q$ and $n/2-q$; when $j=2q+1$, they are
+$n/2-q$ and $-n/2-q-1$.  As $q$ ranges over the permitted integers, each of the two noncentral
+rows therefore contains every element of $[-n,n]$ exactly once.  The two first terms in
+~\eqref{eq:kotzig} cancel between $i=1$ and $i=-1$, while the coefficients of $j$ in the three
+rows sum to $-1/2+1-1/2=0$.  This proves the column sums and the stated central symmetry; it also
+shows explicitly why the half-integral terms for odd $j$ cancel.
+\end{proof}
+
+We use the corrected lift
 \begin{equation}\label{eq:c4lift}
 R_j=(3a_{-1,j}+d_{-1}(j),\ 3j+d_0(j),\ 3a_{1,j}+d_1(j)).
 \end{equation}
@@ -531,7 +547,7 @@ modulo $144$, from $1$ through $3n$; hence the support is exact. The $Q=0$ endpo
 by the displayed boundary strings, and the fixed affine slopes propagate the adjacency to every
 $Q\ge0$. The same finite substitution verifies that the sorted absolute values in every row satisfy
 $a+b=c$. The resulting $48\times144$ affine
-endpoint comparisons are the finite support certificate printed in Section~\ref{sec:c4-data};
+endpoint comparisons are induced by the compressed finite support certificate printed in Section~\ref{sec:c4-data};
 no search output is used in this implication.
 
 For balance, Section~\ref{sec:c4-balance-data} prints one mode-and-two-sign row for each of the
