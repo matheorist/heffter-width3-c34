@@ -45,9 +45,18 @@ The c=4 balance prover can regenerate the 192 affine sign patterns with:
 python prove_c4_balance_affine.py
 ```
 
-The scripts are deterministic certificate checkers or generators. Their output is not used as a
-logical oracle in the manuscript: the finite words, tables, sign patterns, and seed certificates
-are included explicitly in the paper source package.
+The verification scripts are deterministic checkers for the canonical certificate data.  The c=3
+transport checker covers the canonical periodic regime (the displayed command starts at (m=67));
+the six smaller c=3 preperiod orientations are printed in the manuscript and are not regenerated
+by `generate_c3_all.py`.  The c=4 balance prover is an optional solver-backed regeneration tool:
+it may return a different valid sign certificate, depending on solver version and search settings,
+whereas `verify_c4_balance_patterns.py` checks the canonical JSON shipped in this repository.
+None of these programs is used as a logical oracle in the manuscript: the finite words, tables,
+sign patterns, and seed certificates are included explicitly in the paper source package.
+
+The environment used for the checked release was Python 3.12, OR-Tools 9.15.6755, and
+python-sat 1.9.dev5.  Other compatible versions may also work, but can produce a different valid
+solver certificate.
 
 ## Paper compilation
 

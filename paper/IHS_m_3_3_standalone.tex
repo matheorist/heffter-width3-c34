@@ -121,10 +121,12 @@ for every odd $m\ge5$ with $\gcd(m,3)=1$. Starting from a closed formula for $3\
 centre-complementary Kotzig arrays, a modulo-$3$ lift of the positive half-columns gives a
 near-partition of the required interval into sum-triples. Bounded eventually periodic corrections
 make these partitions exact, and periodic mode and sign data balance the resulting groups into zero-sum
-arrays. The $c=3$ and $c=4$ certificates have periods $24$ and $48$, respectively. All offset words,
+arrays. The bulk offset words have periods $24$ and $48$, respectively, together with finite
+boundary-state tables. All offset words,
 boundary tables, orientation patterns, finite-bridge instances, exceptional supports, and preperiod
 orientations are displayed in the manuscript and its accompanying certificate source files.
-Programs regenerate and verify these data but are not a logical premise of the result.
+Programs regenerate and verify the periodic data; the finite preperiod witnesses are printed in
+the source files. Neither the programs nor their output is a logical premise of the result.
 \end{abstract}
 
 \noindent\textbf{Keywords:} integer Heffter array; Heffter array set; Skolem sequence; Kotzig array;
@@ -617,8 +619,8 @@ sum-triple and support conditions, and then decode the two sign strings and veri
 totals for each group. The reproducibility package is available at
 \url{https://github.com/matheorist/heffter-width3-c34}. In particular,
 \path{code/c3/verify_c3_plus4_transport.py} independently checks the half-period word identity,
-inherited-row formula, boundary-state cycle, and complete target arrays over any requested finite
-range.  The accompanying $c=4$ generators and verifiers in
+inherited-row formula, boundary-state cycle, and all canonical $+4$ transport pairs in a requested
+finite range.  The accompanying $c=4$ generators and verifiers in
 \path{code/c4/generate_c4_all.py}, \path{code/c4/prove_c4_support_affine.py},
 \path{code/c4/prove_c4_balance_affine.py}, \path{code/c4/verify_c4_all_range.py}, and
 \path{code/c4/verify_c4_balance_patterns.py} are retained for reproducibility and convenience;
