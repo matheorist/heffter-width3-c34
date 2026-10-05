@@ -637,34 +637,43 @@ whose union is $[1,84]$.
 
 \section{Concluding remarks}\label{sec:remarks}
 
-The construction separates the width-three problem into three independently checkable parts: a
-global support partition, a grouping into arrays, and an orientation certificate for each group. The
-centre-complementary symmetry of the Kotzig formula reduces the support check to periodic bulk rules
-and finitely many boundary corrections, and it also organises the orientation data. Related
-centre-complementary machinery underlies the construction of magic three-dimensional rectangles
-in~\cite{Zhou2018JCD}; here only one half of the symmetric array is used, because every absolute
-value must occur exactly once.
+We have proved two fixed-slice existence theorems for width three.  The first gives
+$\IHS(m,3;3)$ for every $m\equiv3\pmod4$ with $\gcd(m,3)=1$; the second gives
+$\IHS(m,3;4)$ for every odd $m\ge5$ with $\gcd(m,3)=1$.  In both cases the proof is
+modular: a support certificate partitions the required interval into sum-triples, a
+congruence class groups those triples into $m$-row arrays, and a finite orientation
+certificate forces the three column sums to vanish.
 
-The same decomposition suggests a route for other values of $c$. In this paper the period-$24$
-certificate closes the odd slice $c=3$, while an independent period-$48$ certificate closes the even
-slice $c=4$. When $n=mc$ is even, both the hole correction and the orientation categories have
-different parity behaviour, so the period-$24$ certificate does not transfer without a new argument.
-Establishing certificates for $c\ge5$ remains open here.
+The centre-complementary Kotzig formula is what makes this modular proof possible.  It
+turns the support calculation into periodic bulk rules plus finitely many boundary
+states, while the same states organise the orientation data.  The $c=3$ slice has a
+period-$24$ transport rule and a finite bridge; the $c=4$ slice requires a separate
+period-$48$ rule because the even value $n=4m$ changes both the hole correction and the
+orientation categories.  The centre-complementary viewpoint is related to the construction
+of magic three-dimensional rectangles in~\cite{Zhou2018JCD}, but here only one half of
+the symmetric array is retained so that every absolute value occurs exactly once.
+
+The proofs also isolate the part that is genuinely reusable: once the support and signed
+balance quantities are affine or polynomial in the transport parameter, finitely many
+boundary identities close the whole infinite family.  This is a certificate--transport
+principle rather than a theorem for arbitrary $c$.  In particular, no construction for
+$c\ge5$ is claimed here; extending the method would require new support words and new
+orientation certificates, together with a proof that their boundary states close.
 
 \paragraph{Code and data availability.}
-Section~\ref{sec:certificates} contains the two master offset words, their exact rotation rule, all
-four boundary-table sets, all $24$ admissible orientation patterns, and the ten-case finite bridge.
-The $m=7$ construction appears in the main proof, and Section~\ref{sec:small-data} contains complete
-compact reconstruction data for three exceptional supports and six preperiod orientations.
-For $c=4$, Section~\ref{sec:c4-data} contains the four period-$48$ support rules, the $192$ balance
-rows, and the six compact seed constructions. Consequently both fixed-slice theorems can be checked
-from the printed manuscript together with the accompanying certificate source package. The public
-repository at \url{https://github.com/matheorist/heffter-width3-c34} contains the exact source files,
-machine-readable data, and verification suite; its README gives the file inventory, dependencies,
-and commands. The deterministic protocol is to decode the offset strings, reconstruct and sort every
-lifted row, verify the row sum-triple and support conditions, and then decode the two sign strings and
-verify the two signed totals for each group. The programs are retained for reproducibility and
-convenience, but none is needed as an oracle or as a logical premise of the result.
+The manuscript prints the complete finite data used in both theorems.  For $c=3$,
+Section~\ref{sec:certificates} gives the two master offset words, their rotation rule,
+the boundary tables, the $24$ orientation patterns, and the ten-case finite bridge;
+Section~\ref{sec:small-data} gives the exceptional supports and preperiod orientations.
+For $c=4$, Section~\ref{sec:c4-data} gives the four period-$48$ support rules, the
+$192$ balance rows, and the six bounded seed constructions.  Thus the arguments can be
+checked from the printed manuscript and the accompanying source package without treating
+any program as an oracle.  The public repository at
+\url{https://github.com/matheorist/heffter-width3-c34} contains the source files,
+machine-readable certificates, and verification scripts.  The deterministic check is to
+decode the offset strings, reconstruct and sort each lifted row, verify the sum-triple and
+support conditions, and then decode the sign strings and check the two signed totals in
+each group.
 
 \section*{Funding}
 \begingroup
