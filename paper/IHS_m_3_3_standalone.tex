@@ -600,15 +600,18 @@ protocol is to decode the offset strings, reconstruct and sort every lifted row,
 sum-triple and support conditions, and then decode the two sign strings and verify the two signed
 totals for each group. The reproducibility package is available at
 \url{https://github.com/matheorist/heffter-width3-c34}. In particular,
-\path{ancillary/verify_c3_plus4_transport.py} independently checks the half-period word identity, inherited-row
-formula, boundary-state cycle, and complete target arrays over any requested finite range.  The
-accompanying $c=4$ generators and verifiers in \path{ancillary/generate_c4_all.py},
-\path{ancillary/prove_c4_support_affine.py}, \path{ancillary/prove_c4_balance_affine.py},
-\path{ancillary/verify_c4_all_range.py}, and \path{ancillary/verify_c4_balance_patterns.py} are
-retained for reproducibility and convenience; none of these programs is needed as an oracle or as a
-logical premise.
+\path{code/c3/verify_c3_plus4_transport.py} independently checks the half-period word identity,
+inherited-row formula, boundary-state cycle, and complete target arrays over any requested finite
+range.  The accompanying $c=4$ generators and verifiers in
+\path{code/c4/generate_c4_all.py}, \path{code/c4/prove_c4_support_affine.py},
+\path{code/c4/prove_c4_balance_affine.py}, \path{code/c4/verify_c4_all_range.py}, and
+\path{code/c4/verify_c4_balance_patterns.py} are retained for reproducibility and convenience;
+none of these programs is needed as an oracle or as a logical premise.
 
+\begingroup
+\small
 \bibliographystyle{plain}
 \bibliography{heffter_c3}
+\endgroup
 
 \end{document}
