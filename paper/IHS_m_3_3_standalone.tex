@@ -308,7 +308,7 @@ with $\sum_{i\in U}\mu_i=\sum_{i\notin U}\mu_i$ and $\sum_{i\in V}|w_i|=\sum_{i\
 orientation is then read off constructively.
 \end{corollary}
 
-\section{The Kotzig-formula construction}\label{sec:construction}
+\section{Kotzig lift and periodic support correction}\label{sec:construction}
 
 \subsection{The half-column lift}
 
@@ -317,7 +317,8 @@ centre-complementary Kotzig array $A=(a_{i,j})$, $i\in[-1,1]$, $j\in[-n,n]$, by 
 \begin{equation}\label{eq:kotzig}
  a_{i,j}=\frac{1-(-1)^{\,j+n}\,r}{4}\,i+\frac{2-3|i|}{2}\,j ,
 \end{equation}
-so that each row is a permutation of $[-n,n]$, each column sums to zero, and $a_{-i,-j}=-a_{i,j}$. For
+For odd $n$, this formula is integer-valued; each row is a permutation of $[-n,n]$, each column sums
+to zero, and $a_{-i,-j}=-a_{i,j}$. For
 $j\in[1,n]$,
 \begin{equation}\label{eq:vals}
 (a_{-1,j},a_{1,j})=
@@ -349,18 +350,18 @@ Consequently all values are distinct and their union is
 $[1,3n+1]\setminus\{3\kappa+1\}$, where $3\kappa+1=(3n+5)/2$.
 \end{proof}
 
-The lift misses only $h_n$ but uses the overshoot $3n+1$. Unit offsets cannot repair this: if
-$\{3g-1,3g,3g+1\}$ is called the $g$-th block, Proposition~\ref{prop:lift} gives three base cells of
-magnitude $g$ for every $g\in[1,n]$ except $\kappa=(n+1)/2$, which has only two; the remaining base
-cell has magnitude zero. Thus the $\kappa$-th block cannot be filled by offsets from $(-1,0,1)$.
-We instead use zero-sum offsets in $\{-2,\dots,2\}^3$, allowing a bounded cascade between adjacent
-blocks while preserving every row sum.
+The lift omits $h_n$ and uses the overshoot $3n+1$. To see why a local repair is insufficient, call
+$\{3g-1,3g,3g+1\}$ the $g$-th block. Proposition~\ref{prop:lift} supplies three base cells of
+magnitude $g$ for every $g\in[1,n]$ except $g=\kappa=(n+1)/2$, where one base cell would have
+magnitude $0$. Thus the missing cell in the $\kappa$-th block cannot be repaired using only the
+offsets $(-1,0,1)$. We therefore use zero-sum offsets in $\{-2,\dots,2\}^3$, allowing a bounded
+cascade between adjacent blocks while preserving every row sum.
 
 \subsection{The uniform correction rule}\label{sec:rule}
 
 \begin{lemma}[deterministic correction]\label{lem:rule}
 Let $n=3m\ge369$, where $m\equiv3\pmod4$ and $\gcd(m,3)=1$. Define an explicit offset assignment
-$\delta:[1,n]\to\{-2,\dots,2\}^3$, whose coordinate sum is zero at every index, by the following
+$\delta:[1,n]\to\{-2,\dots,2\}^3$, with coordinate sum zero at every index, by the following
 period-$24$ rule. For the class
 $n\equiv9\pmod{24}$ there are two $24$-letter offset words $W_1,W_2$ and constant phases $(6,12)$ with
 \[
@@ -374,12 +375,12 @@ completed by three bounded boundary tables (for $j\le20$, $|j-\kappa|\le20$, $j\
 residue of $n$ modulo $48$.  The class $n\equiv21\pmod{24}$ uses phases $(10,13)$ and the rotated
 words $\widehat W_1[p]=W_1[p+16\bmod24]$, $\widehat W_2[p]=W_2[p+13\bmod24]$.
 The two master words and all four boundary-table sets are printed in
-Section~\ref{sec:offset-data}. If $n\ge369$, the corrected lift partitions $[1,3n]$ exactly into
-$n$ sum-triples.
+Section~\ref{sec:offset-data}. For every admissible $n\ge369$, the resulting corrected rows partition
+$[1,3n]$ into $n$ sum-triples.
 \end{lemma}
 \begin{proof}
-Write $n=e+24t$, where $e\in\{9,21\}$, refine $t$ modulo $12$, and put
-$t=t_0+12Q$ with $15\le t_0\le26$ and $Q\ge0$.  Since $n=3m$ and $\gcd(m,3)=1$, exclude
+Write $n=e+24t$, where $e\in\{9,21\}$. Choose the unique representative
+$t=t_0+12Q$ with $15\le t_0\le26$ and $Q\ge0$. Since $n=3m$ and $\gcd(m,3)=1$, exclude
 $t_0\equiv0\pmod3$ for $e=9$ and $t_0\equiv1\pmod3$ for $e=21$.  This leaves $16$ admissible
 states.  In a bulk word write
 $j=j_0+24h$.  In a fixed state the sign of each coordinate of the corrected lift is fixed, so its
@@ -387,9 +388,9 @@ absolute value is affine in $(Q,h)$; its $h$-coefficient has magnitude $36$ or $
 magnitude-$36$ family according to the parity of $h$.  Every resulting family is then an arithmetic
 progression with difference $72$.
 
-Fix a residue $u\in[1,72]$ and divide every value congruent to $u$ by $72$ after subtracting $u$.
-The bulk progressions and the boundary singletons become integer intervals whose endpoints are affine
-in $Q$. Substitution of the two word pairs and four boundary-table sets printed in
+Fix a residue $u\in[1,72]$ and consider the values congruent to $u$ modulo $72$, after subtracting
+$u$ and dividing by $72$. The bulk progressions and the boundary singletons become integer intervals
+whose endpoints are affine in $Q$. Substitution of the two word pairs and four boundary-table sets printed in
 Section~\ref{sec:offset-data} gives, in each admissible state and for every $u$, consecutive
 intervals beginning at $0$ and ending at
 \[
