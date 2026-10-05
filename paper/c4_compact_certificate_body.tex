@@ -1,0 +1,373 @@
+\section{Explicit finite data for the complete \texorpdfstring{$c=4$}{c=4} slice}\label{sec:c4-data}
+This section prints the complete finite witness used in Theorem~\ref{thm:c4full}.
+The strings determine every offset, mode and sign; the accompanying programs merely
+regenerate and check these data and are not a logical premise of the theorem.
+
+\subsection{The four period-48 support rules}\label{sec:c4-support-data}
+The zero-sum offset vectors occurring in the periodic rules are encoded as follows.
+\begingroup\scriptsize\[
+\begin{array}{c|ccccccc}
+\text{symbol}&0&1&2&3&4&5&6\\\hline
+\delta&(-2,0,2)&(-1,-1,2)&(-1,0,1)&(0,-2,2)&(0,-1,1)&(0,0,0)&(1,-2,1)\\
+\end{array}\]\endgroup
+\begingroup\scriptsize\[
+\begin{array}{c|ccccc}
+\text{symbol}&7&8&9&A&B\\\hline
+\delta&(1,-1,0)&(1,0,-1)&(2,-2,0)&(2,-1,-1)&(2,0,-2)\\
+\end{array}\]\endgroup
+For $\rho\in\{1,5,7,11\}$ put $m=m_\rho+12s$.  The phase used at step $s$
+is $(\phi_1+16s,\phi_2+16s)$ modulo $48$.  The parameter and bulk words are
+listed below; a word is indexed from $0$.
+\[\begin{array}{c|c|c}
+\rho&m_\rho&(\phi_1,\phi_2)\\\hline
+1&25&(8,20)\\
+5&29&(16,16)\\
+7&31&(16,16)\\
+11&23&(0,0)\\
+\end{array}\]
+\begingroup\scriptsize
+\begin{longtable}{c@{\quad}c@{\quad}l}
+\hline $\rho$&\text{word}&\text{offset string}\\\hline\endfirsthead
+\hline $\rho$&\text{word}&\text{offset string}\\\hline\endhead
+1&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
+1&$W_{2}$&\texttt{9B433343654333469B433343654333469B43334365433346}\\
+5&$W_{1}$&\texttt{53469A695343679953469A695343679953469A6953436799}\\
+5&$W_{2}$&\texttt{33469B433343654333469B433343654333469B4333436543}\\
+7&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
+7&$W_{2}$&\texttt{3343654333469B433343654333469B433343654333469B43}\\
+11&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
+11&$W_{2}$&\texttt{3343654333469B433343654333469B433343654333469B43}\\
+\hline\end{longtable}\endgroup
+Put $n=4m$ and $\kappa=n/2$.  In the two bulk zones use
+\[
+\begin{aligned}
+\delta(j)&=W_1[(j-\phi_1-16s)\bmod48]&& (21\le j\le\kappa-21),\\
+\delta(j)&=W_2[(j-\phi_2-16s)\bmod48]&& (\kappa+21\le j\le n-21).
+\end{aligned}
+\]
+On $L=[1,20]$, $M=[\kappa-20,\kappa+20]$ and $T=[n-20,n]$ use
+the following strings, according to $s\bmod2$; indices increase from left to right.
+\begingroup\scriptsize
+\begin{longtable}{c@{\,}c@{\,}c@{\quad}c@{\quad}l}
+\hline $\rho$&$s\bmod2$&\text{window}&\text{indices}&\text{offset string}\\\hline\endfirsthead
+\hline $\rho$&$s\bmod2$&\text{window}&\text{indices}&\text{offset string}\\\hline\endhead
+1&0&L&1:20&\texttt{95679979943679953469}\\
+1&0&M&-20:20&\texttt{9953469A695343679997779A653343654333469B4}\\
+1&0&T&-20:0&\texttt{334695436943336513469}\\
+1&1&L&1:20&\texttt{56543334613679953469}\\
+1&1&M&-20:20&\texttt{6953436799534698343343679533469B433343654}\\
+1&1&T&-20:0&\texttt{334695469943336B43236}\\
+5&0&L&1:20&\texttt{56543336944679953469}\\
+5&0&M&-20:20&\texttt{695343679953469A443343679533469B433343654}\\
+5&0&T&-20:0&\texttt{367995433343431634236}\\
+5&1&L&1:20&\texttt{5679997977A679953469}\\
+5&1&M&-20:20&\texttt{9953469A695343654333469A695343654333469B4}\\
+5&1&T&-20:0&\texttt{6979654336975343699A7}\\
+7&0&L&1:20&\texttt{503434333469A6953436}\\
+7&0&M&-20:20&\texttt{469A6953436799534698343343654333469B43334}\\
+7&0&T&-20:0&\texttt{334695433346334603236}\\
+7&1&L&1:20&\texttt{797334695369A6953436}\\
+7&1&M&-20:20&\texttt{43679953469A695343469953679B4333436543334}\\
+7&1&T&-20:0&\texttt{331365433344334346997}\\
+11&0&L&1:20&\texttt{79779979979973303436}\\
+11&0&M&-20:20&\texttt{469A695343675333469A699797754333469B43334}\\
+11&0&T&-20:0&\texttt{334695436943336546997}\\
+11&1&L&1:20&\texttt{797973433469A6953436}\\
+11&1&M&-20:20&\texttt{43679953469A695343469995469B4333436543334}\\
+11&1&T&-20:0&\texttt{334695436943369546997}\\
+\hline\end{longtable}\endgroup
+For a finite support check, fix $\rho$ and write $s=s_0+12Q$.
+There are $4\cdot12=48$ states.  In a bulk word write $j=j_0+48h$.
+After fixing the sign of each lifted coordinate, every absolute value is affine in $(Q,h)$
+with $h$-coefficient $\pm72$ or $\pm144$.  Splitting the $72$-families by $h\bmod2$
+gives progressions of difference $144$.  For each residue modulo $144$, substitution of
+the printed words and boundary strings gives adjacent quotient intervals beginning at $0$
+and ending at $12Q+\lfloor(3n_0-u)/144\rfloor$.  Hence the lifted absolute values
+are exactly $[1,3n]$ in all $48$ states.
+\subsection{The 192 balance patterns}\label{sec:c4-balance-data}
+Group the triples by $j-1\equiv r\pmod4$.  A row category is
+$L_q,M_q,T_q$ in the three boundary windows, and $B_{i,p,e}$ in bulk word $i$,
+where $p=(j-\phi_i-16s)\bmod48$, $j_0$ is the representative in $[1,48]$
+with that position, and $e=((j-j_0)/48)\bmod2$.  Order attained categories as
+$L,M,T,B_1,B_2$, numerically within each family.  Expand each hexadecimal string
+to binary, retain the first $\ell$ bits, and read $1$ as $+1$ and $0$ as $-1$.
+The columns $C,D$ are the signs of $\mu_j$ and $|w_j|$ from Lemma~\ref{lem:exact}.
+A displayed switch $L_q:a$ or $L_q:b$ changes that unique row from the default mode $c$.
+For $m=m_\rho+12(s_0+12Q)$ use the row $(\rho,s_0,r)$ below.
+\begingroup\scriptsize
+\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
+\begin{longtable}{@{\extracolsep{\fill}}c@{\,}c@{\,}c@{\,}r@{\,}c@{\,}l@{\,}l@{}}
+\hline $\rho$&$s_0$&$r$&$\ell$&\text{switch}&$C$&$D$\\\hline\endfirsthead
+\hline $\rho$&$s_0$&$r$&$\ell$&\text{switch}&$C$&$D$\\\hline\endhead
+1&0&0&68&$L_{1}:b$&\texttt{608F7DE232A6B32B1}&\texttt{E007288154B1EA973}\\
+1&0&1&69&--&\texttt{D7318A53ECC48DDC48}&\texttt{9BA87478A9E46D6548}\\
+1&0&2&68&--&\texttt{AEA626A0200D11FFF}&\texttt{8271B894401C1EBE6}\\
+1&0&3&69&--&\texttt{FA994F88367625D918}&\texttt{1B8FD41824151D9F18}\\
+1&1&0&68&--&\texttt{70C1C6B2563CF9078}&\texttt{AB8112F0CF2C9C6B8}\\
+1&1&1&69&--&\texttt{E788FEB299654AF850}&\texttt{4821D2D9B262678750}\\
+1&1&2&68&$L_{3}:a$&\texttt{8EEB8F1F0192DC569}&\texttt{630CF400006A77567}\\
+1&1&3&69&--&\texttt{1ACF510D1001F2FEE8}&\texttt{A3071B75906B89A670}\\
+1&2&0&68&--&\texttt{B5157404411AF3ED7}&\texttt{331B35435C73610FD}\\
+1&2&1&69&$L_{2}:a$&\texttt{A79E82AD2CCB4B52C8}&\texttt{352A48C12481AF9570}\\
+1&2&2&68&--&\texttt{9D3FAA2E4B3BA49B2}&\texttt{56C8C989F9211D9AE}\\
+1&2&3&69&--&\texttt{AEDF1A8EFB075012F8}&\texttt{580D551E872CA057D8}\\
+1&3&0&68&$L_{1}:b$&\texttt{75E162BEE90658F70}&\texttt{4010F30B0203E29BE}\\
+1&3&1&69&$L_{6}:a$&\texttt{7122C0F168ED229EC8}&\texttt{CFE356D1F20EBF0850}\\
+1&3&2&68&$L_{3}:a$&\texttt{CA6D8F2F0192DC569}&\texttt{42A472D4606B893A7}\\
+1&3&3&69&--&\texttt{E8ABEDD9099E764660}&\texttt{BC8A8540398D8AAD98}\\
+1&4&0&68&$L_{1}:b$&\texttt{99C5B4AA4BDAA3719}&\texttt{47E7C5671CA66E784}\\
+1&4&1&69&--&\texttt{23AFC0AC0805FAF178}&\texttt{72A2690084E2B7EA28}\\
+1&4&2&68&--&\texttt{F93C5091028D9FBBA}&\texttt{0E615D2043A1B2E9D}\\
+1&4&3&69&--&\texttt{856DC0204893FBD5E0}&\texttt{0801B9100A5369EA58}\\
+1&5&0&68&--&\texttt{8D294F1851D8FB891}&\texttt{0117F0E3324D642D7}\\
+1&5&1&69&--&\texttt{413468210A17D36778}&\texttt{8C803A62C6257C09D8}\\
+1&5&2&68&$L_{3}:a$&\texttt{0F14E00106677FBCA}&\texttt{1105E650FAC65F0A3}\\
+1&5&3&69&--&\texttt{A38EA040181C7DBBD8}&\texttt{D0887410504DF0D4D8}\\
+1&6&0&68&--&\texttt{60B8C3C9E435EA781}&\texttt{72B82547D0BD0A5CD}\\
+1&6&1&69&$L_{2}:a$&\texttt{FDB5057053B4B4E928}&\texttt{826A6090680CCDEB28}\\
+1&6&2&68&--&\texttt{291B981A6F33019DF}&\texttt{C040E8B2100D78E33}\\
+1&6&3&69&--&\texttt{EDD7204BC7CE92CD50}&\texttt{840C3898D0039B36B0}\\
+1&7&0&68&$L_{1}:b$&\texttt{8096D0344105BF6FA}&\texttt{251911ECA02566B87}\\
+1&7&1&69&$L_{6}:a$&\texttt{A63BE02035067FAE70}&\texttt{4884BC0810CDF66530}\\
+1&7&2&68&$L_{3}:a$&\texttt{093D8F1F0192DC569}&\texttt{0B16E05440C5755EA}\\
+1&7&3&69&--&\texttt{2EAA8E7E58216C6670}&\texttt{041D8B002002DB78E8}\\
+1&8&0&68&$L_{1}:b$&\texttt{496D966817E7706E4}&\texttt{8F871000C203C3F7C}\\
+1&8&1&69&--&\texttt{27156C1DAE90D52BC8}&\texttt{BCE4D2F7AFF5266A10}\\
+1&8&2&68&--&\texttt{826741083087F57D6}&\texttt{DA8431088987B06F5}\\
+1&8&3&69&--&\texttt{B7B226A4EA4F41F1C0}&\texttt{63505818324758A1F8}\\
+1&9&0&68&--&\texttt{968C8EBA6213B20FC}&\texttt{AA4DCC84392BCD9D0}\\
+1&9&1&69&--&\texttt{B5A6461B05DDA18738}&\texttt{56B9C937D44EBE4E00}\\
+1&9&2&68&$L_{3}:a$&\texttt{C9ED8F2F0192DC569}&\texttt{AE04725AB40528AF7}\\
+1&9&3&69&--&\texttt{ABAB7E012102FBF2E8}&\texttt{D72182B598E4546B58}\\
+1&10&0&68&--&\texttt{350D6281021FB1F3B}&\texttt{B63A2017057B321EE}\\
+1&10&1&69&$L_{2}:a$&\texttt{C8BA03554AD532B4B0}&\texttt{0F3FC869E53A2EEC50}\\
+1&10&2&68&--&\texttt{2E41C7DE304655D92}&\texttt{84E52400E829A15FB}\\
+1&10&3&69&--&\texttt{B5F008200B85FBB730}&\texttt{18836432C84CA783F0}\\
+1&11&0&68&$L_{1}:b$&\texttt{209B66B51D8629763}&\texttt{8404D08A0005FBC4E}\\
+1&11&1&69&$L_{6}:a$&\texttt{59C288E267AF20F0B8}&\texttt{44A960D0104B59AAD8}\\
+1&11&2&68&$L_{3}:a$&\texttt{1BAD8F2F0192DC569}&\texttt{D950CBFDFF7BA2428}\\
+1&11&3&69&--&\texttt{AAA8A080920FDBAE98}&\texttt{9D325B78C9C6D8A470}\\
+5&0&0&68&--&\texttt{0AADB900290736DFB}&\texttt{4CA3D4CD3719432BB}\\
+5&0&1&69&$L_{6}:a$&\texttt{158F5DEDF9FA780440}&\texttt{8542F11102A5057DF0}\\
+5&0&2&68&--&\texttt{CF2C6DB69C027BAD0}&\texttt{2681B8520677295CE}\\
+5&0&3&69&--&\texttt{CEE388F25671797680}&\texttt{80007C640049C6F4D8}\\
+5&1&0&68&$L_{1}:b$&\texttt{EB08CD97581486E3B}&\texttt{FFFFD5FB88155E545}\\
+5&1&1&69&$L_{6}:a$&\texttt{9B04F4C399AB0139F8}&\texttt{C3D9671B432E35EC40}\\
+5&1&2&68&$L_{3}:a$&\texttt{D3636CFD7EF4F5000}&\texttt{9424703478AE0956F}\\
+5&1&3&69&--&\texttt{E747AE1641FAE5F280}&\texttt{AF852C14742ED4A2D8}\\
+5&2&0&68&$L_{1}:b$&\texttt{80BC529CEE23817D9}&\texttt{A6A0B0B81C397234F}\\
+5&2&1&69&--&\texttt{C026B8C4010FB8EDB8}&\texttt{8914D2914087396998}\\
+5&2&2&68&--&\texttt{CE07B204A10E3ACFF}&\texttt{84EE2810588F605DD}\\
+5&2&3&69&--&\texttt{A3D485BBFFD7C08800}&\texttt{DC0F55D8AA2BE038D8}\\
+5&3&0&68&--&\texttt{430E91A75D1BC868B}&\texttt{54D98A93403B0EC2F}\\
+5&3&1&69&--&\texttt{BD41A53334AD639170}&\texttt{D8EA76EDFE38CB32C0}\\
+5&3&2&68&$L_{3}:a$&\texttt{D6E1EEC6A8AD1C8D5}&\texttt{9C48BC8042167E553}\\
+5&3&3&69&--&\texttt{ECC3943CD661F15468}&\texttt{244BD7B0CE456CD2A0}\\
+5&4&0&68&--&\texttt{FC718C00045BD0BFF}&\texttt{D4545F18490956FD0}\\
+5&4&1&69&$L_{6}:a$&\texttt{5876B2F9F7FC340260}&\texttt{4226B0D100C1D96B58}\\
+5&4&2&68&--&\texttt{C70B3A15000BFD96E}&\texttt{DA7921800CAF8AE5A}\\
+5&4&3&69&--&\texttt{EAA28C989D9B29B138}&\texttt{F3AC25F0408A6AB478}\\
+5&5&0&68&$L_{1}:b$&\texttt{7BAC8A10410AFC6EF}&\texttt{D0613F80960F4933A}\\
+5&5&1&69&$L_{6}:a$&\texttt{800677DFF478741440}&\texttt{283BAADDE40849F2E8}\\
+5&5&2&68&$L_{3}:a$&\texttt{777B5B03E5CD97541}&\texttt{5D461C3BFE1984AAB}\\
+5&5&3&69&--&\texttt{595C2A66D4774403F8}&\texttt{1BB1EDEB8FA72A84C8}\\
+5&6&0&68&$L_{1}:b$&\texttt{1B15A958BB4082F7D}&\texttt{179A3C230E4CDB631}\\
+5&6&1&69&--&\texttt{8B29CB480401E6FF70}&\texttt{7F032C9C876D6BE180}\\
+5&6&2&68&--&\texttt{3203F050190B1FEED}&\texttt{6805A0482A8CB5BB1}\\
+5&6&3&69&--&\texttt{AAA2AD646D3093B9A8}&\texttt{4002DAF9826AD1CA68}\\
+5&7&0&68&--&\texttt{F2D868A8EAEA69A4E}&\texttt{A011B17A610E4EE16}\\
+5&7&1&69&--&\texttt{0BF99B81973A3B9838}&\texttt{A50AAA081E0174BE70}\\
+5&7&2&68&$L_{3}:a$&\texttt{8BC83E81C3D1B2B1E}&\texttt{A8FD8FB73D7D80C87}\\
+5&7&3&69&--&\texttt{B160FE8477648F3E40}&\texttt{073164809503781778}\\
+5&8&0&68&--&\texttt{193D5022205BE97BE}&\texttt{F8BD440DDB3998E9A}\\
+5&8&1&69&$L_{6}:a$&\texttt{867BB5FDAF7C724040}&\texttt{608188831127C26EC8}\\
+5&8&2&68&--&\texttt{4A8B55597C4A1D473}&\texttt{6C62B347E07BF818C}\\
+5&8&3&69&--&\texttt{8E622BBDFDDE380220}&\texttt{3CE4B4BF05489CE570}\\
+5&9&0&68&$L_{1}:b$&\texttt{63A2DC049009E7F5B}&\texttt{5C8436BD02D9BC866}\\
+5&9&1&69&$L_{6}:a$&\texttt{3CBCAF4EBFFC620620}&\texttt{38111880B4875517B0}\\
+5&9&2&68&$L_{3}:a$&\texttt{DBC41BBFEFC4C0C0C}&\texttt{835AE244A80519EFC}\\
+5&9&3&69&--&\texttt{4FE908A4001FFF2E90}&\texttt{731C7B208CE30C8FF0}\\
+5&10&0&68&$L_{1}:b$&\texttt{2D39C194040F6FCF8}&\texttt{D03B3284DBB90D2AF}\\
+5&10&1&69&--&\texttt{EB492141800B9EBE78}&\texttt{CE09DAF78834A75E40}\\
+5&10&2&68&--&\texttt{C54675E91D8F18A4D}&\texttt{18925540144D15D8F}\\
+5&10&3&69&--&\texttt{A2E646400067744FF8}&\texttt{A3449C080026E7F0E0}\\
+5&11&0&68&--&\texttt{425A9BB307125565E}&\texttt{6BFA1088F8AB9CCAC}\\
+5&11&1&69&--&\texttt{F8189840046DB77FC0}&\texttt{1946987331F1F80DC8}\\
+5&11&2&68&$L_{3}:a$&\texttt{5E255EFF7CB0F040C}&\texttt{972256692249293DB}\\
+5&11&3&69&--&\texttt{FF04DBF7DF76994000}&\texttt{996A2E84D2DC48C5F8}\\
+7&0&0&68&$L_{1}:b$&\texttt{6F328C96C338D143F}&\texttt{BABC261DA2D2BE591}\\
+7&0&1&69&$L_{2}:a$&\texttt{7440F0379AC90D99E8}&\texttt{8609294300C49CE978}\\
+7&0&2&68&$L_{3}:a$&\texttt{726757FBD3F3F2000}&\texttt{9B80B812448CA86BF}\\
+7&0&3&69&--&\texttt{2BCA99C00887BFDD40}&\texttt{C566195B51E1B1DE20}\\
+7&1&0&68&--&\texttt{981DB0161805E9FEB}&\texttt{57CA9004B226D07EE}\\
+7&1&1&69&$L_{2}:a$&\texttt{2D142CE92D347625B0}&\texttt{B521503B6BC7C32930}\\
+7&1&2&68&$L_{3}:a$&\texttt{F5EFD58AC5D5DA85C}&\texttt{FFFFB57DA1455A754}\\
+7&1&3&69&$L_{20}:a$&\texttt{D8D3B48CDD630C73C8}&\texttt{4C62C04001259D8F38}\\
+7&2&0&68&--&\texttt{C40B347E1871C355E}&\texttt{F3794C9A7000C3E6F}\\
+7&2&1&69&--&\texttt{4901F24040A5ECBBD8}&\texttt{CA42F29568EF561518}\\
+7&2&2&68&$L_{3}:a$&\texttt{D43FCDFEBFA8E2202}&\texttt{0C157098C5CC798F4}\\
+7&2&3&69&--&\texttt{03D739500066FCEF50}&\texttt{84007805A123D9C2B8}\\
+7&3&0&68&$L_{5}:b$&\texttt{164FA1801413FA6BF}&\texttt{AEFE64C5306F103E7}\\
+7&3&1&69&--&\texttt{7C63520112159DCFF0}&\texttt{3C162B810441ADC758}\\
+7&3&2&68&$L_{3}:a$&\texttt{31C4E5D18DA954DAA}&\texttt{DC4B8C40E0E5B46BA}\\
+7&3&3&69&$L_{20}:a$&\texttt{C10F48B7CA6199BA90}&\texttt{8BF17530EA6F603338}\\
+7&4&0&68&$L_{1}:b$&\texttt{16BE1E01F2EC455B3}&\texttt{92F72C19740D49967}\\
+7&4&1&69&$L_{2}:a$&\texttt{BF9F3860842752FAF8}&\texttt{FFFFE2AD54ADD23550}\\
+7&4&2&68&$L_{3}:a$&\texttt{A819DAFFFEA067090}&\texttt{5A1766D538A90DE35}\\
+7&4&3&69&--&\texttt{F9115431AEC8EE82B8}&\texttt{6B1547946A30232F78}\\
+7&5&0&68&--&\texttt{5007F820118F5ACFE}&\texttt{DB499B98D2613C4F5}\\
+7&5&1&69&$L_{2}:a$&\texttt{6EC5AB4B4AAACB4B28}&\texttt{AC00384483860CDF98}\\
+7&5&2&68&$L_{3}:a$&\texttt{7188B1805083B4EFF}&\texttt{3059D02160C895EDE}\\
+7&5&3&69&$L_{20}:a$&\texttt{44FD52216005BBE6E8}&\texttt{84F1ACB03E023BF148}\\
+7&6&0&68&--&\texttt{E27443A5CCA59A365}&\texttt{10093555D52A44FB4}\\
+7&6&1&69&--&\texttt{A87CB04A84047FB770}&\texttt{5485D88C005D073AF8}\\
+7&6&2&68&$L_{3}:a$&\texttt{AF16729A8BEE32527}&\texttt{D144D840883AB3FA8}\\
+7&6&3&69&--&\texttt{6074A3009404F37FA8}&\texttt{D821208AE9E929CEA8}\\
+7&7&0&68&$L_{5}:b$&\texttt{4A357014C204B9FBF}&\texttt{5237220DDE3DC92A6}\\
+7&7&1&69&--&\texttt{F4171004A02DF6D798}&\texttt{B8458E00858529F670}\\
+7&7&2&68&$L_{3}:a$&\texttt{C9A99F98C192DC569}&\texttt{55D4BBFFFF63B20C2}\\
+7&7&3&69&$L_{20}:a$&\texttt{9D2B4EE5E8456D6118}&\texttt{7CC42C26885E3B4D88}\\
+7&8&0&68&$L_{1}:b$&\texttt{6BF089A313DF2982E}&\texttt{050DF050D665AEE13}\\
+7&8&1&69&$L_{2}:a$&\texttt{F84358050E07AB5FD0}&\texttt{8830B211580599D750}\\
+7&8&2&68&$L_{3}:a$&\texttt{B6079B55E82D4DC70}&\texttt{A103B75F53A43F44C}\\
+7&8&3&69&--&\texttt{831C98BD33C10537D8}&\texttt{82CBB834B864FF0C90}\\
+7&9&0&68&--&\texttt{DB817308060FED69D}&\texttt{7F420A102092FCE56}\\
+7&9&1&69&$L_{2}:a$&\texttt{86756F6B0934AD2AB0}&\texttt{5DA028BAA2F51732A8}\\
+7&9&2&68&$L_{3}:a$&\texttt{2B12BFBDEF50D80E0}&\texttt{ED44CCD309736C996}\\
+7&9&3&69&$L_{20}:a$&\texttt{44F388AC76B6D4B248}&\texttt{E7D45CB01009A9BD38}\\
+7&10&0&68&--&\texttt{CB823D51559B88697}&\texttt{9456CC701D0C97467}\\
+7&10&1&69&--&\texttt{233B20010A55E9AFB8}&\texttt{D211983C08857E0DB0}\\
+7&10&2&68&$L_{3}:a$&\texttt{29F5B96A7469A47AA}&\texttt{80A13C910E17074BD}\\
+7&10&3&69&--&\texttt{3C0BBB3BDFF8029868}&\texttt{572A3CAC130CE899E8}\\
+7&11&0&68&$L_{5}:b$&\texttt{922AD572A17D898E6}&\texttt{88ACB71011E6F865A}\\
+7&11&1&69&--&\texttt{D946C758D9241D13E8}&\texttt{01FBC4C9FC22D59628}\\
+7&11&2&68&$L_{3}:a$&\texttt{458F1D97BFF30A070}&\texttt{A229C0480201E774F}\\
+7&11&3&69&$L_{20}:a$&\texttt{0C87E80E0183FEED30}&\texttt{BBCA2F081B4533B298}\\
+11&0&0&68&$L_{5}:b$&\texttt{6DB94B8CA9CEA49F0}&\texttt{8B327B10C230F2E97}\\
+11&0&1&69&--&\texttt{09D51ABDFBFA068540}&\texttt{3D9A4941C2071DBA48}\\
+11&0&2&68&$L_{3}:a$&\texttt{4011F2C2001AAFDF6}&\texttt{5CC3539F8498913ED}\\
+11&0&3&69&$L_{4}:a$&\texttt{FFC861FFBFE0A41888}&\texttt{CD013C5D90855E6268}\\
+11&1&0&68&$L_{9}:b$&\texttt{4446BA000C8FB6AFA}&\texttt{9BD89BA17344F01F9}\\
+11&1&1&69&--&\texttt{DCB960639CDD6BD880}&\texttt{19882FF745FC089770}\\
+11&1&2&68&$L_{3}:a$&\texttt{66B7AE7FFCE0FA800}&\texttt{6263A2D6DA424FAE8}\\
+11&1&3&69&$L_{20}:a$&\texttt{1F86945CB86B246C78}&\texttt{4D035934FC60156EE8}\\
+11&2&0&68&--&\texttt{86587435D35983E35}&\texttt{144D948002036BD3D}\\
+11&2&1&69&$L_{2}:a$&\texttt{FDE9B3C52C5BE57108}&\texttt{E62C98051C0F7F5810}\\
+11&2&2&68&$L_{3}:a$&\texttt{5CCFC7EDDFE47A800}&\texttt{1AC736D77C63158F4}\\
+11&2&3&69&$L_{4}:a$&\texttt{AF1BE5A2CC3EF904C8}&\texttt{E20E5930CBE96151F8}\\
+11&3&0&68&--&\texttt{B02DAEDF804ED3449}&\texttt{0C23A1BC4818FB295}\\
+11&3&1&69&$L_{2}:a$&\texttt{B1E9CCB4B55534B4D0}&\texttt{D75350A45BF2A2EE30}\\
+11&3&2&68&$L_{3}:a$&\texttt{6AD4DB7777F078A20}&\texttt{9127B3F797F09BEA0}\\
+11&3&3&69&$L_{20}:a$&\texttt{5256DC8F5A60655ED0}&\texttt{10E93FB12A36CB0698}\\
+11&4&0&68&$L_{5}:b$&\texttt{EA4D2F19F08350F5C}&\texttt{3248EA2B304444DFD}\\
+11&4&1&69&--&\texttt{24AE391C001377ECE8}&\texttt{B000E8C521046AF8E8}\\
+11&4&2&68&$L_{3}:a$&\texttt{029DB5DFEDF4F8001}&\texttt{1814C698A84D338DC}\\
+11&4&3&69&$L_{4}:a$&\texttt{43722BFFF3B680C440}&\texttt{4E4A5C10C809BB31B8}\\
+11&5&0&68&$L_{9}:b$&\texttt{4ADD8100036FFB237}&\texttt{A1046634002C1D7E6}\\
+11&5&1&69&--&\texttt{ECB4E0EB3B10DE89E0}&\texttt{C6A888D760BC69CF80}\\
+11&5&2&68&$L_{3}:a$&\texttt{36330FEF9BD472082}&\texttt{E409302C02CEAD63C}\\
+11&5&3&69&$L_{20}:a$&\texttt{36EAF0FEA9236092F8}&\texttt{2EC4B485C2650B62F8}\\
+11&6&0&68&--&\texttt{831A9B2F12AC50BB3}&\texttt{8155EDA33005BE741}\\
+11&6&1&69&$L_{2}:a$&\texttt{6F05E52D2CCCAD2D48}&\texttt{6C855128480BDAB9C0}\\
+11&6&2&68&$L_{3}:a$&\texttt{F7B89614E97CA94C7}&\texttt{0D08F0385CCDBE0CC}\\
+11&6&3&69&$L_{4}:a$&\texttt{26768044A042FBB7E0}&\texttt{0FFCF575FD81B026F0}\\
+11&7&0&68&--&\texttt{BE471F45D0C9C991D}&\texttt{5C60412014AE543DE}\\
+11&7&1&69&$L_{2}:a$&\texttt{09BD83316B1D09D568}&\texttt{8C627E6F5E63D31488}\\
+11&7&2&68&$L_{3}:a$&\texttt{2B30E7FBF3D8F0140}&\texttt{A77859100C15E5769}\\
+11&7&3&69&$L_{20}:a$&\texttt{249CDA010495F5B678}&\texttt{F21849020203E8E5F0}\\
+11&8&0&68&$L_{5}:b$&\texttt{499FC9201807E6FCB}&\texttt{13116940ABFBE4919}\\
+11&8&1&69&--&\texttt{648E684820A73DB9D8}&\texttt{A54DB64682646DD720}\\
+11&8&2&68&$L_{3}:a$&\texttt{0DB96FE76FDC7C000}&\texttt{712390C4C0267874F}\\
+11&8&3&69&$L_{4}:a$&\texttt{6507CB7FBB7E480848}&\texttt{6514584542475A71C8}\\
+11&9&0&68&$L_{9}:b$&\texttt{319AAB58CE4B2B2D4}&\texttt{27C46C04F21CBBC2A}\\
+11&9&1&69&--&\texttt{91A7B0DEA17041DEE8}&\texttt{6006BA01A5028BDF28}\\
+11&9&2&68&$L_{3}:a$&\texttt{9F2097CEFFE8C80C2}&\texttt{AE735134589ED0BB8}\\
+11&9&3&69&$L_{20}:a$&\texttt{78867495DB81F92B80}&\texttt{E31734B4122F18B728}\\
+11&10&0&68&--&\texttt{0A4F5D6D42AB4B0D5}&\texttt{3B68E6140036DE78C}\\
+11&10&1&69&$L_{2}:a$&\texttt{201ADB594D52DB5C80}&\texttt{65FE101400BBED2B48}\\
+11&10&2&68&$L_{3}:a$&\texttt{55D8ACF7DF74B80C0}&\texttt{E026A440100BC8FE6}\\
+11&10&3&69&$L_{4}:a$&\texttt{51487E9E506858B5D8}&\texttt{DB1311200043F7ED00}\\
+11&11&0&68&--&\texttt{1A8ED6753A13DA478}&\texttt{141F80CCC5461CEA7}\\
+11&11&1&69&$L_{2}:a$&\texttt{508E6C080524F77DE0}&\texttt{D06524830283EF6B00}\\
+11&11&2&68&$L_{3}:a$&\texttt{CE588DFE77E4780C0}&\texttt{C6C31716D7B8CD385}\\
+11&11&3&69&$L_{20}:a$&\texttt{DC48EEE0BE0AC26B58}&\texttt{BE9EA431033EE087F0}\\
+\hline\end{longtable}\endgroup
+For a fixed row of this table, every category contribution is eventually quadratic in $Q$.
+Direct substitution gives zero for $Q=1,\ldots,6$ in both signed chains, while $Q=0$
+is checked separately; hence both totals vanish identically.  These $192=4\cdot12\cdot4$
+rows are therefore the complete finite orientation certificate.
+\subsection{The six bounded constructions}\label{sec:c4-small-data}
+For $m\in\{5,7,11,13,17,19\}$ the following compact data reconstruct every signed entry.
+For each such $m$, they produce four groups of $m$ rows, hence four $m\times3$ arrays.
+The radius-two offset alphabet is
+\begingroup\scriptsize\[
+\begin{array}{c|ccccccc}
+\text{symbol}&0&1&2&3&4&5&6\\\hline
+\delta&(-2,0,2)&(-2,1,1)&(-2,2,0)&(-1,-1,2)&(-1,0,1)&(-1,1,0)&(-1,2,-1)\\
+\end{array}\]\endgroup
+\begingroup\scriptsize\[
+\begin{array}{c|ccccccc}
+\text{symbol}&7&8&9&A&B&C&D\\\hline
+\delta&(0,-2,2)&(0,-1,1)&(0,0,0)&(0,1,-1)&(0,2,-2)&(1,-2,1)&(1,-1,0)\\
+\end{array}\]\endgroup
+\begingroup\scriptsize\[
+\begin{array}{c|ccccc}
+\text{symbol}&E&F&G&H&I\\\hline
+\delta&(1,0,-1)&(1,1,-2)&(2,-2,0)&(2,-1,-1)&(2,0,-2)\\
+\end{array}\]\endgroup
+The word gives $\delta_1,\ldots,\delta_{4m}$ in the corrected Kotzig lift.
+\begingroup\scriptsize
+\begin{longtable}{c@{\quad}l}
+\hline $m$&\text{offset word}\\\hline\endfirsthead\hline $m$&\text{offset word}\\\hline\endhead
+5&\texttt{D37CDDDD9C9CGGGGDDG4}\\
+7&\texttt{G9C97CEDGD98738CGGDGHCDGIGD0}\\
+11&\texttt{G9707478CGGD9CDDDGE9C788777877CGIGDGHCDGIGD0}\\
+13&\texttt{GGDGDDGGB778CGDGD77CD978CGDGGDD777IGGGGGD988887CGGD0}\\
+17&\texttt{DGDDDDG2CGG87CGDDDA8CDDD988874DDD7C7CDG978777CGGGG94GDG8788CD9C7C973}\\
+19&\texttt{D58CG9CDGCGCDGG9CGDGDDGDA4DDGCDGDDDD987CDG907877787C9777777878CGHDDGGGD7H983}\\
+\hline\end{longtable}\endgroup
+Let $T_j=\{a_j,b_j,c_j\}$, $a_j<b_j<c_j=a_j+b_j$, be the sorted triple
+obtained from the word, and order group $r$ as $T_{4t+r+1}$.
+For mode $c,a,b$, respectively, put
+\[
+(\mu_t,\nu_t,x_t)=(c_t,b_t-a_t,c_t),\quad(a_t,b_t+c_t,a_t),\quad(b_t,a_t+c_t,b_t).
+\]
+Decode $E,H$ as signs $\varepsilon_t,\eta_t$ in row order and set
+\begin{equation}\label{eq:c4-small-row}
+R_{r,t}=\left((\varepsilon_t\mu_t+\eta_t\nu_t)/2,
+(\varepsilon_t\mu_t-\eta_t\nu_t)/2,-\varepsilon_t x_t\right).
+\end{equation}
+The switch column lists the nondefault modes; ``--'' means all modes are $c$.
+\begingroup\scriptsize
+\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
+\begin{longtable}{@{\extracolsep{\fill}}c@{\quad}c@{\quad}l@{\quad}l@{\quad}l@{}}
+\hline $m$&$r$&\text{switches}&$E$&$H$\\\hline\endfirsthead
+\hline $m$&$r$&\text{switches}&$E$&$H$\\\hline\endhead
+5&0&$2:b,4:a$&\texttt{C8}&\texttt{48}\\
+5&1&$1:a,2:a,4:b$&\texttt{88}&\texttt{48}\\
+5&2&$2:b$&\texttt{18}&\texttt{18}\\
+5&3&$1:a,2:a,3:a,4:b$&\texttt{18}&\texttt{18}\\
+7&0&$3:a,4:a,5:b$&\texttt{16}&\texttt{C6}\\
+7&1&$2:a,3:a,4:a,5:a,6:b$&\texttt{1E}&\texttt{72}\\
+7&2&$2:a,4:b,5:a,6:b$&\texttt{66}&\texttt{DA}\\
+7&3&$4:b,5:b,6:a$&\texttt{8E}&\texttt{32}\\
+11&0&--&\texttt{436}&\texttt{0DA}\\
+11&1&--&\texttt{82E}&\texttt{116}\\
+11&2&$3:b$&\texttt{60E}&\texttt{2BA}\\
+11&3&$2:b$&\texttt{21E}&\texttt{89A}\\
+13&0&$0:b$&\texttt{8878}&\texttt{3058}\\
+13&1&--&\texttt{48B8}&\texttt{0A38}\\
+13&2&$0:a$&\texttt{BA18}&\texttt{0D38}\\
+13&3&$2:b$&\texttt{2478}&\texttt{4C38}\\
+17&0&--&\texttt{C20F8}&\texttt{14078}\\
+17&1&$0:a$&\texttt{81578}&\texttt{34078}\\
+17&2&$0:a$&\texttt{80E78}&\texttt{12338}\\
+17&3&$0:a$&\texttt{021F8}&\texttt{02478}\\
+19&0&$1:b$&\texttt{6185E}&\texttt{0505E}\\
+19&1&--&\texttt{D013E}&\texttt{02D8E}\\
+19&2&--&\texttt{3603E}&\texttt{8C02E}\\
+19&3&--&\texttt{5903E}&\texttt{0511E}\\
+\hline\end{longtable}\endgroup
+For every displayed row, decoding gives $\sum\varepsilon_t\mu_t=0$ and
+$\sum\eta_t\nu_t=0$.  Formula~\eqref{eq:c4-small-row} therefore has zero row and
+column sums, while the support words give each absolute value in $[1,12m]$ exactly once.

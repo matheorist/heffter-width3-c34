@@ -1,0 +1,156 @@
+\section{Explicit finite data for the complete \texorpdfstring{$c=3$}{c=3} slice}\label{sec:certificates}
+This section prints every finite witness used by the periodic construction and the finite bridge.
+Thus those parts of the existence proof are logically independent of the accompanying programs:
+the programs merely regenerate and check the data below.  All strings are read from left to right.
+
+\subsection{Offset words and boundary tables}\label{sec:offset-data}
+We encode each zero-sum offset vector by the following alphabet.
+\begingroup\scriptsize
+\[
+\begin{array}{c|ccccccc}
+\text{symbol}&0&1&2&3&4&5&6\\\hline
+\text{offset}&(-2,0,2)&(-1,-1,2)&(-1,0,1)&(0,-2,2)&(0,-1,1)&(0,0,0)&(0,1,-1)\\
+\end{array}
+\]
+\endgroup
+\begingroup\scriptsize
+\[
+\begin{array}{c|cccccc}
+\text{symbol}&7&8&9&A&B&C\\\hline
+\text{offset}&(1,-2,1)&(1,-1,0)&(1,0,-1)&(2,-2,0)&(2,-1,-1)&(2,0,-2)\\
+\end{array}
+\]
+\endgroup
+For a word indexed by \(0,1,\ldots,23\), the first printed symbol is the value at index \(0\).
+The complete bulk data reduce to the following two master words:
+\[
+\begin{array}{c|c}
+W_1&\mathtt{8AA2375331378AA537533437}\\
+W_2&\mathtt{4331347AA5344334347AA234}
+\end{array}
+\]
+For $n\equiv9\pmod{24}$ use $(W_1,W_2)$ with phases $(6,12)$.  For
+$n\equiv21\pmod{24}$ use phases $(10,13)$ and
+\begin{equation}\label{eq:c3-word-shift}
+ \widehat W_1[p]=W_1[p+16\bmod24],\qquad
+ \widehat W_2[p]=W_2[p+13\bmod24].
+\end{equation}
+Thus the formerly separate words for the second class are exact rotations of the displayed words;
+after the phases are inserted, passage between the two classes is a half-period shift by $12$ in
+both bulk layers.
+For a boundary row, the symbols are in increasing order of the indicated relative index.
+Here \(L,M,U\) mean the windows at \(1,\kappa,n\), respectively.
+\[
+\begin{array}{c|c|c|l}
+n\bmod48&\text{window}&\text{indices}&\text{offset word}\\\hline
+9&L&1:20&\mathtt{AAA57AACA8A5331378AA}\\
+9&M&-20:20&\mathtt{2375331378AA537A534378A81344331347AA53443}\\
+9&U&-20:0&\mathtt{3347137A53432347AAA80}\\
+33&L&1:20&\mathtt{57AB88A647A5331378AA}\\
+33&M&-20:20&\mathtt{5375334378AA237A530343433344334347AA23443}\\
+33&U&-20:0&\mathtt{33431A7A53478547AAAB8}\\
+21&L&1:20&\mathtt{A988AAA8AA75334378AA}\\
+21&M&-20:20&\mathtt{4378AA2375331378AAA57AA8A547AA2344331347A}\\
+21&U&-20:0&\mathtt{3343437A5343334717570}\\
+45&L&1:20&\mathtt{A81347A5337533437833}\\
+45&M&-20:20&\mathtt{1378AA5375334378AA2375331347A53344334347A}\\
+45&U&-20:0&\mathtt{33431337534344333447A}\\
+\end{array}
+\]
+\subsection{The 24 stored orientation patterns for 48 admissible affine states}\label{sec:orientation-data}
+For a row index \(j\), let its category be
+\[
+\gamma(j)=\begin{cases}
+(L,j),&j\le20,\\
+(M,j-m),&|j-m|\le12,\\
+(K,j-\kappa),&|j-\kappa|\le20,\\
+(T,j-n),&j\ge n-20,\\
+(B_1,j\bmod24),&j<m-12,\\
+(B_2,j\bmod24),&m+12<j<\kappa-20,\\
+(B_3,j\bmod24),&\text{otherwise}.
+\end{cases}
+\]
+The cases are applied in the displayed order.  For any admissible parameter using the periodic rule,
+put \(e=n\bmod24\), \(t=(n-e)/24\), and select the stored row with
+\(s=15+((t-15)\bmod6)\).  Coprimality gives
+\[
+s\in\{16,17,19,20\}\quad(e=9),\qquad
+s\in\{15,17,18,20\}\quad(e=21).
+\]
+This also specifies the ten finite-bridge cases below.  For the infinite proof, an admissible affine
+group state is \((e,\tau,r)\), where
+\(n=e+24(\tau+12Q)\), \(e\in\{9,21\}\), \(15\le\tau\le26\), \(Q\ge0\), and
+the retained indices satisfy \(j\equiv r\pmod3\).  The stored row \((e,s,r)\),
+\(15\le s\le20\), is used for both \(\tau=s\) and \(\tau=s+6\).  For either value of
+\(\tau\), let \(K_{e,\tau,r}\) be the union of its categories for \(Q=0,1,\ldots,6\);
+the literal category set is the same for the two values represented by a stored row.
+The restrictions above leave $8$ stored parameter states and hence $24=8\cdot3$ stored rows; they
+cover the $48=16\cdot3$ admissible affine group states.
+For encoding,
+write the labels literally as \(\mathtt{('bnd','k',q)}\), \(\mathtt{('bnd','low',q)}\),
+\(\mathtt{('bnd','m',q)}\), \(\mathtt{('bnd','top',q)}\), and
+\(\mathtt{('bulk',z,p)}\), and order these literal strings lexicographically.  Each hexadecimal digit below
+expands to four binary digits; retain the first \(\ell\) bits, with \(1=+1\) and \(0=-1\).
+The columns \(C,D\) give respectively the signs of \(\mu_j\) and \(|w_j|\).  A switch
+\(X:q;a\) or \(X:q;b\) changes the unique row in category \((X,q)\) from mode \(c\)
+to the displayed mode; ``--'' means that every row uses mode \(c\).
+\begin{longtable}{c@{\,}c@{\,}c|r|c|l|l}
+\hline
+e&s&r&$\ell$&\text{switch}&C&D\\\hline
+\endfirsthead
+\hline e&s&r&$\ell$&\text{switch}&C&D\\\hline
+\endhead
+9&16&0&59&--&\texttt{FE7FAF801E1E1E0}&\texttt{BFFFFC481FF51C0}\\
+9&16&1&60&\(K:-1;b\)&\texttt{FF3B87F00F0B8F0}&\texttt{FFFEE80404DB8F0}\\
+9&16&2&60&--&\texttt{FEDFAF00069F0F0}&\texttt{FF7FF0140AA78F0}\\
+9&17&0&59&\(K:-11;a\)&\texttt{7FFE55001E1E1E0}&\texttt{BEFBF0081FF51C0}\\
+9&17&1&61&--&\texttt{FDFE07C0054F8780}&\texttt{9FFFFC0202CDC780}\\
+9&17&2&59&--&\texttt{F7FD0F800D3E1E0}&\texttt{FAFFF808154F1E0}\\
+9&19&0&59&\(K:-11;a\)&\texttt{7FFD3C001E1E1E0}&\texttt{F6F7F0081FF51C0}\\
+9&19&1&60&--&\texttt{FFABC7C00A9F0F0}&\texttt{FFFF7A04059B8F0}\\
+9&19&2&60&--&\texttt{DDF7AF00069F0F0}&\texttt{FBDFF4040AA78F0}\\
+9&20&0&59&--&\texttt{FFEBCF801E1E1E0}&\texttt{DFFFFC081FF51C0}\\
+9&20&1&61&\(K:-1;b\)&\texttt{FF3B87F00785C780}&\texttt{FFFFFC00026DC780}\\
+9&20&2&59&--&\texttt{FFF8AF200D3E1E0}&\texttt{FF7FF028154F1E0}\\
+21&15&0&59&--&\texttt{FFDFF000153E1E0}&\texttt{FFBFFE481FBBFC0}\\
+21&15&1&61&--&\texttt{FFF847E0054F8780}&\texttt{DFF7FBA202CDC780}\\
+21&15&2&59&--&\texttt{BFEF6F800D3E1E0}&\texttt{FFEFFF58154F1E0}\\
+21&17&0&59&--&\texttt{EF7BE800153E1E0}&\texttt{FBFFF8081FBBFC0}\\
+21&17&1&60&--&\texttt{FEFC87C00A9F0F0}&\texttt{BF7FFE84059B8F0}\\
+21&17&2&60&--&\texttt{7FF76F80069F0F0}&\texttt{FFF7FF440AA78F0}\\
+21&18&0&59&--&\texttt{FFF52E00153E1E0}&\texttt{BFDFF4081FBBFC0}\\
+21&18&1&61&\(K:-10;a\)&\texttt{BFAD87E0054F8780}&\texttt{6F77F80202CDC780}\\
+21&18&2&59&\(K:-12;a\)&\texttt{FDDF8F800D3E1E0}&\texttt{EFCFF008154F1E0}\\
+21&20&0&59&--&\texttt{FFEC5800153E1E0}&\texttt{7DFFF0081FBBFC0}\\
+21&20&1&60&\(K:-10;a\)&\texttt{FEAF17C00A9F0F0}&\texttt{FFAEF804059B8F0}\\
+21&20&2&60&\(K:-12;a\)&\texttt{7DFE4F80069F0F0}&\texttt{EFAFF8040AA78F0}\\
+\hline
+\end{longtable}
+For direct checking, substitute the offsets from Section~\ref{sec:offset-data} in the
+closed lift formula.  For each admissible stored row, for the two values \(\tau=s,s+6\), and in each category,
+the sums of \(\mu_j\) and \(|w_j|\) are quadratic polynomials in \(Q\).  The two decoded
+sign rows make their signed totals zero at \(Q=0,1,\ldots,6\) for both values of \(\tau\);
+hence both totals vanish identically in all \(48\) admissible states.  This is a finite
+arithmetic verification, and no search or program is part of the logical implication.
+\subsection{The ten-case finite bridge}\label{sec:bridge-data}
+The offset and orientation rules above are already defined for the following ten parameters
+below the affine range.  Let \(S_m\) be the set of absolute values produced and let
+\(C_i\) be the three-component column-sum vector of the \(i\)-th array.  Direct substitution
+in the printed rules gives the complete audit table below.  Since every row sum is zero by
+construction, \(\min S_m=1\), \(\max S_m=9m\), and \(|S_m|=9m\) prove
+\(S_m=[1,9m]\); the last column proves all nine column sums vanish.
+\[
+\begin{array}{c|c|c|c|c|c}
+m&n&n\bmod48&s&(\min S_m,\max S_m,|S_m|)&(C_0,C_1,C_2)\\\hline
+67&201&9&20&(1,603,603)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+71&213&21&20&(1,639,639)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+79&237&45&15&(1,711,711)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+83&249&9&16&(1,747,747)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+91&273&33&17&(1,819,819)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+95&285&45&17&(1,855,855)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+103&309&21&18&(1,927,927)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+107&321&33&19&(1,963,963)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+115&345&9&20&(1,1035,1035)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+119&357&21&20&(1,1071,1071)&(\mathbf{0},\mathbf{0},\mathbf{0})\\
+\end{array}
+\]

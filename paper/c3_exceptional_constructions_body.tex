@@ -1,0 +1,114 @@
+\section{Three exceptional supports and six preperiod orientations}\label{sec:small-data}
+The nine parameters below are recorded in a compact form that uniquely reconstructs every signed
+entry.  Only $m=11,19,23$ require exceptional support words.  The six values
+$m=31,35,43,47,55,59$ already use the uniform support rule, but precede the disjoint-window range of
+the periodic orientation theorem and therefore retain separate orientation certificates.  Three
+support words and \(27\) balance records suffice in place of listing all \(969\) rows.
+
+Put \(n=3m\), and let \(a_{i,j}\) be the Kotzig entry defined in
+Section~\ref{sec:construction}.  For an offset \(\delta_j=(d_{1j},d_{2j},d_{3j})\), set
+\[
+T_j=\operatorname{sort}\{\,|3a_{-1,j}+d_{1j}|,\ |3j+d_{2j}|,
+|3a_{1,j}+d_{3j}|\,\}=\{a_j,b_j,c_j\},
+\qquad a_j<b_j<c_j,\quad a_j+b_j=c_j.
+\]
+For \(m=31,35,43,47,55,59\), the offsets are exactly those given by the rule in
+Section~\ref{sec:offset-data}.
+Direct substitution gives a partition of \([1,9m]\) in all six cases.
+For the three smaller parameters, use the following radius-two alphabet and words.
+\begingroup\scriptsize
+\[
+\begin{array}{c|ccccccc}
+\text{symbol}&0&1&2&3&4&5&6\\\hline
+\delta&(-2,0,2)&(-2,1,1)&(-2,2,0)&(-1,-1,2)&(-1,0,1)&(-1,1,0)&(-1,2,-1)\\
+\end{array}
+\]
+\endgroup
+\begingroup\scriptsize
+\[
+\begin{array}{c|ccccccc}
+\text{symbol}&7&8&9&A&B&C&D\\\hline
+\delta&(0,-2,2)&(0,-1,1)&(0,0,0)&(0,1,-1)&(0,2,-2)&(1,-2,1)&(1,-1,0)\\
+\end{array}
+\]
+\endgroup
+\begingroup\scriptsize
+\[
+\begin{array}{c|ccccc}
+\text{symbol}&E&F&G&H&I\\\hline
+\delta&(1,0,-1)&(1,1,-2)&(2,-2,0)&(2,-1,-1)&(2,0,-2)\\
+\end{array}
+\]
+\endgroup
+The first symbol is \(\delta_1\), and the word is read from left to right:
+\[
+\begin{array}{c|l}
+m&\text{offset word}\\\hline
+11&\mathtt{DDGIGGG988478C9C3CDDGGGG47CD97783}\\
+19&\mathtt{DD973CDGGDG9CGGGGD2GGGDGG98787873778878887778877CDGHCG983}\\
+23&\mathtt{GGGGCDGG97878C39CDDG9847881887778C780787C9778C77CDGEDGGDG97CGDGDGGGD0}\\
+\end{array}
+\]
+It remains to orient the triples.  For \(r=0,1,2\), order the group as
+\(G_r=(T_{3t+r+1})_{t=0}^{m-1}\).  Write \((a_t,b_t,c_t)\) for the ordered
+entries of its \(t\)-th triple.  The default mode is \(c\); an entry \(t:a\) or
+\(t:b\) in the switch column changes only row \(t\) to that mode.  For a row in mode
+\(c,a,b\), respectively, define
+\[
+(\mu_t,\nu_t,x_t)=
+(c_t,b_t-a_t,c_t),\quad(a_t,b_t+c_t,a_t),\quad(b_t,a_t+c_t,b_t).
+\]
+Expand each hexadecimal word into binary, retain its first \(m\) bits, and read
+\(1\) as \(+1\) and \(0\) as \(-1\).  Let the words \(E,H\) give the signs
+\(\varepsilon_t,\eta_t\), respectively.  The reconstructed row is
+\begin{equation}\label{eq:exceptional-row}
+R_{r,t}=\left(\frac{\varepsilon_t\mu_t+\eta_t\nu_t}{2},
+\frac{\varepsilon_t\mu_t-\eta_t\nu_t}{2},-\varepsilon_t x_t\right).
+\end{equation}
+\begingroup\scriptsize
+\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
+\begin{longtable}{@{\extracolsep{\fill}}c@{\quad}c@{\quad}c@{\quad}l@{\quad}l@{}}
+\hline
+\(m\)&\(r\)&\text{switch}&\(E\)&\(H\)\\\hline
+\endfirsthead
+\hline \(m\)&\(r\)&\text{switch}&\(E\)&\(H\)\\\hline
+\endhead
+11&0&\(0:b\)&\texttt{256}&\texttt{686}\\
+11&1&--&\texttt{156}&\texttt{3C6}\\
+11&2&\(0:a\)&\texttt{386}&\texttt{0E6}\\
+19&0&\(0:a\)&\texttt{A027E}&\texttt{0225E}\\
+19&1&\(0:b\)&\texttt{B013E}&\texttt{0003E}\\
+19&2&\(0:a\)&\texttt{0827E}&\texttt{0E03E}\\
+23&0&\(0:b\)&\texttt{8005FE}&\texttt{00807E}\\
+23&1&\(1:a\)&\texttt{0C40FE}&\texttt{00107E}\\
+23&2&--&\texttt{1011FE}&\texttt{0100BE}\\
+31&0&--&\texttt{B00017FE}&\texttt{003C10FE}\\
+31&1&--&\texttt{C8000FFE}&\texttt{001410FE}\\
+31&2&--&\texttt{00003FFE}&\texttt{00B010FE}\\
+35&0&\(0:b\)&\texttt{100013FFE}&\texttt{0008811FE}\\
+35&1&--&\texttt{080023FFE}&\texttt{0018003FE}\\
+35&2&--&\texttt{10000BFFE}&\texttt{0040009FE}\\
+43&0&--&\texttt{0000007FFFE}&\texttt{000210017FE}\\
+43&1&--&\texttt{9200001FFFE}&\texttt{00070000FFE}\\
+43&2&\(0:a\)&\texttt{8040041FFFE}&\texttt{00080800FFE}\\
+47&0&--&\texttt{04000027FFFE}&\texttt{000320001FFE}\\
+47&1&--&\texttt{E0100003FFFE}&\texttt{000240001FFE}\\
+47&2&--&\texttt{00800047FFFE}&\texttt{000180001FFE}\\
+55&0&\(0:b\)&\texttt{902000003FFFFE}&\texttt{00004080007FFE}\\
+55&1&\(0:a\)&\texttt{004000007FFFFE}&\texttt{00054080007FFE}\\
+55&2&--&\texttt{C00400003FFFFE}&\texttt{00002800007FFE}\\
+59&0&--&\texttt{000200080FFFFFE}&\texttt{00001420000FFFE}\\
+59&1&--&\texttt{008000001FFFFFE}&\texttt{00005100000FFFE}\\
+59&2&\(0:a\)&\texttt{828000000FFFFFE}&\texttt{00005001000FFFE}\\
+\hline
+\end{longtable}
+\endgroup
+For every row of the table, direct decoding gives
+\[
+\sum_{t=0}^{m-1}\varepsilon_t\mu_t=0,
+\qquad \sum_{t=0}^{m-1}\eta_t\nu_t=0.
+\]
+Hence (\ref{eq:exceptional-row}) has zero row sums and zero column sums.
+The support words and the periodic offset rule give the absolute-value set \([1,9m]\)
+in every case.  Thus the displayed words and table are complete, independently checkable
+constructions for all nine preperiod values.

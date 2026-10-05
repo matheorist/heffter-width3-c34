@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*.log
+*.aux
+*.bbl
+*.blg
+*.out
+*.pdf
