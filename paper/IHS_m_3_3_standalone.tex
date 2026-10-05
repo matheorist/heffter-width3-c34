@@ -63,6 +63,43 @@
   year    = {2018},
   note    = {DOI: 10.1002/jcd.21593}
 }
+@incollection{PasottiDinitz2024,
+  author={Pasotti, Anita and Dinitz, Jeffrey H.},
+  title={A survey of {Heffter} arrays},
+  booktitle={New Advances in Designs, Codes and Cryptography},
+  editor={Colbourn, Charles J. and Dinitz, Jeffrey H.},
+  series={Fields Institute Communications}, volume={86},
+  pages={353--392}, publisher={Springer}, year={2024},
+  doi={10.1007/978-3-031-48679-1_20}
+}
+@article{MoriniPellegrini2022,
+  author={Morini, Fiorenza and Pellegrini, Marco Antonio},
+  title={Rectangular {Heffter} arrays: a reduction theorem},
+  journal={Discrete Math.}, volume={345}, number={12}, pages={113073},
+  year={2022}, doi={10.1016/j.disc.2022.113073}
+}
+@article{MoriniPellegrini2020,
+  author={Morini, Fiorenza and Pellegrini, Marco Antonio},
+  title={On the existence of integer relative {Heffter} arrays},
+  journal={Discrete Math.}, volume={343}, number={11}, pages={112088},
+  year={2020}, doi={10.1016/j.disc.2020.112088}
+}
+@article{CostaMoriniPasottiPellegrini2018,
+  author={Costa, Simone and Morini, Fiorenza and Pasotti, Anita and Pellegrini, Marco Antonio},
+  title={A problem on partial sums in abelian groups},
+  journal={Discrete Mathematics}, volume={341}, number={3}, pages={705--712},
+  year={2018}, doi={10.1016/j.disc.2017.11.013}
+}
+@article{BurattiPasotti2024,
+  author={Buratti, Marco and Pasotti, Anita},
+  title={Heffter spaces}, journal={Finite Fields Appl.}, volume={98}, pages={102464},
+  year={2024}, doi={10.1016/j.ffa.2024.102464}
+}
+@article{BurattiPasotti2025,
+  author={Buratti, Marco and Pasotti, Anita},
+  title={More Heffter spaces via finite fields}, journal={J. Combin. Des.},
+  volume={33}, pages={188--194}, year={2025}, doi={10.1002/jcd.21974}
+}
 \end{filecontents*}
 
 \documentclass[11pt]{article}
@@ -90,7 +127,7 @@
 \title{\textbf{Existence of integer Heffter array sets $\IHS(m,3;3)$ and $\IHS(m,3;4)$}}
 \author{%
 \begin{tabular}{@{}c@{\qquad\qquad}c@{}}
-\textbf{Yong Zhang} & \textbf{Guangzhou Chen}\\[2pt]
+\textbf{Yong Zhang}\footnotemark[1] & \textbf{Guangzhou Chen}\\[2pt]
 \begin{tabular}[t]{@{}c@{}}
 School of Mathematics and Statistics\\
 Yancheng Teachers University\\
@@ -109,24 +146,19 @@ Xinxiang 453007, P.~R.~China\\
 
 \begin{document}
 \maketitle
+\footnotetext[1]{Corresponding author: Yong Zhang; \texttt{zyyctc@126.com}.}
 
 \begin{abstract}
-\noindent
-An \emph{integer Heffter array set} $\IHS(m,n;c)$ is a collection of $c$ integer $m\times n$ arrays
-whose union consists of $mnc$ entries with distinct absolute values, collectively equal to $[1,mnc]$,
-and whose row and column sums all vanish. We solve two
-complete fixed slices of the width-three existence problem: an $\IHS(m,3;3)$ exists for every
-admissible $m$, namely every odd $m\equiv3\pmod4$ with $\gcd(m,3)=1$, and an $\IHS(m,3;4)$ exists
-for every odd $m\ge5$ with $\gcd(m,3)=1$. Starting from a closed formula for $3\times r$
-centre-complementary Kotzig arrays, a modulo-$3$ lift of the positive half-columns gives a
-near-partition of the required interval into sum-triples. Bounded eventually periodic corrections
-make these partitions exact, and periodic mode and sign data balance the resulting groups into zero-sum
-arrays. The bulk offset words have periods $24$ and $48$, respectively, together with finite
-boundary-state tables. All offset words,
-boundary tables, orientation patterns, finite-bridge instances, exceptional supports, and preperiod
-orientations are displayed in the manuscript and its accompanying certificate source files.
-Programs regenerate and verify the periodic data; the finite preperiod witnesses are printed in
-the source files. Neither the programs nor their output is a logical premise of the result.
+We determine two complete fixed slices of the integer Heffter array set problem. For every
+$m\equiv3\pmod4$ with $\gcd(m,3)=1$, we construct an $\IHS(m,3;3)$; for every odd
+$m\ge5$ with $\gcd(m,3)=1$, we construct an $\IHS(m,3;4)$. The proof separates the support
+partition from the subsequent balancing of the groups. A closed centre-complementary Kotzig
+array, lifted modulo $3$, supplies the row sum-triples. Periodic offset words give the exact
+support, and finite mode and sign tables make each group zero-sum. The bulk rules have periods
+$24$ and $48$ for $c=3$ and $c=4$, respectively; the remaining admissible parameters are
+covered by explicit finite certificates. The certificate data are printed in the manuscript and
+the accompanying repository, while the verification programs are supplied only for
+reproducibility. We make no claim here for $c\ge5$.
 \end{abstract}
 
 \noindent\textbf{Keywords:} integer Heffter array; Heffter array set; Skolem sequence; Kotzig array;
@@ -135,8 +167,13 @@ finite verification.\\
 
 \section{Introduction}\label{sec:intro}
 
-Heffter arrays were introduced by Archdeacon~\cite{Arch2015}. Under suitable orderings of their rows
-and columns, they yield orientable biembeddings of complete graphs.
+Heffter arrays were introduced by Archdeacon~\cite{Arch2015} as a framework for constructing
+orientable biembeddings of complete graphs. A unified account of their definitions, variants and
+applications is given by Pasotti and Dinitz~\cite{PasottiDinitz2024}. The subject also connects
+with partial-sum questions~\cite{CostaMoriniPasottiPellegrini2018} and with relative and
+rectangular Heffter arrays~\cite{MoriniPellegrini2020,MoriniPellegrini2022}. More recently,
+Buratti and Pasotti introduced Heffter spaces and developed finite-field constructions for them
+\cite{BurattiPasotti2024,BurattiPasotti2025}.
 
 \begin{definition}[integer Heffter array \cite{Arch2015}]
 An integer Heffter array $\Hm(m,n;s,k)$ is an $m\times n$ partially filled array, with entries from
@@ -145,11 +182,10 @@ exactly $k$; the absolute values of the entries are pairwise distinct; and every
 is $0$.
 \end{definition}
 
-The necessary conditions for existence are $ms=nk$, $3\le s\le n$, $3\le k\le m$ and
-$nk\equiv0,3\pmod4$, and Archdeacon's conjecture asserts their sufficiency. Following the reduction of
-these conditions in the coprime odd-width regime, Pellegrini--Traetta~\cite{PT2025} introduced integer
-Heffter array sets, and Morini--Pellegrini~\cite{MP2025} narrowed the open cases to two short-width
-problems.
+The necessary conditions for existence are $ms=nk$, $3\le s\le n$, $3\le k\le m$, and
+$nk\equiv0,3\pmod4$; Archdeacon's conjecture asserts that they are sufficient. In the coprime
+odd-width regime, Pellegrini and Traetta~\cite{PT2025} introduced integer Heffter array sets,
+and Morini and Pellegrini~\cite{MP2025} reduced the remaining cases to two short-width problems.
 
 \begin{definition}[integer Heffter array set \cite{PT2025}]
 An $\IHS(m,n;c)$ is a set of $c$ arrays of size $m\times n$ whose union has $mnc$ entries with
@@ -157,17 +193,17 @@ pairwise distinct absolute values, collectively equal to $[1,mnc]$. Every row an
 array has sum zero.
 \end{definition}
 
-When $s,k$ are coprime one may write $m=ck$, $n=cs$, and a single $\IHS(k,s;c)$ assembles an
-$\Hm(ck,cs;s,k)$ \cite[proof of Theorem~C]{MP2025}; the cited reduction identifies the remaining
-short-width cases (in that formulation) with $k=3$ and $k=5$. The width-three problem is the following.
+When $s$ and $k$ are coprime, one may write $m=ck$ and $n=cs$; a single $\IHS(k,s;c)$ then
+assembles an $\Hm(ck,cs;s,k)$ \cite[proof of Theorem~C]{MP2025}. In this formulation the
+remaining short-width cases have $k=3$ or $k=5$. We focus on the width-three case:
 
 \begin{problem}[{\cite[Problem~1]{MP2025}}]\label{prob:1}
 For every $c\ge1$ and every odd $m\ge3$ with $\gcd(m,3)=1$ and $mc\equiv0,1\pmod4$, construct an
 $\IHS(m,3;c)$.
 \end{problem}
 
-It is instructive to read Problem~\ref{prob:1} as a family of cases indexed by $c$. The case
-$c=1$ is already completely settled in the literature: an $\IHS(m,3;1)$ is precisely a
+We organize Problem~\ref{prob:1} by the number $c$ of arrays. The case $c=1$ is already
+settled in the literature: an $\IHS(m,3;1)$ is precisely a
 \emph{tight} integer Heffter array $\Hm(m,3;3,m)$---an $m\times3$ array with no empty cells whose
 support is exactly $[1,3m]$---and Archdeacon, Boothby and Dinitz proved that tight Heffter arrays
 exist for all admissible parameters~\cite{ABD2017}; for width three this covers every admissible $m$
@@ -182,13 +218,13 @@ For every integer $m\ge3$ with $m\equiv3\pmod4$ and $\gcd(m,3)=1$, an $\IHS(m,3;
 \end{theorem}
 
 Together with the tight case $c=1$ of~\cite{ABD2017}, Theorem~\ref{thm:main} completely solves the
-$c=1$ and $c=3$ cases of Problem~\ref{prob:1}. Its engine is the closed formula behind the
-centre-complementary Kotzig arrays of Zhou, Li, Zhang and Su~\cite{Zhou2018DM}.
+$c=1$ and $c=3$ cases of Problem~\ref{prob:1}. The $c=3$ construction uses the closed formula
+for the centre-complementary Kotzig arrays of Zhou, Li, Zhang and Su~\cite{Zhou2018DM}.
 Theorem~\ref{thm:c4full} below gives the complete $c=4$ slice.
-Sections~\ref{sec:reduction}--\ref{sec:proof} and~\ref{sec:c4full} develop the three layers of the
-construction---support partition, grouping, and orientation---and prove the two fixed-slice theorems. Other values of $c$ lie
-outside the scope of this paper; Section~\ref{sec:remarks} records the aspects of the method that may
-extend to $c\ge5$.
+Sections~\ref{sec:reduction}--\ref{sec:proof} and~\ref{sec:c4full} establish the support partition,
+the grouping, and the orientation certificates needed for the two fixed-slice theorems. Other values
+of $c$ lie outside the scope of this paper; Section~\ref{sec:remarks} records aspects of the method
+that may extend to $c\ge5$.
 
 The manuscript is self-contained at the level of both fixed-slice constructions once the three
 certificate source files listed in the data-availability paragraph are included. Its finite inputs are the
@@ -591,18 +627,19 @@ whose union is $[1,84]$.
 
 \section{Concluding remarks}\label{sec:remarks}
 
-The construction separates the width-three problem into three independently checkable layers: a
+The construction separates the width-three problem into three independently checkable parts: a
 global support partition, a grouping into arrays, and an orientation certificate for each group. The
-centre-complementary symmetry of the Kotzig formula makes the first layer almost exact and also
-organises the periodic data used in the third. Related centre-complementary machinery underlies the
-construction of magic three-dimensional rectangles in~\cite{Zhou2018JCD}; here only one half of the
-symmetric array is used, because every absolute value must occur exactly once.
+centre-complementary symmetry of the Kotzig formula reduces the support check to periodic bulk rules
+and finitely many boundary corrections, and it also organises the orientation data. Related
+centre-complementary machinery underlies the construction of magic three-dimensional rectangles
+in~\cite{Zhou2018JCD}; here only one half of the symmetric array is used, because every absolute
+value must occur exactly once.
 
-The same three-layer viewpoint can be tested for other values of $c$. In this paper the period-$24$
+The same decomposition suggests a route for other values of $c$. In this paper the period-$24$
 certificate closes the odd slice $c=3$, while an independent period-$48$ certificate closes the even
 slice $c=4$. When $n=mc$ is even, both the hole correction and the orientation categories have
-different parity behaviour, so the period-$24$ certificate does not transfer without new proof.
-Establishing certificates for $c\ge5$ remains a separate problem.
+different parity behaviour, so the period-$24$ certificate does not transfer without a new argument.
+Establishing certificates for $c\ge5$ remains open here.
 
 \paragraph{Code and data availability.}
 Section~\ref{sec:certificates} contains the two master offset words, their exact rotation rule, all
@@ -619,8 +656,21 @@ lifted row, verify the row sum-triple and support conditions, and then decode th
 verify the two signed totals for each group. The programs are retained for reproducibility and
 convenience, but none is needed as an oracle or as a logical premise of the result.
 
+\section*{Funding}
 \begingroup
 \small
+\begin{minipage}{0.92\textwidth}
+\raggedright
+Yong Zhang was supported by the National Natural Science Foundation of China
+(Grant No.~11871417) and the 2026 Jiangsu Provincial Teacher Development Research
+Project (Grant No.~2026jsfz-b004). Guangzhou Chen was supported by the National
+Natural Science Foundation of China (Grant No.~12471245) and the Natural Science
+Foundation of Henan Province (Grant No.~262300421846).
+\end{minipage}
+\endgroup
+
+\begingroup
+\footnotesize
 \bibliographystyle{plain}
 \bibliography{heffter_c3}
 \endgroup
