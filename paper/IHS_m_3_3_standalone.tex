@@ -611,20 +611,13 @@ The $m=7$ construction appears in the main proof, and Section~\ref{sec:small-dat
 compact reconstruction data for three exceptional supports and six preperiod orientations.
 For $c=4$, Section~\ref{sec:c4-data} contains the four period-$48$ support rules, the $192$ balance
 rows, and the six compact seed constructions. Consequently both fixed-slice theorems can be checked
-from the printed manuscript together with the accompanying certificate source files
-\path{c3_finite_certificate_body.tex}, \path{c3_exceptional_constructions_body.tex}, and
-\path{c4_compact_certificate_body.tex}. The deterministic
-protocol is to decode the offset strings, reconstruct and sort every lifted row, verify the row
-sum-triple and support conditions, and then decode the two sign strings and verify the two signed
-totals for each group. The reproducibility package is available at
-\url{https://github.com/matheorist/heffter-width3-c34}. In particular,
-\path{code/c3/verify_c3_plus4_transport.py} independently checks the half-period word identity,
-inherited-row formula, boundary-state cycle, and all canonical $+4$ transport pairs in a requested
-finite range.  The accompanying $c=4$ generators and verifiers in
-\path{code/c4/generate_c4_all.py}, \path{code/c4/prove_c4_support_affine.py},
-\path{code/c4/prove_c4_balance_affine.py}, \path{code/c4/verify_c4_all_range.py}, and
-\path{code/c4/verify_c4_balance_patterns.py} are retained for reproducibility and convenience;
-none of these programs is needed as an oracle or as a logical premise.
+from the printed manuscript together with the accompanying certificate source package. The public
+repository at \url{https://github.com/matheorist/heffter-width3-c34} contains the exact source files,
+machine-readable data, and verification suite; its README gives the file inventory, dependencies,
+and commands. The deterministic protocol is to decode the offset strings, reconstruct and sort every
+lifted row, verify the row sum-triple and support conditions, and then decode the two sign strings and
+verify the two signed totals for each group. The programs are retained for reproducibility and
+convenience, but none is needed as an oracle or as a logical premise of the result.
 
 \begingroup
 \small
