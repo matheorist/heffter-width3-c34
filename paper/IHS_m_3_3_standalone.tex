@@ -148,17 +148,17 @@ Xinxiang 453007, P.~R.~China\\
 \maketitle
 
 \begin{abstract}
-We completely determine two fixed slices of the width-three integer Heffter array set problem.
-An $\IHS(m,3;3)$ exists for every $m\equiv3\pmod4$ with $\gcd(m,3)=1$, and an
-$\IHS(m,3;4)$ exists for every odd $m\ge5$ with $\gcd(m,3)=1$. The construction starts from
-a closed formula for centre-complementary $3\times(2n+1)$ Kotzig arrays. A bounded lift of
-their positive half-columns supplies zero-sum rows; periodic offset words correct the support,
-and finite boundary and orientation certificates enforce exact coverage and zero column sums.
-The bulk rules have periods $24$ and $48$ for $c=3$ and $c=4$, respectively. The finitely many
-preperiod parameters are handled by explicit certificates included in the manuscript and the
-accompanying repository. Thus the infinite families reduce to finite affine endpoint and
-signed-sum checks; the verification programs only decode and check the printed data. No claim
-is made here for $c\ge5$.
+We completely solve two admissible fixed slices of the width-three integer Heffter array set
+problem. The first theorem proves that $\IHS(m,3;3)$ exists for every
+$m\equiv3\pmod4$ with $\gcd(m,3)=1$; the second proves that $\IHS(m,3;4)$ exists for every
+odd $m\ge5$ with $\gcd(m,3)=1$. Both results are instances of one
+certificate--transport principle. A centre-complementary $3\times(2n+1)$ Kotzig array gives
+the zero-sum rows, periodic offset words give an exact support partition, and finite boundary
+and orientation certificates transport these identities through the whole admissible parameter
+range. The transports have periods $24$ and $48$ for $c=3$ and $c=4$, respectively; all
+preperiod states are listed in the appendices and released in the accompanying repository.
+The proof is finite and deterministic: the verification programs decode and check the displayed
+certificates, but are not logical premises. No claim is made here for $c\ge5$.
 \end{abstract}
 
 \noindent\textbf{Keywords:} integer Heffter array; Heffter array set; Skolem sequence; Kotzig array;
@@ -220,14 +220,16 @@ For every integer $m\ge3$ with $m\equiv3\pmod4$ and $\gcd(m,3)=1$, an $\IHS(m,3;
 Together with the tight case $c=1$ of~\cite{ABD2017}, Theorem~\ref{thm:main} settles the $c=1$
 and $c=3$ slices of Problem~\ref{prob:1}. Its construction is based on the closed formula for
 the centre-complementary Kotzig arrays of Zhou, Li, Zhang and Su~\cite{Zhou2018DM}. Theorem
-~\ref{thm:c4full} below settles the next admissible slice, $c=4$. Both proofs use the same
-reduction into a support partition, a grouping step, and an orientation certificate, but the
-periodic data and boundary states differ between the two slices.
+~\ref{thm:c4full} below settles the next admissible slice, $c=4$. These are two complete
+fixed-slice theorems, proved by the same certificate--transport architecture: a support
+certificate partitions the required interval into sum-triples, a grouping rule assigns the
+triples to arrays, and an orientation certificate enforces the three column sums. The periodic
+bulk is transported through all admissible parameters (with periods $24$ and $48$), while a
+finite set of boundary states closes the preperiod.
 
-The results are fixed-slice theorems, not a solution for arbitrary $c$. In particular, no claim is
-made here for $c\ge5$; the concluding section describes which parts of the certificate method may
-be useful for those cases. The displayed finite data, together with the three certificate source
-files listed in the data-availability paragraph, make the two constructions independently checkable.
+The results do not solve Problem~\ref{prob:1} for arbitrary $c$; in particular, no claim is made
+here for $c\ge5$. The complete finite data are retained in the appendices and in the public
+repository, so both fixed-slice transports are independently checkable.
 
 \paragraph{Notation.}
 $[1,N]=\{1,\dots,N\}$. A \emph{sum-triple} is a set $\{x,y,x+y\}$ of three distinct positive integers.
@@ -373,7 +375,7 @@ completed by three bounded boundary tables (for $j\le20$, $|j-\kappa|\le20$, $j\
 residue of $n$ modulo $48$.  The class $n\equiv21\pmod{24}$ uses phases $(10,13)$ and the rotated
 words $\widehat W_1[p]=W_1[p+16\bmod24]$, $\widehat W_2[p]=W_2[p+13\bmod24]$.
 The two master words and all four boundary-table sets are printed in
-Section~\ref{sec:offset-data}. For every admissible $n\ge369$, the resulting corrected rows partition
+Appendix~\ref{sec:offset-data}. For every admissible $n\ge369$, the resulting corrected rows partition
 $[1,3n]$ into $n$ sum-triples.
 \end{lemma}
 \begin{proof}
@@ -389,7 +391,7 @@ progression with difference $72$.
 Fix a residue $u\in[1,72]$ and consider the values congruent to $u$ modulo $72$, after subtracting
 $u$ and dividing by $72$. The bulk progressions and the boundary singletons become integer intervals
 whose endpoints are affine in $Q$. Substitution of the two word pairs and four boundary-table sets printed in
-Section~\ref{sec:offset-data} gives, in each admissible state and for every $u$, consecutive
+Appendix~\ref{sec:offset-data} gives, in each admissible state and for every $u$, consecutive
 intervals beginning at $0$ and ending at
 \[
   12Q+\left\lfloor\frac{3n_0-u}{72}\right\rfloor,
@@ -427,13 +429,13 @@ bounded windows at $1,m,\kappa,n$, after subdivision by $j\bmod24$. There are $2
 one for each of the eight admissible residues of $n$ modulo $144$ and each of the three groups.
 Each printed pattern represents two of the $48$ admissible states in the proof below, and fixes the
 signs of both chains $\{c_j\}$ and $\{b_j-a_j\}$. The complete patterns are in
-Section~\ref{sec:orientation-data}.
+Appendix~\ref{sec:orientation-data}.
 \end{lemma}
 \begin{proof}
 By Lemma~\ref{lem:exact}, it suffices to exhibit, for each group, a mode assignment making both
 chains signable. The decoupled certificate of Corollary~\ref{cor:cert} uses mode $c$ in every row
 except for the possible parity-switching row. The complete $24$ patterns are printed in
-Section~\ref{sec:orientation-data}. To certify the infinite tail, write
+Appendix~\ref{sec:orientation-data}. To certify the infinite tail, write
 $n=e+24(\tau+12Q)$ with $e\in\{9,21\}$, $15\le\tau\le26$, and $Q\ge0$.  The coprimality restriction
 leaves $16\cdot3=48$ admissible group states. The stored pattern indexed by
 $s=15+((\tau-15)\bmod6)$ is used for both $\tau=s$ and $\tau=s+6$, which explains why the
@@ -454,9 +456,9 @@ The same offset and orientation rules produce an $\IHS(m,3;3)$ for every
 \begin{proof}
 For $m\ge67$ the four orientation windows at $1,m,\kappa,n$ are disjoint. In particular,
 $\kappa-m=(m+1)/2\ge34>12+20$. Hence the category rule in
-Section~\ref{sec:orientation-data} applies without overlap. For every $m\in\mathcal B$, substitute
+Appendix~\ref{sec:orientation-data} applies without overlap. For every $m\in\mathcal B$, substitute
 $n=3m$ in the offset words and select the stored orientation row prescribed there. The ten resulting
-checks are printed in Section~\ref{sec:bridge-data}: the absolute-value set has minimum $1$, maximum
+checks are printed in Appendix~\ref{sec:bridge-data}: the absolute-value set has minimum $1$, maximum
 $9m$, and cardinality $9m$, while all three column-sum vectors are zero. Row sums are zero by the
 construction, so these data prove the assertion.
 \end{proof}
@@ -503,10 +505,9 @@ For $m<67$, the admissible values are
 \[
  7,11,19,23,31,35,43,47,55,59.
 \]
-Complete signed arrays are displayed below for $m=7$. Section~\ref{sec:small-data} gives three
-exceptional support words for $m=11,19,23$ and six
-preperiod orientation certificates for $m=31,35,43,47,55,59$; the latter six already use the uniform
-support rule.
+Complete signed arrays are displayed below for $m=7$. Appendix~\ref{sec:small-data} gives three
+exceptional support words for $m=11,19,23$ and six preperiod orientation certificates for the
+remaining values $m=31,35,43,47,55,59$. These six cases already use the uniform support rule.
 Lemma~\ref{lem:bridge} handles the ten admissible values from $67$ to $119$. For every remaining
 admissible $m>119$ (the first is $127$),
 Lemma~\ref{lem:rule} gives the exact sum-triple partition of $[1,3n]$. Grouping by $j\bmod3$ and
@@ -534,10 +535,6 @@ supports partition $[1,9m]$.
 \noindent
 Each row sums to $0$, each array's three column sums are $0$, and the union of the absolute-value
 supports of the three arrays is exactly $[1,63]$.
-
-\input{c3_finite_certificate_body.tex}
-
-\input{c3_exceptional_constructions_body.tex}
 
 \section{The complete \texorpdfstring{$c=4$}{c=4} slice}\label{sec:c4full}
 
@@ -567,7 +564,7 @@ R_j=(3a_{-1,j}+d_{-1}(j),\ 3j+d_0(j),\ 3a_{1,j}+d_1(j)).
 \end{equation}
 Here $1\le j\le n$, and $d(j)=(d_{-1}(j),d_0(j),d_1(j))\in\{-2,-1,0,1,2\}^3$
 has coordinate sum zero.
-For $\rho=m\bmod12\in\{1,5,7,11\}$, Section~\ref{sec:c4-support-data} prints the two period-$48$
+For $\rho=m\bmod12\in\{1,5,7,11\}$, Appendix~\ref{sec:c4-support-data} prints the two period-$48$
 words, the affine phase law and both boundary-table sets. Group rows by $j-1\bmod4$.
 
 \begin{theorem}[the full $c=4$ slice]\label{thm:c4full}
@@ -595,18 +592,18 @@ identities, and the support is exactly $[1,3n]$ for every $Q\ge0$.  The same sub
 that the sorted absolute values in every row satisfy $a+b=c$.  No search output is used in this
 implication.
 
-For balance, Section~\ref{sec:c4-balance-data} prints one mode-and-two-sign row for each of the
+For balance, Appendix~\ref{sec:c4-balance-data} prints one mode-and-two-sign row for each of the
 $4\cdot12\cdot4=192$ group states.  On the stated periodic range, each signed category total is a
 polynomial in $Q$ of degree at most two.  The printed signs give zero at $Q=1,\ldots,6$, and the
 corresponding $Q=0$ totals are checked separately; hence seven zeros force both independent totals
 to vanish identically.  Lemma~\ref{lem:exact} converts these two sign identities into zero column
 sums.  The periodic ranges start at $m=25,29,31,23$ in the four residue classes.  The only smaller
-admissible values are $5,7,11,13,17,19$, and Section~\ref{sec:c4-small-data} gives complete compact
+admissible values are $5,7,11,13,17,19$, and Appendix~\ref{sec:c4-small-data} gives complete compact
 constructions for all six.  This covers every admissible $m$.
 \end{proof}
 
 \begin{center}
-\emph{Example} ($m=7$). The compact data in Section~\ref{sec:c4-small-data} decode to
+\emph{Example} ($m=7$). The compact data in Appendix~\ref{sec:c4-small-data} decode to
 {\footnotesize
 \[
 \setlength{\arraycolsep}{2.5pt}
@@ -630,8 +627,6 @@ constructions for all six.  This covers every admissible $m$.
 
 Every row and column in this example sums to zero, and the four arrays have absolute-value supports
 whose union is $[1,84]$.
-
-\input{c4_compact_certificate_body.tex}
 
 \section{Concluding remarks}\label{sec:remarks}
 
@@ -660,10 +655,10 @@ orientation certificates, together with a proof that their boundary states close
 
 \paragraph{Code and data availability.}
 The manuscript prints the complete finite data used in both theorems.  For $c=3$,
-Section~\ref{sec:certificates} gives the two master offset words, their rotation rule,
+Appendix~\ref{sec:certificates} gives the two master offset words, their rotation rule,
 the boundary tables, the $24$ orientation patterns, and the ten-case finite bridge;
-Section~\ref{sec:small-data} gives the exceptional supports and preperiod orientations.
-For $c=4$, Section~\ref{sec:c4-data} gives the four period-$48$ support rules, the
+Appendix~\ref{sec:small-data} gives the exceptional supports and preperiod orientations.
+For $c=4$, Appendix~\ref{sec:c4-data} gives the four period-$48$ support rules, the
 $192$ balance rows, and the six bounded seed constructions.  Thus the arguments can be
 checked from the printed manuscript and the accompanying source package without treating
 any program as an oracle.  The public repository at
@@ -672,6 +667,16 @@ machine-readable certificates, and verification scripts.  The deterministic chec
 decode the offset strings, reconstruct and sort each lifted row, verify the sum-triple and
 support conditions, and then decode the sign strings and check the two signed totals in
 each group.
+
+\clearpage
+\appendix
+\section*{Certificate data}
+For readability, the main text records the finite-state rules and their proofs, while the
+complete offset words, boundary tables, orientation strings, and compact seed certificates are
+collected in the appendices below and in the public repository.
+\input{c3_finite_certificate_body.tex}
+\input{c3_exceptional_constructions_body.tex}
+\input{c4_compact_certificate_body.tex}
 
 \section*{Funding}
 \begingroup
