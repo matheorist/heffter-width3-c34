@@ -174,7 +174,7 @@ groups~\cite{CostaMoriniPasottiPellegrini2018}, integer relative arrays~\cite{Mo
 rectangular arrays~\cite{MoriniPellegrini2022}, and the recently introduced Heffter spaces
 ~\cite{BurattiPasotti2024,BurattiPasotti2025}.
 
-\begin{definition}[integer Heffter array \cite{Arch2015}]
+\begin{definition}
 An integer Heffter array $\Hm(m,n;s,k)$ is an $m\times n$ partially filled array, with entries from
 $\{\pm1,\pm2,\dots,\pm nk\}\subset\Z$, such that each row has exactly $s$ filled cells and each column
 exactly $k$; the absolute values of the entries are pairwise distinct; and every row sum and column sum
@@ -187,7 +187,7 @@ asserts that these conditions are sufficient. In the coprime odd-width regime, P
 Traetta~\cite{PT2025} introduced integer Heffter array sets, and Morini and Pellegrini~\cite{MP2025}
 reduced the remaining cases to two short-width problems.
 
-\begin{definition}[integer Heffter array set \cite{PT2025}]
+\begin{definition}
 An $\IHS(m,n;c)$ is a set of $c$ arrays of size $m\times n$ whose union has $mnc$ entries with
 pairwise distinct absolute values, collectively equal to $[1,mnc]$. Every row and every column of each
 array has sum zero.
@@ -197,7 +197,7 @@ When $s$ and $k$ are coprime, write $m=ck$ and $n=cs$. In this notation, an $\IH
 assembles an $\Hm(ck,cs;s,k)$ \cite[proof of Theorem~C]{MP2025}. The remaining short-width
 cases therefore have $k=3$ or $k=5$. We study the width-three case:
 
-\begin{problem}[{\cite[Problem~1]{MP2025}}]\label{prob:1}
+\begin{problem}\label{prob:1}
 For every $c\ge1$ and every odd $m\ge3$ with $\gcd(m,3)=1$ and $mc\equiv0,1\pmod4$, construct an
 $\IHS(m,3;c)$.
 \end{problem}
@@ -238,7 +238,7 @@ even and half of it is a subset sum).
 
 \section{Reduction to sum-triples and balanceability}\label{sec:reduction}
 
-\begin{proposition}[width-three reduction]\label{prop:red}
+\begin{proposition}\label{prop:red}
 Let $m\ge3$, $c\ge1$, $N=mc$. An $\IHS(m,3;c)$ exists if and only if
 \textup{(i)} $[1,3N]$ can be partitioned into $N$ sum-triples, and
 \textup{(ii)} these $N$ triples can be split into $c$ groups of $m$, each \emph{orientable} (for each
@@ -253,7 +253,7 @@ the signs $(x,y,-(x+y))$. The zero column sums are exactly the orientation condi
 the $c$ arrays together cover $[1,3N]$ precisely when the triples form the partition in (i).
 \end{proof}
 
-\begin{proposition}[Skolem partition]\label{prop:skolem}
+\begin{proposition}\label{prop:skolem}
 The interval $[1,3N]$ can be partitioned into $N$ sum-triples if and only if
 $N\equiv0,1\pmod4$.
 \end{proposition}
@@ -280,7 +280,7 @@ that to $C_1{-}C_2$,
 (\mathrm m{=}b):\ \mu=b,\ |w|=a+c.
 \]
 
-\begin{lemma}[exact characterisation of balancing]\label{lem:exact}
+\begin{lemma}\label{lem:exact}
 A group of sum-triples can be oriented to zero column sums if and only if it has a mode assignment
 $(\mathrm m_i)_i$ for which both multisets $\{\mu_i\}_i$ and $\{|w_i|\}_i$ are signable.
 \end{lemma}
@@ -302,7 +302,7 @@ $|w_i|$. Thus $C_1=C_2=0$ if and only if both associated multisets are signable.
 overall signs, and interchanges exhaust all zero-sum orientations of the rows.
 \end{proof}
 
-\begin{corollary}[balance certificate]\label{cor:cert}
+\begin{corollary}\label{cor:cert}
 A group is balanceable if and only if it admits a mode assignment $(\mathrm m_i)_i$ and subsets $U,V$ of indices
 with $\sum_{i\in U}\mu_i=\sum_{i\notin U}\mu_i$ and $\sum_{i\in V}|w_i|=\sum_{i\notin V}|w_i|$; the
 orientation is then read off constructively.
@@ -328,7 +328,7 @@ $j\in[1,n]$,
 \end{cases}
 \end{equation}
 
-\begin{proposition}[half-column lift]\label{prop:lift}
+\begin{proposition}\label{prop:lift}
 Let $n$ be odd. For $j\in[1,n]$ set
 $R_j=\bigl(3a_{-1,j}-1,\ 3j,\ 3a_{1,j}+1\bigr)$. Then each $R_j$ is a zero-sum row whose absolute
 values form a sum-triple, the $3n$ absolute values are pairwise distinct, and their union is
@@ -359,7 +359,7 @@ cascade between adjacent blocks while preserving every row sum.
 
 \subsection{The uniform correction rule}\label{sec:rule}
 
-\begin{lemma}[deterministic correction]\label{lem:rule}
+\begin{lemma}\label{lem:rule}
 Let $n=3m\ge369$, where $m\equiv3\pmod4$ and $\gcd(m,3)=1$. Define an explicit offset assignment
 $\delta:[1,n]\to\{-2,\dots,2\}^3$, with coordinate sum zero at every index, by the following
 period-$24$ rule. For the class
@@ -419,7 +419,7 @@ $T_1,\dots,T_n$, where $n=3m$. Group them by their index modulo $3$:
 $G_r=\{T_j:j\equiv r\pmod3\}$ for $r=0,1,2$. Each group contains exactly $m$ triples and will
 become one $m\times3$ array.
 
-\begin{lemma}[periodic orientation]\label{lem:orient}
+\begin{lemma}\label{lem:orient}
 Each group $G_r$ is balanceable by an explicit rule. Orient $T_j$ in the decoupled form of
 Corollary~\ref{cor:cert}: the sum element $c_j$ occupies the third column with sign
 $\varepsilon_j$, while a sign $\eta_j$ determines the order of the two summands in the first two
@@ -447,7 +447,7 @@ by each stored row. Each signed total is therefore the zero polynomial. This is 
 certificate, not an assumption about the output of a search program.
 \end{proof}
 
-\begin{lemma}[finite bridge]\label{lem:bridge}
+\begin{lemma}\label{lem:bridge}
 The same offset and orientation rules produce an $\IHS(m,3;3)$ for every
 \[
 \mathcal B=\{67,71,79,83,91,95,103,107,115,119\}.
@@ -463,7 +463,7 @@ $9m$, and cardinality $9m$, while all three column-sum vectors are zero. Row sum
 construction, so these data prove the assertion.
 \end{proof}
 
-\begin{proposition}[alternating transport of the canonical form]\label{prop:mtransport}
+\begin{proposition}\label{prop:mtransport}
 Let $m\ge67$ be admissible and put
 \[
  d(m)=\begin{cases}4,&m\equiv1\pmod3,\\8,&m\equiv2\pmod3.\end{cases}
@@ -546,7 +546,7 @@ has period $48$, four residue classes, and a finite certificate with $48$ suppor
 $192$ balance states.  Define $a_{i,j}$ by the same Kotzig formula~\eqref{eq:kotzig}, now with
 $n=4m$, $r=2n+1$, $i\in\{-1,0,1\}$ and $j\in[-n,n]$, and put $\kappa=n/2$.
 
-\begin{lemma}[even-$n$ Kotzig array]\label{lem:even-kotzig}
+\begin{lemma}\label{lem:even-kotzig}
 For even $n$, formula~\eqref{eq:kotzig} is integer-valued and defines a $3\times(2n+1)$
 array whose three rows are permutations of $[-n,n]$, whose columns sum to zero, and which satisfies
 $a_{-i,-j}=-a_{i,j}$.
@@ -570,7 +570,7 @@ has coordinate sum zero.
 For $\rho=m\bmod12\in\{1,5,7,11\}$, Section~\ref{sec:c4-support-data} prints the two period-$48$
 words, the affine phase law and both boundary-table sets. Group rows by $j-1\bmod4$.
 
-\begin{theorem}[the full $c=4$ slice]\label{thm:c4full}
+\begin{theorem}\label{thm:c4full}
 For every odd $m\ge5$ with $\gcd(m,3)=1$, an $\IHS(m,3;4)$ exists.
 \end{theorem}
 \begin{proof}
