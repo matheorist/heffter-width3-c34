@@ -7,7 +7,8 @@ It contains only the reproducibility material for the complete fixed slices
 
 ## Contents
 
-- `paper/`: the standalone LaTeX source and the three finite-certificate source files;
+- `paper/`: the standalone LaTeX source, the c=3 certificate files, the c=4 support/seed
+  certificate, and the appendix containing the 192 c=4 balance patterns;
 - `code/c3/`: the period-24 support and balance rules, JSON certificates, and c=3 verifiers;
 - `code/c4/`: the period-48 support and balance rules, finite seeds, and c=4 verifiers.
 
@@ -52,7 +53,9 @@ by `generate_c3_all.py`.  The c=4 balance prover is an optional solver-backed re
 it may return a different valid sign certificate, depending on solver version and search settings,
 whereas `verify_c4_balance_patterns.py` checks the canonical JSON shipped in this repository.
 None of these programs is used as a logical oracle in the manuscript: the finite words, tables,
-sign patterns, and seed certificates are included explicitly in the paper source package.
+sign patterns, and seed certificates are included explicitly in the paper source package.  The
+long 192-row c=4 balance table is printed in the appendix, while the other certificate data are
+kept in the main text.
 
 The environment used for the checked release was Python 3.12, OR-Tools 9.15.6755, and
 python-sat 1.9.dev5.  Other compatible versions may also work, but can produce a different valid
@@ -61,4 +64,4 @@ solver certificate.
 ## Paper compilation
 
 Open `paper/IHS_m_3_3_standalone.tex` in a LaTeX environment and compile it with BibTeX in the
-usual sequence. The three `\\input{...}` files must remain in the same `paper/` directory.
+usual sequence. The four `\\input{...}` files must remain in the same `paper/` directory.

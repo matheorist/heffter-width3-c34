@@ -1,0 +1,183 @@
+\section{Explicit finite data for the complete \texorpdfstring{$c=4$}{c=4} slice}\label{sec:c4-data}
+This section prints a compressed, complete finite certificate for
+Theorem~\ref{thm:c4full}.  A reader can reconstruct every row by decoding an offset
+word, applying the corrected lift, sorting the three absolute values, and then decoding
+the mode and sign strings.  The accompanying programs only regenerate and check the
+printed data; they are not an oracle or a logical premise of the theorem.
+
+\subsection{The four period-48 support rules}\label{sec:c4-support-data}
+The zero-sum offset vectors occurring in the periodic rules are encoded as follows.
+\begingroup\scriptsize\[
+\begin{array}{c|ccccccc}
+\text{symbol}&0&1&2&3&4&5&6\\\hline
+\delta&(-2,0,2)&(-1,-1,2)&(-1,0,1)&(0,-2,2)&(0,-1,1)&(0,0,0)&(1,-2,1)\\
+\end{array}\]\endgroup
+\begingroup\scriptsize\[
+\begin{array}{c|ccccc}
+\text{symbol}&7&8&9&A&B\\\hline
+\delta&(1,-1,0)&(1,0,-1)&(2,-2,0)&(2,-1,-1)&(2,0,-2)\\
+\end{array}\]\endgroup
+Every listed symbol has coordinate sum zero and lies in
+$\{-2,-1,0,1,2\}^3$.
+For $\rho\in\{1,5,7,11\}$ and $s\ge0$, put $m=m_\rho+12s$.  The phase used at step $s$
+is $(\phi_1+16s,\phi_2+16s)$ modulo $48$.  The parameter and bulk words are
+listed below; a word is indexed from $0$.
+\[\begin{array}{c|c|c}
+\rho&m_\rho&(\phi_1,\phi_2)\\\hline
+1&25&(8,20)\\
+5&29&(16,16)\\
+7&31&(16,16)\\
+11&23&(0,0)\\
+\end{array}\]
+\begingroup\scriptsize
+\begin{longtable}{c@{\quad}c@{\quad}l}
+\hline $\rho$&\text{word}&\text{offset string}\\\hline\endfirsthead
+\hline $\rho$&\text{word}&\text{offset string}\\\hline\endhead
+1&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
+1&$W_{2}$&\texttt{9B433343654333469B433343654333469B43334365433346}\\
+5&$W_{1}$&\texttt{53469A695343679953469A695343679953469A6953436799}\\
+5&$W_{2}$&\texttt{33469B433343654333469B433343654333469B4333436543}\\
+7&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
+7&$W_{2}$&\texttt{3343654333469B433343654333469B433343654333469B43}\\
+11&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
+11&$W_{2}$&\texttt{3343654333469B433343654333469B433343654333469B43}\\
+\hline\end{longtable}\endgroup
+Put $n=4m$ and $\kappa=n/2$.  In the two bulk zones use
+\[
+\begin{aligned}
+\delta(j)&=W_1[(j-\phi_1-16s)\bmod48]&& (21\le j\le\kappa-21),\\
+\delta(j)&=W_2[(j-\phi_2-16s)\bmod48]&& (\kappa+21\le j\le n-21).
+\end{aligned}
+\]
+On $L=[1,20]$, $M=[\kappa-20,\kappa+20]$ and $T=[n-20,n]$ use
+the following strings, according to $s\bmod2$; indices increase from left to right.
+Thus the three boundary strings have lengths $20$, $41$, and $21$, respectively;
+the middle-window index $q$ is relative to $\kappa$.
+\begingroup\scriptsize
+\begin{longtable}{c@{\,}c@{\,}c@{\quad}c@{\quad}l}
+\hline $\rho$&$s\bmod2$&\text{window}&\text{indices}&\text{offset string}\\\hline\endfirsthead
+\hline $\rho$&$s\bmod2$&\text{window}&\text{indices}&\text{offset string}\\\hline\endhead
+1&0&L&1:20&\texttt{95679979943679953469}\\
+1&0&M&-20:20&\texttt{9953469A695343679997779A653343654333469B4}\\
+1&0&T&-20:0&\texttt{334695436943336513469}\\
+1&1&L&1:20&\texttt{56543334613679953469}\\
+1&1&M&-20:20&\texttt{6953436799534698343343679533469B433343654}\\
+1&1&T&-20:0&\texttt{334695469943336B43236}\\
+5&0&L&1:20&\texttt{56543336944679953469}\\
+5&0&M&-20:20&\texttt{695343679953469A443343679533469B433343654}\\
+5&0&T&-20:0&\texttt{367995433343431634236}\\
+5&1&L&1:20&\texttt{5679997977A679953469}\\
+5&1&M&-20:20&\texttt{9953469A695343654333469A695343654333469B4}\\
+5&1&T&-20:0&\texttt{6979654336975343699A7}\\
+7&0&L&1:20&\texttt{503434333469A6953436}\\
+7&0&M&-20:20&\texttt{469A6953436799534698343343654333469B43334}\\
+7&0&T&-20:0&\texttt{334695433346334603236}\\
+7&1&L&1:20&\texttt{797334695369A6953436}\\
+7&1&M&-20:20&\texttt{43679953469A695343469953679B4333436543334}\\
+7&1&T&-20:0&\texttt{331365433344334346997}\\
+11&0&L&1:20&\texttt{79779979979973303436}\\
+11&0&M&-20:20&\texttt{469A695343675333469A699797754333469B43334}\\
+11&0&T&-20:0&\texttt{334695436943336546997}\\
+11&1&L&1:20&\texttt{797973433469A6953436}\\
+11&1&M&-20:20&\texttt{43679953469A695343469995469B4333436543334}\\
+11&1&T&-20:0&\texttt{334695436943369546997}\\
+\hline\end{longtable}\endgroup
+For a finite support check, write uniquely $s=s_0+12Q$, where
+$s_0\in\{0,\ldots,11\}$ and $Q\ge0$, and put
+$m_0=m_\rho+12s_0$ and $n_0=4m_0$, so that $n=n_0+576Q$.
+There are $4\cdot12=48$ states $(\rho,s_0)$.  In a bulk word write
+$j=j_0+48h$.
+After fixing the sign of each lifted coordinate, every absolute value is affine in $(Q,h)$
+with $h$-coefficient $\pm72$ or $\pm144$.  Splitting the $72$-families by $h\bmod2$
+gives progressions of difference $144$.  For each residue modulo $144$, substitution of
+the printed words and boundary strings gives adjacent quotient intervals beginning at $0$
+and ending at $12Q+\lfloor(3n_0-u)/144\rfloor$, for
+$u\in\{1,\ldots,144\}$.  Hence the lifted absolute values
+are exactly $[1,3n]$ in all $48$ states.
+\subsection{The 192 balance patterns}\label{sec:c4-balance-data}
+The complete $192=4\cdot12\cdot4$ mode-and-sign rows are collected in
+Appendix~\ref{sec:c4-balance-data-appendix}.  The main proof uses only the finite-state
+specification and the polynomial-in-$Q$ identity verified by those rows; the full hexadecimal
+strings are placed in the appendix to keep the main text readable.
+\subsection{The six bounded constructions}\label{sec:c4-small-data}
+For $m\in\{5,7,11,13,17,19\}$ the following compact data reconstruct every signed entry.
+For each such $m$, they produce four groups of $m$ rows, hence four $m\times3$ arrays.
+The radius-two offset alphabet is
+\begingroup\scriptsize\[
+\begin{array}{c|ccccccc}
+\text{symbol}&0&1&2&3&4&5&6\\\hline
+\delta&(-2,0,2)&(-2,1,1)&(-2,2,0)&(-1,-1,2)&(-1,0,1)&(-1,1,0)&(-1,2,-1)\\
+\end{array}\]\endgroup
+\begingroup\scriptsize\[
+\begin{array}{c|ccccccc}
+\text{symbol}&7&8&9&A&B&C&D\\\hline
+\delta&(0,-2,2)&(0,-1,1)&(0,0,0)&(0,1,-1)&(0,2,-2)&(1,-2,1)&(1,-1,0)\\
+\end{array}\]\endgroup
+\begingroup\scriptsize\[
+\begin{array}{c|ccccc}
+\text{symbol}&E&F&G&H&I\\\hline
+\delta&(1,0,-1)&(1,1,-2)&(2,-2,0)&(2,-1,-1)&(2,0,-2)\\
+\end{array}\]\endgroup
+Every vector in this radius-two alphabet has coordinate sum zero and entries in
+$\{-2,-1,0,1,2\}$.  Each displayed word has length exactly $4m$ and gives
+$\delta_1,\ldots,\delta_{4m}$ in the corrected Kotzig lift.
+\begingroup\scriptsize
+\begin{longtable}{c@{\quad}l}
+\hline $m$&\text{offset word}\\\hline\endfirsthead\hline $m$&\text{offset word}\\\hline\endhead
+5&\texttt{D37CDDDD9C9CGGGGDDG4}\\
+7&\texttt{G9C97CEDGD98738CGGDGHCDGIGD0}\\
+11&\texttt{G9707478CGGD9CDDDGE9C788777877CGIGDGHCDGIGD0}\\
+13&\texttt{GGDGDDGGB778CGDGD77CD978CGDGGDD777IGGGGGD988887CGGD0}\\
+17&\texttt{DGDDDDG2CGG87CGDDDA8CDDD988874DDD7C7CDG978777CGGGG94GDG8788CD9C7C973}\\
+19&\texttt{D58CG9CDGCGCDGG9CGDGDDGDA4DDGCDGDDDD987CDG907877787C9777777878CGHDDGGGD7H983}\\
+\hline\end{longtable}\endgroup
+Let $T_j=\{a_j,b_j,c_j\}$, $a_j<b_j<c_j=a_j+b_j$, be the sorted triple
+obtained from the word, and order group $r$ as $T_{4t+r+1}$ for
+$t=0,\ldots,m-1$ and $r=0,\ldots,3$.
+For mode $c,a,b$, respectively, put
+\[
+(\mu_t,\nu_t,x_t)=(c_t,b_t-a_t,c_t),\quad(a_t,b_t+c_t,a_t),\quad(b_t,a_t+c_t,b_t).
+\]
+Decode $E,H$ as binary words, retaining leading zeroes and the first $m$ bits,
+to obtain signs $\varepsilon_t,\eta_t$ in the above row order, and set
+\begin{equation}\label{eq:c4-small-row}
+R_{r,t}=\left((\varepsilon_t\mu_t+\eta_t\nu_t)/2,
+(\varepsilon_t\mu_t-\eta_t\nu_t)/2,-\varepsilon_t x_t\right).
+\end{equation}
+The switch column lists the nondefault modes; ``--'' means all modes are $c$.
+In all three modes one has $x_t=\mu_t$, so each row has sum zero and the
+third-column identity follows from the first signed chain in Lemma~\ref{lem:exact}.
+\begingroup\scriptsize
+\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
+\begin{longtable}{@{\extracolsep{\fill}}c@{\quad}c@{\quad}l@{\quad}l@{\quad}l@{}}
+\hline $m$&$r$&\text{switches}&$E$&$H$\\\hline\endfirsthead
+\hline $m$&$r$&\text{switches}&$E$&$H$\\\hline\endhead
+5&0&$2:b,4:a$&\texttt{C8}&\texttt{48}\\
+5&1&$1:a,2:a,4:b$&\texttt{88}&\texttt{48}\\
+5&2&$2:b$&\texttt{18}&\texttt{18}\\
+5&3&$1:a,2:a,3:a,4:b$&\texttt{18}&\texttt{18}\\
+7&0&$3:a,4:a,5:b$&\texttt{16}&\texttt{C6}\\
+7&1&$2:a,3:a,4:a,5:a,6:b$&\texttt{1E}&\texttt{72}\\
+7&2&$2:a,4:b,5:a,6:b$&\texttt{66}&\texttt{DA}\\
+7&3&$4:b,5:b,6:a$&\texttt{8E}&\texttt{32}\\
+11&0&--&\texttt{436}&\texttt{0DA}\\
+11&1&--&\texttt{82E}&\texttt{116}\\
+11&2&$3:b$&\texttt{60E}&\texttt{2BA}\\
+11&3&$2:b$&\texttt{21E}&\texttt{89A}\\
+13&0&$0:b$&\texttt{8878}&\texttt{3058}\\
+13&1&--&\texttt{48B8}&\texttt{0A38}\\
+13&2&$0:a$&\texttt{BA18}&\texttt{0D38}\\
+13&3&$2:b$&\texttt{2478}&\texttt{4C38}\\
+17&0&--&\texttt{C20F8}&\texttt{14078}\\
+17&1&$0:a$&\texttt{81578}&\texttt{34078}\\
+17&2&$0:a$&\texttt{80E78}&\texttt{12338}\\
+17&3&$0:a$&\texttt{021F8}&\texttt{02478}\\
+19&0&$1:b$&\texttt{6185E}&\texttt{0505E}\\
+19&1&--&\texttt{D013E}&\texttt{02D8E}\\
+19&2&--&\texttt{3603E}&\texttt{8C02E}\\
+19&3&--&\texttt{5903E}&\texttt{0511E}\\
+\hline\end{longtable}\endgroup
+For every displayed row, decoding gives $\sum\varepsilon_t\mu_t=0$ and
+$\sum\eta_t\nu_t=0$.  Formula~\eqref{eq:c4-small-row} therefore has zero row and
+column sums, while the support words give each absolute value in $[1,12m]$ exactly once.
+
