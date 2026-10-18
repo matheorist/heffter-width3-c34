@@ -1,10 +1,11 @@
 \section{Explicit finite data for the complete \texorpdfstring{$c=3$}{c=3} slice}\label{sec:certificates}
-This appendix prints every finite witness used by the periodic construction and the finite bridge.
+This section prints every finite witness used by the periodic construction and the finite bridge.
 Thus those parts of the existence proof are logically independent of the accompanying programs:
 the programs merely regenerate and check the data below.  All strings are read from left to right.
 Throughout this section \(n=3m\), \(\kappa=(n+1)/2\), and all phases are taken modulo \(24\).
-The symbols \(L\), \(M\), and \(U\) in the boundary table refer to the lower endpoint,
-the \(\kappa\)-window, and the upper endpoint, respectively.  The bulk blocks are denoted
+The boundary labels \(L,K,T\) denote the windows at \(1,\kappa,n\), respectively.
+The orientation certificates additionally use \(M\) for the window centred at \(m\).
+The bulk blocks are denoted
 by \(B_1,B_2,B_3\).  Thus a certificate is read in three steps: decode the offset word,
 lift it with the formula in Section~\ref{sec:construction}, and then apply the displayed orientation
 and sign strings.
@@ -13,6 +14,10 @@ and sign strings.
 We encode each zero-sum offset vector by the following alphabet.  Every listed symbol belongs
 to \(\{-2,-1,0,1,2\}^3\) and has coordinate sum zero; consequently the row-sum condition
 is built into the encoding rather than checked by a separate search.
+\emph{This alphabet is local to this subsection.} It is \emph{not} the alphabet of
+Section~\ref{sec:c4-support-data}, where for instance the symbol \texttt{6} denotes
+\((1,-2,1)\) while here it denotes \((0,1,-1)\); words from the two tables must never be merged or
+compared symbol by symbol.
 \begingroup\scriptsize
 \[
 \begin{array}{c|ccccccc}
@@ -48,35 +53,26 @@ after the phases are inserted, passage between the two classes is a half-period 
 both bulk layers.
 For each boundary window, the symbols are listed in increasing order of the indicated relative
 index; no reversal of a printed word is intended.
-Here \(L,M,U\) mean the windows at \(1,\kappa,n\), respectively.
+The boundary labels agree with those in the orientation categories below.
 \[
 \begin{array}{c|c|c|l}
 n\bmod48&\text{window}&\text{indices}&\text{offset word}\\\hline
 9&L&1:20&\mathtt{AAA57AACA8A5331378AA}\\
-9&M&-20:20&\mathtt{2375331378AA537A534378A81344331347AA53443}\\
-9&U&-20:0&\mathtt{3347137A53432347AAA80}\\
+9&K&-20:20&\mathtt{2375331378AA537A534378A81344331347AA53443}\\
+9&T&-20:0&\mathtt{3347137A53432347AAA80}\\
 33&L&1:20&\mathtt{57AB88A647A5331378AA}\\
-33&M&-20:20&\mathtt{5375334378AA237A530343433344334347AA23443}\\
-33&U&-20:0&\mathtt{33431A7A53478547AAAB8}\\
+33&K&-20:20&\mathtt{5375334378AA237A530343433344334347AA23443}\\
+33&T&-20:0&\mathtt{33431A7A53478547AAAB8}\\
 21&L&1:20&\mathtt{A988AAA8AA75334378AA}\\
-21&M&-20:20&\mathtt{4378AA2375331378AAA57AA8A547AA2344331347A}\\
-21&U&-20:0&\mathtt{3343437A5343334717570}\\
+21&K&-20:20&\mathtt{4378AA2375331378AAA57AA8A547AA2344331347A}\\
+21&T&-20:0&\mathtt{3343437A5343334717570}\\
 45&L&1:20&\mathtt{A81347A5337533437833}\\
-45&M&-20:20&\mathtt{1378AA5375334378AA2375331347A53344334347A}\\
-45&U&-20:0&\mathtt{33431337534344333447A}\\
+45&K&-20:20&\mathtt{1378AA5375334378AA2375331347A53344334347A}\\
+45&T&-20:0&\mathtt{33431337534344333447A}\\
 \end{array}
 \]
-For an independent support audit, fix one of the $16$ admissible periodic states described
-below and a residue \(u\in\{1,\ldots,72\}\).  Write $n_0=e+24\tau$, so that
-$n=n_0+288Q$ with $Q\ge0$.  Decoding the two bulk words and the corresponding boundary
-table turns every family of values congruent to $u\pmod{72}$ into an integer interval
-whose endpoints are affine functions of \(Q\).  For each of the $16\times72$ state--residue
-pairs, the displayed boundary word gives the endpoint relation at \(Q=0\), while the period
-words give the same endpoint slopes for every \(Q\ge0\).  Hence the intervals remain consecutive,
-begin at \(0\), and end at
-\(12Q+\lfloor(3n_0-u)/72\rfloor\), exactly as required in
-Lemma~\ref{lem:rule}.  This is a finite comparison of printed affine expressions, not a
-computer-generated existence assertion.
+These words and boundary strings are the finite input to the affine endpoint calculation in
+Lemma~\ref{lem:rule}, with $16$ parameter states and $72$ support residues in each state.
 
 \subsection{The 24 stored orientation patterns for 48 admissible affine states}\label{sec:orientation-data}
 For a row index \(j\), let its category be
@@ -117,10 +113,8 @@ M\longleftrightarrow\mathtt{('bnd','m',q)},\quad
 K\longleftrightarrow\mathtt{('bnd','k',q)},\quad
 T\longleftrightarrow\mathtt{('bnd','top',q)}.
 \]
-The letters \(M\) and \(K\) in the category list are deliberately distinct: here \(M\) denotes
-the window centred at the integer \(m\), whereas \(K\) denotes the window centred at \(\kappa\).
-This category notation is independent of the \(L,M,U\) labels used for the offset-table display
-above; the literal labels in the sign strings are the authoritative ones for decoding.
+The boundary categories \(L,M,K,T\) refer to the windows centred at \(1,m,\kappa,n\),
+respectively; the dictionary above gives their literal decoding keys.
 Thus a switch \(K:q\) refers to the literal key \(\mathtt{('bnd','k',q)}\), while a bulk key
 has the form \(\mathtt{('bulk',z,p)}\) with \(z\in\{1,2,3\}\) and \(p\in\{0,\ldots,23\}\).
 For encoding,
@@ -165,20 +159,19 @@ e&s&r&$\ell$&\text{switch}&C&D\\\hline
 21&20&2&60&\(K:-12;a\)&\texttt{7DFE4F80069F0F0}&\texttt{EFAFF8040AA78F0}\\
 \hline
 \end{longtable}
-For direct checking, substitute the offsets from Section~\ref{sec:offset-data} in the
-closed lift formula.  For each admissible stored row, for the two values \(\tau=s,s+6\), and in each category,
-the sums of \(\mu_j\) and \(|w_j|\) are polynomials in \(Q\) of degree at most two.  The two decoded
-sign rows make their signed totals zero at \(Q=0,1,\ldots,6\) for both values of \(\tau\);
-seven zeros therefore force both polynomials to vanish identically in all \(48\) admissible states.
-This is a finite arithmetic verification, and no search or program is part of the logical implication.
+For both values $\tau=s,s+6$ represented by each stored row, the decoded signs give zero at
+$Q=0,1,\ldots,6$. Lemma~\ref{lem:orient} establishes the quadratic degree bound, so the first
+three levels suffice in all $48$ group states. The packet-sum calculation in
+Section~\ref{sec:proof} shows one complete coefficient cancellation.
 \subsection{The ten-case finite bridge}\label{sec:bridge-data}
-The periodic support rule is used from \(m\ge123\) onward.  The following ten admissible values
+The periodic support rule already applies at \(m=31\), but the periodic orientation rule cannot
+yet be used below \(m=67\), because its four windows at \(1,m,\kappa,n\) overlap there.
+The following ten admissible values
 of \(m\) bridge the remaining interval \(67\le m\le119\).  Let \(S_m\) be the set of absolute
 values produced and let
 \(C_i\) be the three-component column-sum vector of the \(i\)-th array.  Direct substitution
 in the printed rules gives the complete audit table below.  Here
-\(C_i=(C_{i,1},C_{i,2},C_{i,3})\).  Since every row sum is zero by construction,
-\(S_m\subseteq[1,9m]\); the equalities \(\min S_m=1\), \(\max S_m=9m\), and
+\(C_i=(C_{i,1},C_{i,2},C_{i,3})\).  The equalities \(\min S_m=1\), \(\max S_m=9m\), and
 \(|S_m|=9m\) show that \(S_m\) consists of \(9m\) distinct integers in an interval of
 length \(9m\), and hence \(S_m=[1,9m]\).  The last column gives \(C_i=\mathbf0\) for
 each \(i\), which is exactly the vanishing of all nine column sums.

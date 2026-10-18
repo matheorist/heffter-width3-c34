@@ -2,11 +2,14 @@
 This section prints a compressed, complete finite certificate for
 Theorem~\ref{thm:c4full}.  A reader can reconstruct every row by decoding an offset
 word, applying the corrected lift, sorting the three absolute values, and then decoding
-the mode and sign strings.  The accompanying programs only regenerate and check the
-printed data; they are not an oracle or a logical premise of the theorem.
+the mode and sign strings.
 
-\subsection{The four period-48 support rules}\label{sec:c4-support-data}
+\subsection{Two master words and the boundary rules}\label{sec:c4-support-data}
 The zero-sum offset vectors occurring in the periodic rules are encoded as follows.
+\emph{This alphabet is local to this subsection.} It differs from the alphabets of
+Sections~\ref{sec:offset-data} and~\ref{sec:c4-small-data}; for example the symbol \texttt{6}
+denotes \((1,-2,1)\) here, but \((0,1,-1)\) in Section~\ref{sec:offset-data} and
+\((-1,2,-1)\) in Section~\ref{sec:c4-small-data}.
 \begingroup\scriptsize\[
 \begin{array}{c|ccccccc}
 \text{symbol}&0&1&2&3&4&5&6\\\hline
@@ -19,36 +22,35 @@ The zero-sum offset vectors occurring in the periodic rules are encoded as follo
 \end{array}\]\endgroup
 Every listed symbol has coordinate sum zero and lies in
 $\{-2,-1,0,1,2\}^3$.
-For $\rho\in\{1,5,7,11\}$ and $s\ge0$, put $m=m_\rho+12s$.  The phase used at step $s$
-is $(\phi_1+16s,\phi_2+16s)$ modulo $48$.  The parameter and bulk words are
-listed below; a word is indexed from $0$.
-\[\begin{array}{c|c|c}
-\rho&m_\rho&(\phi_1,\phi_2)\\\hline
-1&25&(8,20)\\
-5&29&(16,16)\\
-7&31&(16,16)\\
-11&23&(0,0)\\
+For $\rho\in\{1,5,7,11\}$ and $s\ge0$, put $m=m_\rho+12s$.
+Only two $16$-letter master words are needed; each is indexed from $0$:
+\[\begin{array}{c|l}
+P_1&\texttt{5343679953469A69}\\
+P_2&\texttt{9B43334365433346}
 \end{array}\]
-\begingroup\scriptsize
-\begin{longtable}{c@{\quad}c@{\quad}l}
-\hline $\rho$&\text{word}&\text{offset string}\\\hline\endfirsthead
-\hline $\rho$&\text{word}&\text{offset string}\\\hline\endhead
-1&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
-1&$W_{2}$&\texttt{9B433343654333469B433343654333469B43334365433346}\\
-5&$W_{1}$&\texttt{53469A695343679953469A695343679953469A6953436799}\\
-5&$W_{2}$&\texttt{33469B433343654333469B433343654333469B4333436543}\\
-7&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
-7&$W_{2}$&\texttt{3343654333469B433343654333469B433343654333469B43}\\
-11&$W_{1}$&\texttt{5343679953469A695343679953469A695343679953469A69}\\
-11&$W_{2}$&\texttt{3343654333469B433343654333469B433343654333469B43}\\
-\hline\end{longtable}\endgroup
+The effective support phases $(\psi_1,\psi_2)$ are listed below. The phases
+$(\phi_1,\phi_2)$ are retained solely to index the balance categories in
+Appendix~\ref{sec:c4-balance-data-appendix}.
+\[\begin{array}{c|c|c|c}
+\rho&m_\rho&(\psi_1,\psi_2)&(\phi_1,\phi_2)\\\hline
+1&25&(8,4)&(8,20)\\
+5&29&(8,4)&(16,16)\\
+7&31&(0,12)&(16,16)\\
+11&23&(0,12)&(0,0)\\
+\end{array}\]
 Put $n=4m$ and $\kappa=n/2$.  In the two bulk zones use
 \[
 \begin{aligned}
-\delta(j)&=W_1[(j-\phi_1-16s)\bmod48]&& (21\le j\le\kappa-21),\\
-\delta(j)&=W_2[(j-\phi_2-16s)\bmod48]&& (\kappa+21\le j\le n-21).
+\delta(j)&=P_1[(j-\psi_1)\bmod16]&& (21\le j\le\kappa-21),\\
+\delta(j)&=P_2[(j-\psi_2)\bmod16]&& (\kappa+21\le j\le n-21).
 \end{aligned}
 \]
+Equivalently, define the $48$-letter words by
+$W_{\rho,i}[p]=P_i[(p+\phi_i-\psi_i)\bmod16]$ for $0\le p<48$.
+Then $W_{\rho,i}[(j-\phi_i-16s)\bmod48]=P_i[(j-\psi_i)\bmod16]$.
+Thus the $48$-position description is a refinement of the support rule, not its least period.
+It is still needed for the sign tables: positions with the same offset letter may receive
+different signs and must not be merged.
 On $L=[1,20]$, $M=[\kappa-20,\kappa+20]$ and $T=[n-20,n]$ use
 the following strings, according to $s\bmod2$; indices increase from left to right.
 Thus the three boundary strings have lengths $20$, $41$, and $21$, respectively;
@@ -82,18 +84,8 @@ the middle-window index $q$ is relative to $\kappa$.
 11&1&M&-20:20&\texttt{43679953469A695343469995469B4333436543334}\\
 11&1&T&-20:0&\texttt{334695436943369546997}\\
 \hline\end{longtable}\endgroup
-For a finite support check, write uniquely $s=s_0+12Q$, where
-$s_0\in\{0,\ldots,11\}$ and $Q\ge0$, and put
-$m_0=m_\rho+12s_0$ and $n_0=4m_0$, so that $n=n_0+576Q$.
-There are $4\cdot12=48$ states $(\rho,s_0)$.  In a bulk word write
-$j=j_0+48h$.
-After fixing the sign of each lifted coordinate, every absolute value is affine in $(Q,h)$
-with $h$-coefficient $\pm72$ or $\pm144$.  Splitting the $72$-families by $h\bmod2$
-gives progressions of difference $144$.  For each residue modulo $144$, substitution of
-the printed words and boundary strings gives adjacent quotient intervals beginning at $0$
-and ending at $12Q+\lfloor(3n_0-u)/144\rfloor$, for
-$u\in\{1,\ldots,144\}$.  Hence the lifted absolute values
-are exactly $[1,3n]$ in all $48$ states.
+The proof of Theorem~\ref{thm:c4full} applies these words and boundary strings to all $48$
+states $(\rho,s_0)$ and all $144$ support residues, including the empty base-level packets.
 \subsection{The 192 balance patterns}\label{sec:c4-balance-data}
 The complete $192=4\cdot12\cdot4$ mode-and-sign rows are collected in
 Appendix~\ref{sec:c4-balance-data-appendix}.  The main proof uses only the finite-state
@@ -102,7 +94,9 @@ strings are placed in the appendix to keep the main text readable.
 \subsection{The six bounded constructions}\label{sec:c4-small-data}
 For $m\in\{5,7,11,13,17,19\}$ the following compact data reconstruct every signed entry.
 For each such $m$, they produce four groups of $m$ rows, hence four $m\times3$ arrays.
-The radius-two offset alphabet is
+The radius-two offset alphabet below coincides with the one in Section~\ref{sec:small-data}
+but differs from the alphabet of Section~\ref{sec:c4-support-data}, where the symbol \texttt{6}
+denotes \((1,-2,1)\) rather than \((-1,2,-1)\).
 \begingroup\scriptsize\[
 \begin{array}{c|ccccccc}
 \text{symbol}&0&1&2&3&4&5&6\\\hline
@@ -131,22 +125,23 @@ $\delta_1,\ldots,\delta_{4m}$ in the corrected Kotzig lift.
 17&\texttt{DGDDDDG2CGG87CGDDDA8CDDD988874DDD7C7CDG978777CGGGG94GDG8788CD9C7C973}\\
 19&\texttt{D58CG9CDGCGCDGG9CGDGDDGDA4DDGCDGDDDD987CDG907877787C9777777878CGHDDGGGD7H983}\\
 \hline\end{longtable}\endgroup
-Let $T_j=\{a_j,b_j,c_j\}$, $a_j<b_j<c_j=a_j+b_j$, be the sorted triple
-obtained from the word, and order group $r$ as $T_{4t+r+1}$ for
-$t=0,\ldots,m-1$ and $r=0,\ldots,3$.
+Let $T_j=(a_j,b_j,c_j)$, $a_j<b_j<c_j=a_j+b_j$, be the sorted triple
+obtained from the word. In a fixed group $r\in\{0,\ldots,3\}$, write
+$T_{4t+r+1}=(a_t,b_t,c_t)$ for $t=0,\ldots,m-1$.
 For mode $c,a,b$, respectively, put
 \[
-(\mu_t,\nu_t,x_t)=(c_t,b_t-a_t,c_t),\quad(a_t,b_t+c_t,a_t),\quad(b_t,a_t+c_t,b_t).
+(\mu_t,\nu_t)=(c_t,b_t-a_t),\quad(a_t,b_t+c_t),\quad(b_t,a_t+c_t).
 \]
-Decode $E,H$ as binary words, retaining leading zeroes and the first $m$ bits,
-to obtain signs $\varepsilon_t,\eta_t$ in the above row order, and set
+Expand each hexadecimal digit of $E,H$ into four binary digits, retaining leading zeroes.
+Keep exactly the first $m$ bits in the above row order and read $1$ as $+1$ and $0$ as $-1$
+to obtain $\varepsilon_t,\eta_t$. Set
 \begin{equation}\label{eq:c4-small-row}
 R_{r,t}=\left((\varepsilon_t\mu_t+\eta_t\nu_t)/2,
-(\varepsilon_t\mu_t-\eta_t\nu_t)/2,-\varepsilon_t x_t\right).
+(\varepsilon_t\mu_t-\eta_t\nu_t)/2,-\varepsilon_t\mu_t\right).
 \end{equation}
 The switch column lists the nondefault modes; ``--'' means all modes are $c$.
-In all three modes one has $x_t=\mu_t$, so each row has sum zero and the
-third-column identity follows from the first signed chain in Lemma~\ref{lem:exact}.
+Each reconstructed row has sum zero. The two signed identities in
+Lemma~\ref{lem:exact} give zero column sums.
 \begingroup\scriptsize
 \setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
 \begin{longtable}{@{\extracolsep{\fill}}c@{\quad}c@{\quad}l@{\quad}l@{\quad}l@{}}

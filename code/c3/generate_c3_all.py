@@ -1,6 +1,7 @@
 """Generate the periodic c=3 construction from the ancillary rule files.
 
-This implements the periodic construction for admissible m >= 35.
+This implements the disjoint-window construction for admissible m >= 67.
+Smaller instances are decoded by verify_c34_printed_finite.py from the paper.
 It is deterministic: no SAT/CP search is performed.
 """
 
@@ -123,8 +124,8 @@ def orient(mu_sign, diff_sign, triple, mode):
 
 
 def generate(m):
-    if m < 35 or m % 4 != 3 or m % 3 == 0:
-        raise ValueError("periodic c=3 generator requires m>=35, m=3 (mod 4), gcd(m,3)=1")
+    if m < 67 or m % 4 != 3 or m % 3 == 0:
+        raise ValueError("periodic c=3 generator requires m>=67, m=3 (mod 4), gcd(m,3)=1")
     n = 3 * m
     triples = support_rows(n)
     patterns = load_json("lemma2_patterns.json")

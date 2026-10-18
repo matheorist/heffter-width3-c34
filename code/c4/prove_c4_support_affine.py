@@ -5,48 +5,58 @@ All phases, boundary choices, and parities are then fixed.  Every bulk output,
 after splitting a 72-step family by layer parity, is an arithmetic progression
 with difference 144.  For each residue modulo 144 we verify symbolically that
 the quotient intervals tile the target interval with adjacent affine endpoints.
+Coordinate signs are certified throughout Q>=0 using the exact Kotzig formula;
+no coefficients are inferred from sampled absolute-value outputs.
 """
 
-from fractions import Fraction
+from pathlib import Path
+import re
 
 from generate_c4_all import PERIODIC_MINIMUM, load_periodic_rule
+
+
+N_STEP, H_STEP = 576, 48
 
 
 def ceil_div(a, b):
     return -((-a) // b)
 
 
-def zhou(n, i, j):
-    modulus = 2 * n + 1
-    parity = -1 if (j + n) % 2 else 1
-    return int(
-        Fraction(1 - parity * modulus, 4) * i
-        + Fraction(2 - 3 * abs(i), 2) * j
+def raw_affine(n0, j0, jq, jh, delta, coordinate):
+    """Expand the signed Kotzig lift for j=j0+jq*Q+jh*h exactly."""
+    assert N_STEP % 2 == jq % 2 == jh % 2 == 0
+    if coordinate == 1:
+        return 3 * jq, 3 * jh, 3 * j0 + delta[1]
+    i = (-1, 0, 1)[coordinate]
+    parity = -1 if (n0 + j0) % 2 else 1
+    numerators = (
+        -6 * i * parity * N_STEP - 6 * jq,
+        -6 * jh,
+        3 * i * (1 - parity * (2 * n0 + 1)) - 6 * j0 + 4 * delta[coordinate],
     )
+    assert all(x % 4 == 0 for x in numerators)
+    return tuple(x // 4 for x in numerators)
 
 
-def output(n, j, delta, coordinate):
-    bases = (zhou(n, -1, j), j, zhou(n, 1, j))
-    return abs(3 * bases[coordinate] + delta[coordinate])
-
-
-def affine_bulk(n0, j0, h_sample, delta, coordinate):
-    # n=n0+576Q and j=j0+48h.  Sample inside a stable bulk zone.
-    q = 2
-    h = h_sample
-    value = output(n0 + 576 * q, j0 + 48 * h, delta, coordinate)
-    aq = output(n0 + 576 * (q + 1), j0 + 48 * h, delta, coordinate) - value
-    bh = output(n0 + 576 * q, j0 + 48 * (h + 1), delta, coordinate) - value
-    constant = value - aq * q - bh * h
-    return aq, bh, constant
+def affine_bulk(n0, j0, h_lower, h_upper, delta, coordinate):
+    aq, bh, constant = raw_affine(n0, j0, 0, H_STEP, delta, coordinate)
+    parity = -1 if (n0 + j0) % 2 else 1
+    sign = (parity, 1, -parity)[coordinate]
+    endpoint = h_lower if sign * bh >= 0 else h_upper
+    min_a = sign * (aq + bh * endpoint[0])
+    min_c = sign * (constant + bh * endpoint[1])
+    assert min_a >= 0 and min_c > 0, (n0, j0, coordinate, min_a, min_c)
+    return sign * aq, sign * bh, sign * constant
 
 
 def affine_boundary(n0, j_function, delta, coordinate):
-    values = [
-        output(n0 + 576 * q, j_function(q), delta, coordinate) for q in (2, 3)
-    ]
-    aq = values[1] - values[0]
-    return aq, values[0] - 2 * aq
+    j0 = j_function(0)
+    jq = j_function(1) - j0
+    aq, bh, constant = raw_affine(n0, j0, jq, 0, delta, coordinate)
+    assert bh == 0 and constant != 0
+    sign = 1 if constant > 0 else -1
+    assert sign * aq >= 0
+    return sign * aq, sign * constant
 
 
 def residue_and_quotient(aq, constant):
@@ -66,10 +76,9 @@ def add_bulk_intervals(intervals, n0, phase, word, zone):
             h_lower = (6, ceil_div(kappa0 + 21 - j0, 48))
             h_upper = (12, (n0 - 21 - j0) // 48)
 
-        h_sample = h_lower[0] * 2 + h_lower[1] + 2
         for coordinate in range(3):
             aq, bh, constant = affine_bulk(
-                n0, j0, h_sample, delta, coordinate
+                n0, j0, h_lower, h_upper, delta, coordinate
             )
             assert abs(bh) in (72, 144)
             parities = (None,) if abs(bh) == 144 else (0, 1)
@@ -136,6 +145,34 @@ def evaluate(endpoint, q):
     return endpoint[0] * q + endpoint[1]
 
 
+def verify_printed_witness(pieces):
+    here = Path(__file__).resolve().parent
+    candidates = [folder / "IHS_m_3_3_standalone.tex" for folder in
+                  (here.parent, here.parent / "paper", here.parent.parent / "paper")
+                  if (folder / "IHS_m_3_3_standalone.tex").is_file()]
+    assert len(candidates) == 1, candidates
+    source = candidates[0].read_text(encoding="utf-8")
+    witness = source.split(
+        r"For example, in state $(\rho,s_0)=(1,0)$ and residue $u=138$", 1
+    )[1].split(r"\]", 1)[0]
+
+    def decode(expression):
+        expression = expression.replace(" ", "")
+        terms = re.findall(r"([+-]?\d+)(Q)?", expression)
+        assert "".join(a + b for a, b in terms) == expression, expression
+        return (sum(int(a) for a, b in terms if b == "Q"),
+                sum(int(a) for a, b in terms if b == ""))
+
+    printed = []
+    for low, high, singleton in re.findall(
+        r"\[([^\[\],]+),([^\[\],]+)\]|\\\{([^{}]+)\\\}", witness
+    ):
+        printed.append((decode(singleton), decode(singleton)) if singleton
+                       else (decode(low), decode(high)))
+    assert len(printed) == 6
+    assert printed == [(low, high) for low, high, _ in pieces]
+
+
 def prove_state(parameter_residue, state):
     minimum = PERIODIC_MINIMUM[parameter_residue]
     m0 = minimum + 12 * state
@@ -161,8 +198,14 @@ def prove_state(parameter_residue, state):
         # Q=2 lies safely beyond any initially empty short bulk family.
         pieces.sort(key=lambda item: evaluate(item[0], 2))
         assert pieces, (parameter_residue, state, residue, "empty")
+        if (parameter_residue, state, residue) == (1, 0, 138):
+            verify_printed_witness(pieces)
         expected_low = (0, 0)
         for low, high, label in pieces:
+            assert high[0] - low[0] >= 0 and high[1] - low[1] + 1 >= 0, (
+                parameter_residue, state, residue,
+                "negative packet length", low, high, label
+            )
             assert low == expected_low, (
                 parameter_residue,
                 state,
@@ -204,6 +247,7 @@ def main():
             count += 1
             print(f"PROVED residue={parameter_residue}, step_state={state}")
     print(f"AFFINE SUPPORT PROOF VERIFIED: {count} states")
+    print("Printed u=138 six-packet support witness verified against decoded rules")
 
 
 if __name__ == "__main__":

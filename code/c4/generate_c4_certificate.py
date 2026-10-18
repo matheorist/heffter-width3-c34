@@ -10,8 +10,6 @@ import itertools
 import json
 from pathlib import Path
 
-from sat_batch import zhou_partition_sat
-
 
 def signed_subset(values):
     """Return indices of a half-sum subset, or None if no signed zero-sum exists."""
@@ -94,6 +92,9 @@ def oriented_row(triple, mode, mu_positive, w_positive):
 
 
 def build_certificate(m, radius, max_switches):
+    # SAT is optional: deterministic verification imports only the helpers above.
+    from sat_batch import zhou_partition_sat
+
     n = 4 * m
     triples = zhou_partition_sat(n, rad=radius)
     if not isinstance(triples, list):

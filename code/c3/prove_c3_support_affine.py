@@ -1,9 +1,14 @@
-"""Prove the c=3 periodic support rules by finite affine interval tilings."""
+"""Prove the c=3 support rules by exact affine expansion and interval tilings.
 
-from generate_c3_all import rule_data, support_rows, zhou_value
+Coordinate signs are certified throughout Q>=0 before absolute values are
+removed. No coefficients are inferred from sampled absolute-value outputs.
+"""
+
+from generate_c3_all import rule_data, support_rows
 
 
 MODULUS = 72
+N_STEP, H_STEP = 288, 24
 
 
 def admissible_state(cls, state):
@@ -15,25 +20,44 @@ def ceil_div(a, b):
     return -((-a) // b)
 
 
-def output(n, j, delta, coordinate):
-    bases = (zhou_value(n, -1, j), j, zhou_value(n, 1, j))
-    return abs(3 * bases[coordinate] + delta[coordinate])
+def raw_affine(n0, j0, jq, jh, delta, coordinate):
+    """Expand the signed Kotzig lift for j=j0+jq*Q+jh*h exactly."""
+    assert N_STEP % 2 == jq % 2 == jh % 2 == 0
+    if coordinate == 1:
+        return 3 * jq, 3 * jh, 3 * j0 + delta[1]
+    i = (-1, 0, 1)[coordinate]
+    parity = -1 if (n0 + j0) % 2 else 1
+    numerators = (
+        -6 * i * parity * N_STEP - 6 * jq,
+        -6 * jh,
+        3 * i * (1 - parity * (2 * n0 + 1)) - 6 * j0 + 4 * delta[coordinate],
+    )
+    assert all(x % 4 == 0 for x in numerators)
+    return tuple(x // 4 for x in numerators)
 
 
-def affine_bulk(n0, j0, h_sample, delta, coordinate):
-    # A fixed state has n=n0+288Q and j=j0+24h.
-    q = 2
-    h = h_sample
-    value = output(n0 + 288 * q, j0 + 24 * h, delta, coordinate)
-    aq = output(n0 + 288 * (q + 1), j0 + 24 * h, delta, coordinate) - value
-    bh = output(n0 + 288 * q, j0 + 24 * (h + 1), delta, coordinate) - value
-    return aq, bh, value - aq * q - bh * h
+def affine_bulk(n0, j0, h_lower, h_upper, delta, coordinate):
+    aq, bh, constant = raw_affine(n0, j0, 0, H_STEP, delta, coordinate)
+    parity = -1 if (n0 + j0) % 2 else 1
+    sign = (parity, 1, -parity)[coordinate]
+    # The smaller signed endpoint is a lower bound whenever the packet
+    # is nonempty. An empty packet imposes no further endpoint condition.
+    endpoint = h_lower if sign * bh >= 0 else h_upper
+    min_a = sign * (aq + bh * endpoint[0])
+    min_c = sign * (constant + bh * endpoint[1])
+    assert min_a >= 0 and min_c > 0, (n0, j0, coordinate, min_a, min_c)
+    return sign * aq, sign * bh, sign * constant
 
 
 def affine_boundary(n0, j_function, delta, coordinate):
-    values = [output(n0 + 288 * q, j_function(q), delta, coordinate) for q in (2, 3)]
-    aq = values[1] - values[0]
-    return aq, values[0] - 2 * aq
+    # Each caller explicitly supplies an affine index, not sampled output.
+    j0 = j_function(0)
+    jq = j_function(1) - j0
+    aq, bh, constant = raw_affine(n0, j0, jq, 0, delta, coordinate)
+    assert bh == 0 and constant != 0
+    sign = 1 if constant > 0 else -1
+    assert sign * aq >= 0
+    return sign * aq, sign * constant
 
 
 def residue_and_quotient(aq, constant):
@@ -53,9 +77,10 @@ def add_bulk_intervals(intervals, n0, phase, word, zone):
             h_lower = (6, ceil_div(kappa0 + 21 - j0, 24))
             h_upper = (12, (n0 - 21 - j0) // 24)
 
-        h_sample = h_lower[0] * 2 + h_lower[1] + 2
         for coordinate in range(3):
-            aq, bh, constant = affine_bulk(n0, j0, h_sample, delta, coordinate)
+            aq, bh, constant = affine_bulk(
+                n0, j0, h_lower, h_upper, delta, coordinate
+            )
             assert abs(bh) in (36, 72)
             parities = (None,) if abs(bh) == 72 else (0, 1)
             for parity in parities:
@@ -121,6 +146,11 @@ def prove_state(cls, state):
         assert pieces, (cls, state, residue, "empty")
         expected_low = (0, 0)
         for low, high, label in pieces:
+            # An affine interval may be empty at Q=0, but its length
+            # must never be negative anywhere on the Q>=0 tail.
+            assert high[0] - low[0] >= 0 and high[1] - low[1] + 1 >= 0, (
+                cls, state, residue, "negative packet length", low, high, label
+            )
             assert low == expected_low, (
                 cls, state, residue, "gap/overlap", expected_low, low, label
             )

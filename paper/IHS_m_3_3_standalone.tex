@@ -1,5 +1,13 @@
 % ============================================================
-%  Self-contained standalone paper on the width-three slices c=3 and c=4.
+%  Standalone paper on the width-three slices c=3 and c=4.
+%  This file \input's four local data files, which must sit in the
+%  same directory:
+%    c3_finite_certificate_body.tex
+%    c3_exceptional_constructions_body.tex
+%    c4_main_certificate_body.tex
+%    c4_balance_patterns_appendix.tex
+%  For a single-file submission, replace each \input command in place
+%  with the contents of the named file.
 %  First xelatex/pdflatex run writes heffter_c3.bib via filecontents;
 %  then bibtex -> (pdf|xe)latex -> (pdf|xe)latex.  No external .bib needed.
 % ============================================================
@@ -26,7 +34,8 @@
   author       = {Morini, Fiorenza and Pellegrini, Marco Antonio},
   title        = {An update on the existence of integer {Heffter} arrays},
   howpublished = {Preprint, \texttt{arXiv:2510.08302}},
-  year         = {2025}
+  year         = {2025},
+  note         = {DOI: 10.48550/arXiv.2510.08302}
 }
 @article{ABD2017,
   author  = {Archdeacon, Dan S. and Boothby, Tom and Dinitz, Jeffrey H.},
@@ -43,7 +52,8 @@
   journal = {Math. Scand.},
   volume  = {5},
   pages   = {57--68},
-  year    = {1957}
+  year    = {1957},
+  note    = {DOI: 10.7146/math.scand.a-10490}
 }
 @article{Zhou2018DM,
   author  = {Zhou, Chen and Li, Wen and Zhang, Yong and Su, Renwang},
@@ -70,35 +80,26 @@
   editor={Colbourn, Charles J. and Dinitz, Jeffrey H.},
   series={Fields Institute Communications}, volume={86},
   pages={353--392}, publisher={Springer}, year={2024},
-  doi={10.1007/978-3-031-48679-1_20}
+  note={DOI: 10.1007/978-3-031-48679-1\_20}
 }
 @article{MoriniPellegrini2022,
   author={Morini, Fiorenza and Pellegrini, Marco Antonio},
   title={Rectangular {Heffter} arrays: a reduction theorem},
   journal={Discrete Math.}, volume={345}, number={12}, pages={113073},
-  year={2022}, doi={10.1016/j.disc.2022.113073}
+  year={2022}, note={DOI: 10.1016/j.disc.2022.113073}
 }
 @article{MoriniPellegrini2020,
   author={Morini, Fiorenza and Pellegrini, Marco Antonio},
   title={On the existence of integer relative {Heffter} arrays},
   journal={Discrete Math.}, volume={343}, number={11}, pages={112088},
-  year={2020}, doi={10.1016/j.disc.2020.112088}
+  year={2020}, note={DOI: 10.1016/j.disc.2020.112088}
 }
-@article{CostaMoriniPasottiPellegrini2018,
-  author={Costa, Simone and Morini, Fiorenza and Pasotti, Anita and Pellegrini, Marco Antonio},
-  title={A problem on partial sums in abelian groups},
-  journal={Discrete Mathematics}, volume={341}, number={3}, pages={705--712},
-  year={2018}, doi={10.1016/j.disc.2017.11.013}
-}
-@article{BurattiPasotti2024,
-  author={Buratti, Marco and Pasotti, Anita},
-  title={Heffter spaces}, journal={Finite Fields Appl.}, volume={98}, pages={102464},
-  year={2024}, doi={10.1016/j.ffa.2024.102464}
-}
-@article{BurattiPasotti2025,
-  author={Buratti, Marco and Pasotti, Anita},
-  title={More Heffter spaces via finite fields}, journal={J. Combin. Des.},
-  volume={33}, pages={188--194}, year={2025}, doi={10.1002/jcd.21974}
+@misc{Mella2026,
+  author={Mella, Lorenzo},
+  title={Completing the Existence Problem for Integer Relative {Heffter} Arrays {$\mathrm{H}_k(n;k)$}},
+  howpublished={Preprint, \texttt{arXiv:2609.24399v1}},
+  year={2026},
+  note={DOI: 10.48550/arXiv.2609.24399}
 }
 \end{filecontents*}
 
@@ -110,6 +111,10 @@
 \usepackage{bookmark}
 \usepackage{enumitem}
 \usepackage{longtable}
+\usepackage{needspace}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={Existence of integer Heffter array sets IHS(m,3;3) and IHS(m,3;4)},
+pdfauthor={Yong Zhang and Guangzhou Chen}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
@@ -119,6 +124,8 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{problem}{Problem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
 
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Hm}{\mathrm{H}}
@@ -148,31 +155,33 @@ Xinxiang 453007, P.~R.~China\\
 \maketitle
 
 \begin{abstract}
-We completely solve two admissible fixed slices of the width-three integer Heffter array set
-problem. The first theorem proves that $\IHS(m,3;3)$ exists for every
-$m\equiv3\pmod4$ with $\gcd(m,3)=1$; the second proves that $\IHS(m,3;4)$ exists for every
-odd $m\ge5$ with $\gcd(m,3)=1$. Both results are instances of one
-certificate--transport principle. A centre-complementary $3\times(2n+1)$ Kotzig array gives
-the zero-sum rows, periodic offset words give an exact support partition, and finite boundary
-and orientation certificates transport these identities through the whole admissible parameter
-range. The transports have periods $24$ and $48$ for $c=3$ and $c=4$, respectively; all
-preperiod states are listed in the appendices and released in the accompanying repository.
-The proof is finite and deterministic: the verification programs decode and check the displayed
-certificates, but are not logical premises. No claim is made here for $c\ge5$.
+An integer Heffter array set $\IHS(m,3;c)$ consists of $c$ fully filled $m\times3$ arrays
+with zero row and column sums, using every absolute value in $[1,3mc]$ exactly once.
+We construct $\IHS(m,3;3)$ for every $m\ge7$ with $m\equiv3\pmod4$ and $\gcd(m,3)=1$, and
+$\IHS(m,3;4)$ for every odd $m\ge5$ with $\gcd(m,3)=1$.
+These results settle the $c=3$ and $c=4$ slices of the coprime odd-row existence problem.
+Starting from centre-complementary Kotzig arrays, we use bounded corrections, encoded by
+offset words of lengths $24$ and $16$, to construct zero-sum rows with the required
+absolute-value support. A residue-class grouping assigns the rows to arrays, and an exact
+orientation criterion reduces column balance to two independent signed-sum identities.
+For each fixed parameter phase, support is certified by affine endpoint identities, while
+the signed balance totals are polynomials of degree at most two in the block parameter after
+all absolute-value breakpoints have been resolved. A finite-certificate transport lemma extends these verifications to the infinite
+parameter ranges, and explicit constructions cover every earlier admissible value.
+All finite construction data are included in the paper.
 \end{abstract}
 
 \noindent\textbf{Keywords:} integer Heffter array; Heffter array set; Skolem sequence; Kotzig array;
-finite verification.\\
+finite certificates.\\
 \textbf{2020 Mathematics Subject Classification:} 05B20, 05B30.
 
 \section{Introduction}\label{sec:intro}
 
 Heffter arrays were introduced by Archdeacon~\cite{Arch2015} in the study of orientable
-biembeddings of complete graphs. Their definitions and principal existence results are surveyed
-by Pasotti and Dinitz~\cite{PasottiDinitz2024}. Related work concerns partial sums in abelian
-groups~\cite{CostaMoriniPasottiPellegrini2018}, integer relative arrays~\cite{MoriniPellegrini2020},
-rectangular arrays~\cite{MoriniPellegrini2022}, and the recently introduced Heffter spaces
-~\cite{BurattiPasotti2024,BurattiPasotti2025}.
+biembeddings of complete graphs.  Their existence theory asks whether elementary counting and
+parity conditions suffice to arrange a prescribed signed support with zero row and column sums.
+Pasotti and Dinitz~\cite{PasottiDinitz2024} survey this theory.  Reduction and relative-array
+constructions appear in~\cite{MoriniPellegrini2020,MoriniPellegrini2022}.
 
 \begin{definition}
 An integer Heffter array $\Hm(m,n;s,k)$ is an $m\times n$ partially filled array, with entries from
@@ -184,25 +193,31 @@ is $0$.
 For an integer Heffter array $\Hm(m,n;s,k)$, the necessary conditions are
 $ms=nk$, $3\le s\le n$, $3\le k\le m$, and $nk\equiv0,3\pmod4$; Archdeacon's conjecture
 asserts that these conditions are sufficient. In the coprime odd-width regime, Pellegrini and
-Traetta~\cite{PT2025} introduced integer Heffter array sets, and Morini and Pellegrini~\cite{MP2025}
-reduced the remaining cases to two short-width problems.
+Traetta~\cite{PT2025} introduced integer Heffter array sets.  The reduction in
+Morini and Pellegrini~\cite{MP2025} identifies two short-width construction problems whose
+solutions would settle the cases left open by their results.
 
 \begin{definition}
-An $\IHS(m,n;c)$ is a set of $c$ arrays of size $m\times n$ whose union has $mnc$ entries with
+An $\IHS(m,n;c)$ is a set of $c$ \emph{fully filled} arrays of size $m\times n$ whose union has
+$mnc$ entries with
 pairwise distinct absolute values, collectively equal to $[1,mnc]$. Every row and every column of each
 array has sum zero.
 \end{definition}
 
 When $s$ and $k$ are coprime, write $m=ck$ and $n=cs$. In this notation, an $\IHS(k,s;c)$
-assembles an $\Hm(ck,cs;s,k)$ \cite[proof of Theorem~C]{MP2025}. The remaining short-width
-cases therefore have $k=3$ or $k=5$. We study the width-three case:
+assembles an $\Hm(ck,cs;s,k)$ \cite[proof of Theorem~C]{MP2025}.  This implication is
+one-directional: an IHS is a sufficient construction device, not a necessary decomposition of
+every Heffter array.  The short-width cases in that reduction have $s=3$ or $s=5$.
+We address the following width-three problem from~\cite{MP2025}:
 
 \begin{problem}\label{prob:1}
 For every $c\ge1$ and every odd $m\ge3$ with $\gcd(m,3)=1$ and $mc\equiv0,1\pmod4$, construct an
 $\IHS(m,3;c)$.
 \end{problem}
 
-The parameter $c$ separates Problem~\ref{prob:1} into fixed slices. The case $c=1$ is already
+Throughout this paper, \emph{admissible} refers to the parameter range in
+Problem~\ref{prob:1}, including the oddness and coprimality restrictions.
+The case $c=1$ is already
 settled: an $\IHS(m,3;1)$ is precisely a
 \emph{tight} integer Heffter array $\Hm(m,3;3,m)$---an $m\times3$ array with no empty cells whose
 support is exactly $[1,3m]$---and Archdeacon, Boothby and Dinitz proved that tight Heffter arrays
@@ -214,22 +229,34 @@ settles it. The next even slice, $c=4$, is admissible for every odd $m$ coprime 
 main result settles that slice as well.
 
 \begin{theorem}\label{thm:main}
-For every integer $m\ge3$ with $m\equiv3\pmod4$ and $\gcd(m,3)=1$, an $\IHS(m,3;3)$ exists.
+Let $m\ge3$ be odd with $\gcd(m,3)=1$. Then $\IHS(m,3;3)$ exists if and only if $m\equiv3\pmod4$.
 \end{theorem}
 
-Together with the tight case $c=1$ of~\cite{ABD2017}, Theorem~\ref{thm:main} settles the $c=1$
-and $c=3$ slices of Problem~\ref{prob:1}. Its construction is based on the closed formula for
-the centre-complementary Kotzig arrays of Zhou, Li, Zhang and Su~\cite{Zhou2018DM}. Theorem
-~\ref{thm:c4full} below settles the next admissible slice, $c=4$. These are two complete
-fixed-slice theorems, proved by the same certificate--transport architecture: a support
-certificate partitions the required interval into sum-triples, a grouping rule assigns the
-triples to arrays, and an orientation certificate enforces the three column sums. The periodic
-bulk is transported through all admissible parameters (with periods $24$ and $48$), while a
-finite set of boundary states closes the preperiod.
+\begin{theorem}\label{thm:c4full}
+Let $m\ge5$ be odd with $\gcd(m,3)=1$. Then $\IHS(m,3;4)$ exists.
+\end{theorem}
 
-The results do not solve Problem~\ref{prob:1} for arbitrary $c$; in particular, no claim is made
-here for $c\ge5$. The complete finite data are retained in the appendices and in the public
-repository, so both fixed-slice transports are independently checkable.
+Skolem sequences supply a partition of the required support into sum-triples, but do not
+prescribe a division into $c$ groups with zero column sums. The additional requirement is
+the compatibility of the support partition with these separately balanced groups. We obtain
+it from the closed formula for the centre-complementary Kotzig arrays of Zhou, Li, Zhang
+and Su~\cite{Zhou2018DM}, using bounded periodic corrections and a congruence-based grouping
+rule. An exact orientation criterion then reduces the three column-sum conditions in each
+group to two independent signed-sum identities.
+
+The support words have lengths $24$ and $16$ for $c=3$ and $c=4$, respectively; the $c=4$
+balance patterns use a $48$-position refinement. Finitely many boundary and orientation
+states encode the parameter dependence, and explicit constructions cover the values below
+the uniform ranges. Lemma~\ref{lem:certificate-transport} supplies the common verification
+principle: affine endpoint identities certify support, whereas polynomial identities certify
+balance. The polynomial degree bounds are established before finite evaluations are used.
+
+These statements are distinct from the completion of the square relative-array problem
+$\mathrm H_k(n;k)$ by Mella~\cite{Mella2026}.  That problem concerns one partially filled
+square array with a relative support; here the support $[1,3mc]$ must be divided among $c$
+fully filled rectangles. The present paper treats only the $c=3$ and $c=4$ slices of
+Problem~\ref{prob:1}. The construction data and bounded cases appear in the main text;
+only the $192$-row $c=4$ balance table is placed in the appendix.
 
 \paragraph{Notation.}
 $[1,N]=\{1,\dots,N\}$. A \emph{sum-triple} is a set $\{x,y,x+y\}$ of three distinct positive integers.
@@ -247,7 +274,8 @@ column sums of the group vanish.
 \end{proposition}
 \begin{proof}
 Because no entry is zero and the absolute values are distinct, three signed entries in a zero-sum
-row can be reordered as $x$, $y$, and $-(x+y)$, with $x,y>0$. Thus the absolute values in every
+row can be reordered, and if necessary all negated, as $x$, $y$, and $-(x+y)$, with $x,y>0$.
+Thus the absolute values in every
 row form a sum-triple. Conversely, every sum-triple $\{x,y,x+y\}$ gives a zero-sum row by using
 the signs $(x,y,-(x+y))$. The zero column sums are exactly the orientation condition in (ii), while
 the $c$ arrays together cover $[1,3N]$ precisely when the triples form the partition in (i).
@@ -269,16 +297,21 @@ $i+(N+x_i)=N+y_i$.
 Thus the support partition exists under exactly the necessary congruence condition. It remains to
 balance the triples within each group. Let $C_1,C_2,C_3$ denote the three column sums of a fixed
 group. Since every row already sums to zero, $C_1+C_2+C_3=0$; hence zero column sums are
-equivalent to the two conditions $C_1+C_2=0$ and $C_1-C_2=0$. For a triple $\{a,b,c\}$ with
-$c=a+b$ and $a<b$, a legal orientation is a \emph{mode} $\mathrm m\in\{a,b,c\}$ (which element
-occupies the third column), together with an overall sign and a possible interchange of the first
-two columns. Writing $\mu$ for the magnitude of its contribution to $C_1{+}C_2$ and $|w|$ for
+equivalent to the two conditions $C_1+C_2=0$ and $C_1-C_2=0$. Write a sum-triple as
+$\{a,b,c\}$ with $a<b$ and $c=a+b$. A legal orientation is a \emph{mode}
+$\mathrm m\in\{\mathrm a,\mathrm b,\mathrm c\}$, where the modes $\mathrm a,\mathrm b,\mathrm c$
+mean that respectively the smallest, the middle, and the largest element of the triple occupies the
+third column; a mode is accompanied by an overall sign and a possible interchange of the first two
+columns. Writing $\mu$ for the magnitude of its contribution to $C_1{+}C_2$ and $|w|$ for
 that to $C_1{-}C_2$,
 \[
-(\mathrm m{=}c):\ \mu=c,\ |w|=b-a;\quad
-(\mathrm m{=}a):\ \mu=a,\ |w|=b+c;\quad
-(\mathrm m{=}b):\ \mu=b,\ |w|=a+c.
+(\mathrm m{=}\mathrm c):\ \mu=c,\ |w|=b-a;\quad
+(\mathrm m{=}\mathrm a):\ \mu=a,\ |w|=b+c;\quad
+(\mathrm m{=}\mathrm b):\ \mu=b,\ |w|=a+c.
 \]
+These three roman labels are the codes that appear in every switch column of the data tables.
+Inside a triple, $c$ denotes its largest element; this local use does not conflict with the number
+of arrays $c$, which never appears inside a triple.
 
 \begin{lemma}\label{lem:exact}
 A group of sum-triples can be oriented to zero column sums if and only if it has a mode assignment
@@ -307,6 +340,62 @@ A group is balanceable if and only if it admits a mode assignment $(\mathrm m_i)
 with $\sum_{i\in U}\mu_i=\sum_{i\notin U}\mu_i$ and $\sum_{i\in V}|w_i|=\sum_{i\notin V}|w_i|$; the
 orientation is then read off constructively.
 \end{corollary}
+
+For completeness, put $\nu_i=|w_i|$.  A certificate with signed totals
+$\sum_i\varepsilon_i\mu_i=\sum_i\eta_i\nu_i=0$ reconstructs the rows as
+\begin{equation}\label{eq:row-from-certificate}
+ \left(\frac{\varepsilon_i\mu_i+\eta_i\nu_i}{2},
+       \frac{\varepsilon_i\mu_i-\eta_i\nu_i}{2},-\varepsilon_i\mu_i\right).
+\end{equation}
+In each mode $\mu_i$ and $\nu_i$ have the same parity, so these entries are integers.
+The mode formulas show that their absolute values are the original sum-triple.  Formula
+\eqref{eq:row-from-certificate} is the decoding rule used by all sign tables below.
+
+The following elementary lemma records the certificate--transport principle used in both
+constructions.  Its structural hypotheses must hold throughout the stated range; finite
+evaluations alone do not establish them.
+
+\begin{lemma}\label{lem:certificate-transport}
+Fix positive integers $c,m_0,h$, a parameter path $m_Q=m_0+hQ$, and an integer lower level $Q_0\ge0$,
+with $m_Q\ge3$ throughout the stated range.
+Suppose that the following data have been specified for every integer $Q\ge Q_0$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item A fixed finite list of packet rules constructs $cm_Q$ zero-sum rows,
+      grouped into $c$ sets of $m_Q$ rows.  Every row has nonzero, pairwise distinct absolute values.
+\item For some fixed positive integer $D$, after fixing coordinate signs and residue classes,
+      all absolute entry occurrences in each residue $u\in[1,D]$ are partitioned into labelled packets,
+      each enumerated once as a block
+      $\{u+Dv:L_i(Q)\le v\le U_i(Q)\}$ with integer-affine endpoints.
+      The blocks are disjoint by the endpoint identities
+      \[
+       L_1=0,\qquad L_{i+1}=U_i+1,\qquad
+       U_{\rm last}=\left\lfloor\frac{3cm_Q-u}{D}\right\rfloor.
+      \]
+      Their order is fixed and each block length is nonnegative; zero length means an empty block.
+\item A mode and two signs are assigned to every row. For each group and each of its two
+      scalar chains, the row contributions are partitioned into a fixed finite list of labelled
+      scalar packets. Each packet belongs to that group and chain independently of $Q$, and
+      its mode and relevant sign are fixed. After any absolute-value or sorting breakpoint has
+      been split off, each unsigned scalar contribution is
+      $aQ+bv+d$ over an integer interval $L(Q)\le v\le U(Q)$ with affine endpoints.
+      Every such scalar packet has nonnegative count $U(Q)-L(Q)+1$, with zero count
+      interpreted as an empty packet.
+\end{enumerate}
+If both signed totals in every group vanish at $Q_0,Q_0+1,Q_0+2$, the rule gives an
+$\IHS(m_Q,3;c)$ for every $Q\ge Q_0$.
+\end{lemma}
+\begin{proof}
+Condition \textup{(ii)} gives exact support by partitioning every residue class into consecutive
+quotient intervals.  In \textup{(iii)}, put $N(Q)=U(Q)-L(Q)+1$.  The packet sum is
+\[
+ N(Q)(aQ+d)+\frac b2N(Q)(L(Q)+U(Q)),
+\]
+a polynomial of degree at most two.  This formula also gives zero when $N(Q)=0$.
+The fixed group and chain labels in \textup{(iii)} therefore make each signed group total
+a polynomial of degree at most two. Three consecutive zeros force that polynomial to vanish identically.
+Corollary~\ref{cor:cert} gives zero column sums; \textup{(i)} and \textup{(ii)} give all remaining
+IHS conditions.  Any finite values below $Q_0$ must be checked separately.
+\end{proof}
 
 \section{Kotzig lift and periodic support correction}\label{sec:construction}
 
@@ -350,17 +439,14 @@ Consequently all values are distinct and their union is
 $[1,3n+1]\setminus\{3\kappa+1\}$, where $3\kappa+1=(3n+5)/2$.
 \end{proof}
 
-The lift omits $h_n$ and uses the overshoot $3n+1$. To see why a local repair is insufficient, call
-$\{3g-1,3g,3g+1\}$ the $g$-th block. Proposition~\ref{prop:lift} supplies three base cells of
-magnitude $g$ for every $g\in[1,n]$ except $g=\kappa=(n+1)/2$, where one base cell would have
-magnitude $0$. Thus the missing cell in the $\kappa$-th block cannot be repaired using only the
-offsets $(-1,0,1)$. We therefore use zero-sum offsets in $\{-2,\dots,2\}^3$, allowing a bounded
-cascade between adjacent blocks while preserving every row sum.
+The fixed offset $(-1,0,1)$ therefore leaves a hole at $h_n$ and an overshoot at $3n+1$.
+We replace it by zero-sum offsets in $\{-2,\dots,2\}^3$. These permit a bounded redistribution
+between neighbouring support values while preserving every row sum.
 
 \subsection{The uniform correction rule}\label{sec:rule}
 
-\begin{lemma}\label{lem:rule}
-Let $n=3m\ge369$, where $m\equiv3\pmod4$ and $\gcd(m,3)=1$. Define an explicit offset assignment
+\begin{definition}\label{def:rule}
+Let $n=3m\ge93$, where $m\equiv3\pmod4$ and $\gcd(m,3)=1$. Define an offset assignment
 $\delta:[1,n]\to\{-2,\dots,2\}^3$, with coordinate sum zero at every index, by the following
 period-$24$ rule. For the class
 $n\equiv9\pmod{24}$ there are two $24$-letter offset words $W_1,W_2$ and constant phases $(6,12)$ with
@@ -374,9 +460,19 @@ W_2[(j-12)\bmod24], & \kappa+21\le j\le n-21,
 completed by three bounded boundary tables (for $j\le20$, $|j-\kappa|\le20$, $j\ge n-20$), one set per
 residue of $n$ modulo $48$.  The class $n\equiv21\pmod{24}$ uses phases $(10,13)$ and the rotated
 words $\widehat W_1[p]=W_1[p+16\bmod24]$, $\widehat W_2[p]=W_2[p+13\bmod24]$.
+The corrected row is
+\[
+ R_j=(3a_{-1,j}+\delta_{-1}(j),\ 3j+\delta_0(j),\ 3a_{1,j}+\delta_1(j));
+\]
+thus $\delta(j)$ is the full offset, replacing the fixed offset $(-1,0,1)$ of
+Proposition~\ref{prop:lift}.
 The two master words and all four boundary-table sets are printed in
-Section~\ref{sec:offset-data}. For every admissible $n\ge369$, the resulting corrected rows partition
-$[1,3n]$ into $n$ sum-triples.
+Section~\ref{sec:offset-data}.
+\end{definition}
+
+\begin{lemma}\label{lem:rule}
+Let $m\ge123$ be odd with $m\equiv3\pmod4$ and $\gcd(m,3)=1$, and put $n=3m$. Then the corrected
+rows of Definition~\ref{def:rule} partition $[1,3n]$ into $n$ sum-triples.
 \end{lemma}
 \begin{proof}
 Write $n=e+24t$, where $e\in\{9,21\}$. Choose the unique representative
@@ -399,53 +495,137 @@ intervals beginning at $0$ and ending at
 \]
 The same substitution verifies, in each row, that the three absolute values satisfy
 $a+b=c$ after sorting. The endpoint offsets at $Q=0$ are given by the displayed boundary strings,
-and the affine endpoint slopes are fixed by the period words; hence the same adjacency holds for every
-$Q\ge0$. Thus every integer in $[1,3n]$ occurs once. The calculation consists only of comparing affine
-endpoint pairs; the printed words and tables are the complete finite input, so the calculation may be
-checked directly without the generating program.
+and both coefficients of every affine adjacency agree. All packet lengths have nonnegative
+constant and linear coefficients, so empty packets cause no change of order.
+Thus the same adjacency holds for every $Q\ge0$, and every integer in $[1,3n]$ occurs once.
+These identities can be verified by substituting the printed words and boundary tables
+and comparing the constant and linear coefficients of the affine endpoints.
 \end{proof}
 
 The rule is finite-state in $m$.  Inside either bulk interval, $\delta(j+24)=\delta(j)$, while the
 three boundary tables depend only on $n\bmod48$.  More sharply, equation~\eqref{eq:c3-word-shift}
 shows that changing class from $n\equiv9$ to $21$, or conversely, is a half-period shift by $12$ in
-both effective bulk layers.  Under $m\mapsto m+4$ the boundary state follows
+both effective bulk layers.  Under the formal step $m\mapsto m+4$ the boundary state follows
 $9\to21\to33\to45\to9\pmod{48}$.  Thus parameter growth inserts periodic bulk blocks and updates one
 of four boundary states; it is not an append-only operation on the arrays.
 
-\section{Grouping, orientation, and the $c=3$ theorem}\label{sec:proof}
+\section{Grouping orientation and the \texorpdfstring{$c=3$}{c=3} theorem}\label{sec:proof}
 
 Fix the corrected partition from Lemma~\ref{lem:rule}, and write its triples as
 $T_1,\dots,T_n$, where $n=3m$. Group them by their index modulo $3$:
 $G_r=\{T_j:j\equiv r\pmod3\}$ for $r=0,1,2$. Each group contains exactly $m$ triples and will
-become one $m\times3$ array.
+become one $m\times3$ array. Within each group, order the rows by increasing $j$.
 
 \begin{lemma}\label{lem:orient}
 Each group $G_r$ is balanceable by an explicit rule. Orient $T_j$ in the decoupled form of
-Corollary~\ref{cor:cert}: the sum element $c_j$ occupies the third column with sign
-$\varepsilon_j$, while a sign $\eta_j$ determines the order of the two summands in the first two
+Corollary~\ref{cor:cert}: in the default mode the sum element $c_j$ occupies the third column as
+$-\varepsilon_jc_j$, while a sign $\eta_j$ determines the order of the two summands in the first two
 columns. At most one designated row in the $\kappa$-window is switched to mode $a$ or $b$ to correct
 parity. The signs $(\varepsilon_j,\eta_j)$ are constant on the bulk zones separated by the four
 bounded windows at $1,m,\kappa,n$, after subdivision by $j\bmod24$. There are $24$ printed patterns:
 one for each of the eight admissible residues of $n$ modulo $144$ and each of the three groups.
-Each printed pattern represents two of the $48$ admissible states in the proof below, and fixes the
-signs of both chains $\{c_j\}$ and $\{b_j-a_j\}$. The complete patterns are in
+Since the coprimality restriction leaves $16$ admissible pairs $(e,\tau)$, and the eight residues
+correspond to $s=15+((\tau-15)\bmod6)$ together with $s+6$, each printed pattern represents two of
+the $48$ admissible group states in the proof below; it fixes the
+signs of the two mode-dependent chains $\{\mu_j\}$ and $\{|w_j|\}$. The complete patterns are in
 Section~\ref{sec:orientation-data}.
 \end{lemma}
 \begin{proof}
 By Lemma~\ref{lem:exact}, it suffices to exhibit, for each group, a mode assignment making both
-chains signable. The decoupled certificate of Corollary~\ref{cor:cert} uses mode $c$ in every row
-except for the possible parity-switching row. The complete $24$ patterns are printed in
+chains signable. The decoupled certificate of Corollary~\ref{cor:cert} uses mode $\mathrm c$ in every
+row except the single row a stored pattern may switch, which always lies in the $\kappa$-window.
+The complete $24$ patterns are printed in
 Section~\ref{sec:orientation-data}. To certify the infinite tail, write
 $n=e+24(\tau+12Q)$ with $e\in\{9,21\}$, $15\le\tau\le26$, and $Q\ge0$.  The coprimality restriction
 leaves $16\cdot3=48$ admissible group states. The stored pattern indexed by
 $s=15+((\tau-15)\bmod6)$ is used for both $\tau=s$ and $\tau=s+6$, which explains why the
-$24$ printed patterns cover all $48$ states. In a fixed state and sign
-category, each contribution to either chain is a sum of affine values over an arithmetic progression
-with affine endpoints, hence a polynomial in $Q$ of degree at most two. Direct substitution of the
+$24$ printed patterns cover all $48$ states. Put $n_0=e+24\tau$, $m_0=n_0/3$, and
+$\kappa_0=(n_0+1)/2$. Then $n=n_0+288Q$, $m=m_0+96Q$, and $\kappa=\kappa_0+144Q$.
+In each bulk category write $j=j_*+24h$, where $1\le j_*\le24$
+and $j_*\equiv r\pmod3$. This fixes the parity of $j$, the offset, and both signs;
+no additional parity layer is needed. Each group has eight allowed values of $j_*$ in each
+zone, hence $24$ bulk categories altogether.
+
+The three bulk zones and the slopes of their integer-affine $h$-endpoints are
+\[
+\begin{array}{c|c|c}
+\text{zone}&\text{row interval}&\text{slopes of }(L_z,U_z)\\\hline
+B_1&[21,m-13]&(0,4)\\
+B_2&[m+13,\kappa-21]&(4,6)\\
+B_3&[\kappa+21,n-21]&(6,12).
+\end{array}
+\]
+Indeed, taking ceilings and floors after division by $24$ preserves affine endpoints,
+because $96$, $144$, and $288$ are multiples of $24$. Thus the counts in a fixed category are
+$c_0+4Q$, $c_0+2Q$, and $c_0+6Q$, respectively. Every admissible base parameter has $m_0\ge127$;
+the three zones at $Q=0$ contain at least $94$, $31$, and $149$ consecutive indices.
+Each allowed residue therefore occurs, and all counts stay positive for $Q\ge0$.
+
+Every bulk row is in mode $c$. Let $D_j$ be the middle coordinate $3j+\delta_0(j)$ minus
+the other positive summand in the corrected row. Equation~\eqref{eq:vals} gives
+\[
+ \mu_j=432Q+36h+\alpha,\qquad D_j=-432Q+108h+\beta,
+\]
+where $\alpha,\beta$ are constant within the category. The possible real zero of $D_j$ lies
+in $[m-8/9,m+11/9]$, since $|\delta_i|\le2$. It is contained in the $m$-window, so
+$|w_j|=-D_j$ in $B_1$ and $|w_j|=D_j$ in $B_2,B_3$. No bulk packet needs another split.
+The boundary orders can be checked from the same formula. In the windows at $1,m,\kappa$,
+\[
+ D_j=\begin{cases}
+ (9j-3n)/2+\delta_0-\delta_{-1},&j\text{ odd},\\
+ (9j-3n-3)/2+\delta_0-\delta_1,&j\text{ even}.
+ \end{cases}
+\]
+Thus $D_j\le94-3n/2<0$ in the lower endpoint window and
+$D_j\ge3n/4-96>0$ in the $\kappa$-window. At $j=m+q$, $D_j$ is independent of $Q$
+and is nonzero for the printed offsets.
+The coordinate signs in these windows follow from~\eqref{eq:vals}; their positive outer
+summand stays positive because $j\le\kappa+20$ and $n\ge381$.
+In the upper endpoint window the short coordinate is constant in $Q$, while the other
+two absolute coordinates have the same positive slope. Their order, checked at $Q=0$,
+therefore remains fixed. Hence every boundary contribution, including a switched mode
+in the $\kappa$-window, is affine in $Q$.
+Lemma~\ref{lem:certificate-transport} shows that each signed total has degree at most two.
+Direct substitution of the
 decoded signs gives zero at $Q=0,1,\ldots,6$ for both chains and for both values of $\tau$ represented
-by each stored row. Each signed total is therefore the zero polynomial. This is a finite arithmetic
-certificate, not an assumption about the output of a search program.
+by each stored row.  Three levels suffice; the remaining four are redundant checks.
+Each signed total is therefore the zero polynomial.
 \end{proof}
+
+\begin{samepage}
+\paragraph{A packet-sum calculation.}
+Take $(e,\tau,r)=(21,15,0)$, so $n=381+288Q$, $m=127+96Q$, and
+$\kappa=191+144Q$. The stored row $(21,15,0)$ has no mode switch.
+In its category $(B_2,0)$ one has
+\[
+ j=24h,\qquad 6+4Q\le h\le7+6Q,\qquad \delta(j)=(0,0,0).
+\]
+Consequently $\mu_j=573+432Q+36h$ and $\nu_j=|w_j|=108h-573-432Q$.
+The two endpoint values of $\nu_j$ are $75$ and $183+216Q$, so this formula holds for every $Q\ge0$.
+The packet has $2+2Q$ rows, and the arithmetic-progression sum gives
+\[
+\begin{aligned}
+ \sum\mu_j&=(2+2Q)(807+612Q)=1614+2838Q+1224Q^2,\\
+ \sum\nu_j&=(2+2Q)(129+108Q)=258+474Q+216Q^2.
+\end{aligned}
+\]
+Both printed signs for this category are positive. Applying the same summation to all categories
+gives the following signed contributions, with $S_\mu=\sum\varepsilon_j\mu_j$ and
+$S_\nu=\sum\eta_j\nu_j$. The labels $L,M,K,T$ denote the four boundary windows of
+Section~\ref{sec:orientation-data}:
+\[
+\begin{array}{c|r|r}
+\text{rows}&S_\mu(Q)&S_\nu(Q)\\\hline
+L,M,K,T&-252-288Q&872+864Q\\
+B_1&-112-112Q&6384+11568Q+5184Q^2\\
+B_2&57+100Q&943+2256Q+1296Q^2\\
+B_3&307+300Q&-8199-14688Q-6480Q^2\\\hline
+\text{total}&0&0
+\end{array}
+\]
+Thus the two signed totals vanish coefficient by coefficient. The other $47$ group states
+are checked by the same packet-sum calculation using their printed signs.
+\end{samepage}
 
 \begin{lemma}\label{lem:bridge}
 The same offset and orientation rules produce an $\IHS(m,3;3)$ for every
@@ -461,14 +641,24 @@ $n=3m$ in the offset words and select the stored orientation row prescribed ther
 checks are printed in Section~\ref{sec:bridge-data}: the absolute-value set has minimum $1$, maximum
 $9m$, and cardinality $9m$, while all three column-sum vectors are zero. Row sums are zero by the
 construction, so these data prove the assertion.
+
+The set $\mathcal B$ contains every admissible parameter in $[67,119]$.
+The next admissible parameter is $127$, which lies in the range $m\ge123$
+of Lemma~\ref{lem:rule}.
 \end{proof}
 
-\begin{proposition}\label{prop:mtransport}
-Let $m\ge67$ be admissible and put
+\begin{remark}\label{rem:mtransport}
+The statement below is an observation about the corrected-Kotzig normal form and is
+\emph{not} used in the proof of Theorem~\ref{thm:main}; that theorem rests on the exhaustive
+coverage of the small values, of Lemma~\ref{lem:bridge}, and of the uniform rules above.
+We record it because it explains how the canonical normal form advances from one admissible
+parameter to the next.
+Put
 \[
  d(m)=\begin{cases}4,&m\equiv1\pmod3,\\8,&m\equiv2\pmod3.\end{cases}
 \]
-Write $R_j^{(m)}$ and $\delta_j^{(m)}$ for the corrected row and its offset in the construction above.
+Let $m\ge67$ be admissible. Write $R_j^{(m)}$ and $\delta_j^{(m)}$ for the corrected row and its
+offset in the construction above.
 For every inherited index $1\le j\le3m$,
 \begin{equation}\label{eq:c3-standalone-transport}
  R_j^{(m+d)}=R_j^{(m)}+\frac{9d}{2}(-1)^{j+3m}(1,0,-1)
@@ -483,16 +673,37 @@ canonical constructions follow the single chain
 \]
 This is a recurrence between the canonical corrected-Kotzig forms, not an extension operator on an
 arbitrary presentation of an $\IHS(m,3;3)$; it records transport of the chosen normal form.
-\end{proposition}
+\end{remark}
 \begin{proof}
 Subtract the closed Kotzig formula at $3m$ from the formula at $3(m+d)$ and then add the two offset
 vectors; this gives~\eqref{eq:c3-standalone-transport}. The count of new rows follows from
 $3(m+d)-3m=3d$, and the residue classes distribute these indices equally. Equation
 ~\eqref{eq:c3-word-shift} gives the half-period bulk update for the $+4$ step, while the four
-boundary tables give the stated boundary-state cycle. Lemmas~\ref{lem:rule} and~\ref{lem:orient}
-then certify the target support and balance states. No additional search is used in this transport
-identity.
+boundary tables give the stated boundary-state cycle. For target parameters at most $119$,
+Lemma~\ref{lem:bridge} certifies support and balance. Every larger admissible target is at least
+$127$, where Lemmas~\ref{lem:rule} and~\ref{lem:orient} apply.
 \end{proof}
+
+\paragraph{Example of the $67\to71$ step.}
+Here $d=4$, so the coefficient in~\eqref{eq:c3-standalone-transport} is $18$.
+Take the inherited bulk row $j=40$. It lies in the lower bulk window at both parameters,
+since $21\le40\le\kappa-21$ for $\kappa=101$ and $\kappa=107$, and it changes as
+\[
+ R_{40}^{(67)}=(-363,118,245)
+ \quad\longmapsto\quad R_{40}^{(71)}=(-381,118,263),
+\]
+with the same offset $(0,-2,2)$. The index $j=40$ is even, so $(-1)^{j+3m}=(-1)^{241}=-1$ and the
+increment is $-\tfrac{9d}{2}(1,0,-1)=(-18,0,18)$, exactly the difference displayed. At the old
+endpoint $j=201=n$, which lies in the upper window at $m=67$ and still in that window at $m=71$
+(since $j\ge n-20=193$ there), the offset changes from
+$(-2,0,2)$ to $(0,0,0)$, giving
+\[
+ R_{201}^{(71)}-R_{201}^{(67)}
+ =(18,603,-621)-(-2,603,-601)
+ =(18,0,-18)+(2,0,-2).
+\]
+The first new row is $R_{202}^{(71)}=(-624,604,20)$. There are twelve new rows in total,
+four per group; the target sign pattern then orients all $213$ rows into three balanced arrays.
 
 \paragraph{Why the transport is not append-only.}
 If the old entries were left fixed in a $+4$ step,
@@ -500,7 +711,13 @@ each new zero-sum row would have to use values from $[9m+1,9m+36]$; but
 $(9m+1)+(9m+2)>9m+36$ for $m\ge4$, so no three values in that interval form a sum-triple.
 
 \begin{proof}[Proof of Theorem~\ref{thm:main}]
-Let $m\equiv3\pmod4$ with $\gcd(m,3)=1$ and put $n=3m$. Then $n\equiv1\pmod4$ and $n$ is odd.
+For the necessity, an $\IHS(m,3;3)$ induces a partition of $[1,9m]$ into $3m$ sum-triples by
+Proposition~\ref{prop:red}\textup{(i)}, so $N=3m$ must satisfy $N\equiv0,1\pmod4$ by
+Proposition~\ref{prop:skolem}. For odd $m$ this forces $m\equiv3\pmod4$, since $3m\equiv1\pmod4$
+exactly when $m\equiv3\pmod4$.
+
+For sufficiency let $m\equiv3\pmod4$ with $\gcd(m,3)=1$ and put $n=3m$. Then $n\equiv1\pmod4$ and
+$n$ is odd. The least such $m$ is $7$, since $m=3$ fails the coprimality condition.
 For $m<67$, the admissible values are
 \[
  7,11,19,23,31,35,43,47,55,59.
@@ -508,11 +725,24 @@ For $m<67$, the admissible values are
 Complete signed arrays are displayed below for $m=7$. Section~\ref{sec:small-data} gives three
 exceptional support words for $m=11,19,23$ and six preperiod orientation certificates for the
 remaining values $m=31,35,43,47,55,59$. These six cases already use the uniform support rule.
-Lemma~\ref{lem:bridge} handles the ten admissible values from $67$ to $119$. For every remaining
-admissible $m>119$ (the first is $127$),
+The support audit for these six values, obtained by decoding the bulk words and the boundary
+table at $n=3m$, is
+\[
+\begin{array}{c|rrrrrr}
+m&31&35&43&47&55&59\\
+\min&1&1&1&1&1&1\\
+\max&279&315&387&423&495&531\\
+|S|&279&315&387&423&495&531
+\end{array}
+\]
+so in every case $S=[1,9m]$. The audit for the three exceptional words is printed in
+Section~\ref{sec:small-data}.
+Lemma~\ref{lem:bridge} handles all admissible values from $67$ to $119$.
+For every remaining admissible $m\ge127$,
 Lemma~\ref{lem:rule} gives the exact sum-triple partition of $[1,3n]$. Grouping by $j\bmod3$ and
 orienting by Lemma~\ref{lem:orient} gives three zero-sum $m\times3$ arrays whose absolute-value
-supports partition $[1,9m]$.
+supports partition $[1,9m]$. Remark~\ref{rem:mtransport} records how the normal form advances
+along $m\mapsto m+d(m)$ through this list.
 \end{proof}
 
 \begin{center}
@@ -535,16 +765,23 @@ supports partition $[1,9m]$.
 \noindent
 Each row sums to $0$, each array's three column sums are $0$, and the union of the absolute-value
 supports of the three arrays is exactly $[1,63]$.
+These arrays provide the separate construction for $m=7$. They are not decoded from the
+uniform rule: the four orientation windows overlap at this parameter, since
+$\kappa-m=4<12+20$. The remaining admissible values below $67$ are covered by the words and
+orientation certificates in Sections~\ref{sec:certificates} and~\ref{sec:small-data}.
 
 \input{c3_finite_certificate_body.tex}
 \input{c3_exceptional_constructions_body.tex}
 
 \section{The complete \texorpdfstring{$c=4$}{c=4} slice}\label{sec:c4full}
 
-The even parameter $n=4m$ changes the parity bookkeeping in the lift.  The resulting construction
-has period $48$, four residue classes, and a finite certificate with $48$ support states and
-$192$ balance states.  Define $a_{i,j}$ by the same Kotzig formula~\eqref{eq:kotzig}, now with
-$n=4m$, $r=2n+1$, $i\in\{-1,0,1\}$ and $j\in[-n,n]$, and put $\kappa=n/2$.
+The even parameter $n=4m$ changes the parity bookkeeping in the lift. The support rule uses
+two $16$-letter words and four residue classes. For the balance proof we retain a
+$48$-position refinement, giving $48$ support states and $192$ group states.
+Define $a_{i,j}$ by the same Kotzig formula~\eqref{eq:kotzig}, now with
+$n=4m$, $r=2n+1$, $i\in\{-1,0,1\}$ and $j\in[-n,n]$, and put $\kappa=n/2$. The array is the one
+of Lemma~\ref{lem:even-kotzig}, which we record here because it supplies the rows used by
+the corrected lift~\eqref{eq:c4lift} below.
 
 \begin{lemma}\label{lem:even-kotzig}
 For even $n$, formula~\eqref{eq:kotzig} is integer-valued and defines a $3\times(2n+1)$
@@ -566,43 +803,134 @@ We use the corrected lift
 R_j=(3a_{-1,j}+d_{-1}(j),\ 3j+d_0(j),\ 3a_{1,j}+d_1(j)).
 \end{equation}
 Here $1\le j\le n$, and $d(j)=(d_{-1}(j),d_0(j),d_1(j))\in\{-2,-1,0,1,2\}^3$
-has coordinate sum zero.
-For $\rho=m\bmod12\in\{1,5,7,11\}$, Section~\ref{sec:c4-support-data} prints the two period-$48$
-words, the affine phase law and both boundary-table sets. Group rows by $j-1\bmod4$.
+has coordinate sum zero. The same offset is denoted by $\delta(j)=d(j)$ in the data tables of
+Section~\ref{sec:c4-support-data}.
+For $\rho=m\bmod12\in\{1,5,7,11\}$, Section~\ref{sec:c4-support-data} prints the two master
+words, their support phases, the balance-indexing phases, and both boundary-table sets.
+Group rows by $j-1\bmod4$, ordering the rows within each group by increasing $j$.
 
-\begin{theorem}\label{thm:c4full}
-For every odd $m\ge5$ with $\gcd(m,3)=1$, an $\IHS(m,3;4)$ exists.
-\end{theorem}
-\begin{proof}
-Every row in~\eqref{eq:c4lift} sums to zero: the three Kotzig entries in a column sum to zero,
-and every displayed offset vector has coordinate sum zero. It remains to verify support and column
-balance.
-For a periodic class write uniquely
-$m=m_\rho+12(s_0+12Q)$, where $s_0\in\{0,\ldots,11\}$, $Q\ge0$, and
-
+For the periodic ranges, fix the state parameters by writing uniquely
+$m=m_\rho+12s$, where $s=s_0+12Q$, $s_0\in\{0,\ldots,11\}$, $Q\ge0$, and
 \[
 (m_1,m_5,m_7,m_{11})=(25,29,31,23).
 \]
-The $4\cdot12=48$ choices of $(\rho,s_0)$ fix all phases, boundary tables and parities.  Put
-$m_0=m_\rho+12s_0$ and $n_0=4m_0$, so that $n=n_0+576Q$.  In a bulk position
-$j=j_0+48h$, every absolute coordinate of~\eqref{eq:c4lift} is affine in $(Q,h)$, with
-$h$-coefficient $\pm72$ or $\pm144$.  Splitting the former by layer parity gives progressions
-of difference $144$.  For each residue $u\in\{1,\ldots,144\}$, subtracting $u$ and dividing
-by $144$ turns the decoded values into integer intervals.  The printed words and boundary tables
-make these intervals consecutive, beginning at $0$ and ending at
-$12Q+\lfloor(3n_0-u)/144\rfloor$.  Thus the $48\times144$ endpoint comparisons are finite affine
-identities, and the support is exactly $[1,3n]$ for every $Q\ge0$.  The same substitution verifies
-that the sorted absolute values in every row satisfy $a+b=c$.  No search output is used in this
-implication.
+Put $m_0=m_\rho+12s_0$ and $n_0=4m_0$, so $n=n_0+576Q$.
+The $48$ choices of $(\rho,s_0)$ fix all phases, boundary tables, and parities.
+Together with the group index $r\in\{0,1,2,3\}$, they give the $192$ balance states.
 
-For balance, Appendix~\ref{sec:c4-balance-data-appendix} prints one mode-and-two-sign row for each of the
-$4\cdot12\cdot4=192$ group states.  On the stated periodic range, each signed category total is a
-polynomial in $Q$ of degree at most two.  The printed signs give zero at $Q=1,\ldots,6$, and the
-corresponding $Q=0$ totals are checked separately; hence seven zeros force both independent totals
-to vanish identically.  Lemma~\ref{lem:exact} converts these two sign identities into zero column
-sums.  The periodic ranges start at $m=25,29,31,23$ in the four residue classes.  The only smaller
+\Needspace{7\baselineskip}
+\begin{lemma}\label{lem:c4-packet-degree}
+For a fixed state $(\rho,s_0,r)$ of the $c=4$ construction, every category total of
+$\mu$ and $|w|$ is a polynomial in $Q$ of degree at most two for $Q\ge1$.
+\end{lemma}
+\begin{proof}
+Put $n=n_0+576Q$.  All word positions below are indexed by the balance phases
+$(\phi_1,\phi_2)$ of Section~\ref{sec:c4-support-data}, that is $p=(j-\phi_i-16s)\bmod48$, and
+not by the support phases $\psi_i$. Since $s=s_0+12Q$, the phase $16s\bmod48$ is independent of $Q$.
+The fixed rotation $W_{\rho,i}[p]=P_i[(p+\phi_i-\psi_i)\bmod16]$ re-indexes the same
+$16$-letter word. The layer parity $e$ is recorded separately. For a bulk category write
+$j=j_*+96h$, where $j_*=j_0+48e$, $1\le j_0\le48$, and $e\in\{0,1\}$.
+This fixes the word letter, the layer parity, the group, and both printed signs.
+Every bulk row is in mode $c$.
+Away from the endpoint windows, its sum element is
+\[
+ \mu_j=\begin{cases}
+ 3(n+j)/2-d_1,&j\text{ even},\\
+ 3(n+j+1)/2-d_{-1},&j\text{ odd},
+ \end{cases}
+\]
+and its signed summand difference is $D_j=432h-864Q+B$, so $|w_j|=|D_j|$, where
+\[
+ B=\begin{cases}
+ (9j_*-3n_0)/2+d_0-d_{-1},&j\text{ even},\\
+ (9j_*-3(n_0+1))/2+d_0-d_1,&j\text{ odd}.
+ \end{cases}
+\]
+The offset coordinates are constant in a fixed category.  The sign change of this last
+expression occurs between
+\[
+ h\le 2Q+\lfloor-B/432\rfloor
+ \quad\text{and}\quad
+ h\ge 2Q+\lfloor-B/432\rfloor+1.
+\]
+In the lower bulk the original endpoints have slopes $0$ and $3$ in $Q$;
+in the upper bulk they have slopes $3$ and $6$.  Since $n_0\ge92$,
+one has $n\ge668$ at $Q=1$.  The real sign-change position lies in
+$[n/3-8/9,n/3+11/9]$, strictly between $21$ and $n/2-21$ on this tail.
+Substitution of $21\le j\le n/2-21$ and $|d_i|\le2$ shows that both lower-bulk pieces
+have nonnegative counts from that level onward;
+the upper bulk lies wholly above the sign change.  Thus these refined endpoints are
+integer-affine for every $Q\ge1$. For the boundary rows, the same difference formula gives
+$D_j\le94-3n/2<0$ at $j\le20$ and $D_j\ge3n/4-96>0$ at $|j-n/2|\le20$,
+since $n\ge668$ on this tail. Their coordinate signs follow from the Kotzig formula.
+At $j=n+q$ the short coordinate is independent of $Q$ and the two large absolute
+coordinates have the same positive slope, so the order at $Q=1$ persists.
+The boundary scalar contributions, including any low-window mode switch, are therefore affine.
+Applying the packet-sum formula in Lemma~\ref{lem:certificate-transport} proves the assertion.
+At $Q=0$ a refined piece may be truncated to empty before its affine formula stabilizes,
+which explains the separate base check.
+\end{proof}
+
+\paragraph{A base-level branch change.}
+Take $(\rho,s_0,r)=(11,0,1)$, so $n=92+576Q$. The lower-bulk category with
+$p=26$ and $e=0$ consists of $j=26+96h$ with $0\le h\le3Q-1$.
+Here $\phi_1=\psi_1=0$, and the offset is $P_1[10]=\texttt{4}$, namely $(0,-1,1)$.
+The lift gives
+\[
+ R_j=(864Q-144h+99,\ 288h+77,\ -864Q-144h-176),
+\]
+so $\mu_j=864Q+144h+176$ and $\nu_j=|432h-864Q-22|$.
+For $Q\ge1$, split at $h=2Q$. The two ranges $[0,2Q]$ and $[2Q+1,3Q-1]$
+give $\nu$-totals $864Q^2+476Q+22$ and $216Q^2-238Q+22$, respectively.
+Thus
+\[
+\begin{aligned}
+ \sum\mu_j&=3240Q^2+312Q,\\
+ \sum\nu_j&=1080Q^2+238Q+44\qquad(Q\ge1).
+\end{aligned}
+\]
+Both printed signs for this category are positive. At $Q=0$ the lower bulk is $[21,25]$,
+so the category is empty and its actual totals are zero, whereas the latter polynomial gives $44$.
+The second branch would have the negative formal count $Q-1=-1$ there, outside the hypotheses
+of Lemma~\ref{lem:certificate-transport}. This is why the base level is checked separately.
+
+\Needspace{6\baselineskip}
+\begin{proof}[Proof of Theorem~\ref{thm:c4full}]
+Every row in~\eqref{eq:c4lift} sums to zero: the three Kotzig entries in a column sum to zero,
+and every displayed offset vector has coordinate sum zero. It remains to verify support and column
+balance.
+In a bulk position $j=j_0+48h$, every absolute coordinate of~\eqref{eq:c4lift} is affine in
+$(Q,h)$, with $h$-coefficient $\pm72$ or $\pm144$. Splitting the former by layer parity gives
+progressions of difference $144$. For each residue $u\in\{1,\ldots,144\}$, subtracting $u$
+and dividing by $144$ turns the decoded values into integer intervals. The printed words and
+boundary tables make these intervals consecutive, beginning at $0$ and ending at
+$12Q+\lfloor(3n_0-u)/144\rfloor$. Both coefficients of each affine adjacency agree, and all
+packet lengths have nonnegative constant and linear coefficients. Thus these finite endpoint
+identities give the support $[1,3n]$ for every $Q\ge0$, allowing empty packets at $Q=0$.
+The same substitution verifies that the sorted absolute values in every row satisfy $a+b=c$.
+
+For example, in state $(\rho,s_0)=(1,0)$ and residue $u=138$, the quotient intervals are
+\[
+ [0,3Q-1],\quad [3Q,6Q-1],\quad \{6Q\},\quad
+ [6Q+1,9Q],\quad [9Q+1,12Q],\quad \{12Q+1\}.
+\]
+Their lengths are $3Q,3Q,1,3Q,3Q,1$, and they partition $[0,12Q+1]$.
+The first interval comes from coordinate $i=-1$ in the upper bulk at
+$j=8+96h$, $3Q+1\le h\le6Q$. Its offset is $(0,-2,2)$, and its absolute value
+$138+864Q-144h$ has quotient $6Q-h$. The singleton $\{6Q\}$ comes from coordinate $i=1$
+at $j=9$, whose absolute value is $138+864Q$.
+At $Q=0$ the four bulk packets are empty; the two boundary singletons give the values $138$ and $282$.
+
+For balance, Appendix~\ref{sec:c4-balance-data-appendix} prints one mode-and-two-sign row for each
+of the $192$ group states. Lemma~\ref{lem:c4-packet-degree} establishes the degree bound for
+$Q\ge1$. The printed signs give zero at $Q=1,\ldots,6$, so the first three levels already force
+both signed totals to vanish identically on this tail. The other three are redundant checks.
+The separate $Q=0$ tally in the appendix gives all $2\cdot192=384$ base equations;
+this level is not used in the interpolation argument.
+Lemma~\ref{lem:exact} converts the two sign identities into zero column sums.
+The periodic ranges start at $m=25,29,31,23$ in the four residue classes. The only smaller
 admissible values are $5,7,11,13,17,19$, and Section~\ref{sec:c4-small-data} gives complete compact
-constructions for all six.  This covers every admissible $m$.
+constructions for all six. This covers every admissible $m$.
 \end{proof}
 
 \begin{center}
@@ -628,57 +956,44 @@ constructions for all six.  This covers every admissible $m$.
 }
 \end{center}
 
-Every row and column in this example sums to zero, and the four arrays have absolute-value supports
-whose union is $[1,84]$.
+Every row and column in this example sums to zero, and the $4\cdot7\cdot3=84$ entries have pairwise
+distinct absolute values whose union is exactly $[1,84]$; this is the $c=4$ slice at $m=7$, and
+like the $c=3$ example above it lies outside the periodic range of Section~\ref{sec:c4-support-data},
+the four classes of which begin at $m=23,25,29,31$.
 
 \input{c4_main_certificate_body.tex}
 
 \section{Concluding remarks}\label{sec:remarks}
 
-We have proved two fixed-slice existence theorems for width three.  The first gives
-$\IHS(m,3;3)$ for every $m\equiv3\pmod4$ with $\gcd(m,3)=1$; the second gives
-$\IHS(m,3;4)$ for every odd $m\ge5$ with $\gcd(m,3)=1$.  In both cases the proof is
-modular: a support certificate partitions the required interval into sum-triples, a
-congruence class groups those triples into $m$-row arrays, and a finite orientation
-certificate forces the three column sums to vanish.
+Theorems~\ref{thm:main} and~\ref{thm:c4full} settle the $c=3$ and $c=4$ slices of
+Problem~\ref{prob:1}. In both cases, the essential requirement is to make an exact support
+partition compatible with several separately balanced arrays. The corrected Kotzig lift,
+the congruence-based grouping, and the two sign identities provide this compatibility.
+Explicit small constructions complete the ranges below the uniform rules.
+The same centre-complementary viewpoint appears in magic three-dimensional
+rectangles~\cite{Zhou2018JCD}; here it supplies the starting array, while the offset corrections
+produce the required absolute-value support.
 
-The centre-complementary Kotzig formula is what makes this modular proof possible.  It
-turns the support calculation into periodic bulk rules plus finitely many boundary
-states, while the same states organise the orientation data.  The $c=3$ slice has a
-period-$24$ transport rule and a finite bridge; the $c=4$ slice requires a separate
-period-$48$ rule because the even value $n=4m$ changes both the hole correction and the
-orientation categories.  The centre-complementary viewpoint is related to the construction
-of magic three-dimensional rectangles in~\cite{Zhou2018JCD}, but here only one half of
-the symmetric array is retained so that every absolute value occurs exactly once.
-
-The proofs also isolate the part that is genuinely reusable: once the support and signed
-balance quantities are affine or polynomial in the transport parameter, finitely many
-boundary identities close the whole infinite family.  This is a certificate--transport
-principle rather than a theorem for arbitrary $c$.  In particular, no construction for
-$c\ge5$ is claimed here; extending the method would require new support words and new
-orientation certificates, together with a proof that their boundary states close.
+Lemma~\ref{lem:certificate-transport} gives the common verification principle. Once coordinate
+signs, residue classes, and absolute-value branches are fixed, support reduces to affine
+endpoint identities and balance reduces to polynomial identities of degree at most two.
+The separate $Q=0$ check in the $c=4$ construction illustrates why branch stabilization must
+precede polynomial interpolation. Applying this principle to another slice requires new
+support and balance certificates satisfying the lemma's hypotheses.
 
 \paragraph{Code and data availability.}
-The manuscript prints the complete finite data used in both theorems.  For $c=3$,
-Section~\ref{sec:certificates} gives the two master offset words, their rotation rule,
-the boundary tables, the $24$ orientation patterns, and the ten-case finite bridge;
-Section~\ref{sec:small-data} gives the exceptional supports and preperiod orientations.
-For $c=4$, Section~\ref{sec:c4-data} gives the four period-$48$ support rules and the
-six bounded seed constructions, while Appendix~\ref{sec:c4-balance-data-appendix} gives the
-$192$ balance rows.  Thus the arguments can be
-checked from the printed manuscript and the accompanying source package without treating
-any program as an oracle.  The public repository at
-\url{https://github.com/matheorist/heffter-width3-c34} contains the source files,
-machine-readable certificates, and verification scripts.  The deterministic check is to
-decode the offset strings, reconstruct and sort each lifted row, verify the sum-triple and
-support conditions, and then decode the sign strings and check the two signed totals in
-each group.
+All finite construction data required for the proofs are included in Sections~\ref{sec:certificates},
+\ref{sec:small-data}, and~\ref{sec:c4-data}, and Appendix~\ref{sec:c4-balance-data-appendix}.
+The printed certificates suffice to reconstruct the arrays and verify their exact support
+and zero row and column sums, independently of computer code.
+The reproducibility package is available at
+\href{https://github.com/matheorist/heffter-width3-c34}{\texttt{matheorist/heffter-width3-c34}}
+for computational verification.
 
-\clearpage
 \appendix
-\section*{Certificate data}
+\section{Certificate data}\label{app:certificate-data}
 For readability, the main text records the finite-state rules, support data, and bounded seed
-constructions. Only the long table of $192$ c=4 balance patterns is placed in the appendix;
+constructions. Only the long table of $192$ $c=4$ balance patterns is placed in the appendix;
 the same table is also included in the public repository.
 \input{c4_balance_patterns_appendix.tex}
 

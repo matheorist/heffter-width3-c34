@@ -1,20 +1,33 @@
-\section{The 192 balance patterns}\label{sec:c4-balance-data-appendix}
+\subsection{The 192 balance patterns}\label{sec:c4-balance-data-appendix}
 Group the triples by $j-1\equiv r\pmod4$, where $r\in\{0,1,2,3\}$.
 A row category is $L_q,M_q,T_q$ in the three boundary windows, and
 $B_{i,p,e}$ in bulk word $i$.  Here
 $q=1,\ldots,20$ on $L$, $q=-20,\ldots,20$ on $M$, and
 $q=-20,\ldots,0$ on $T$; also $i\in\{1,2\}$,
 $p\in\{0,\ldots,47\}$, and $e\in\{0,1\}$.  For a bulk position,
-$p=(j-\phi_i-16s)\bmod48$, $j_0$ is the unique representative in $[1,48]$
+$p=(j-\phi_i-16s)\bmod48$, using the balance-indexing phases in
+Section~\ref{sec:c4-support-data}, not the support phases $\psi_i$. The value $j_0$ is the unique representative in $[1,48]$
 with $j_0\equiv j\pmod{48}$, and
 $e=((j-j_0)/48)\bmod2$.  Order the categories as
-$L,M,T,B_1,B_2$, numerically within each family; this is the order used by both
-sign strings.  Expand each hexadecimal string to binary, retain exactly the first
+$L,M,T,B_1,B_2$, and \emph{within} each bulk family $B_i$ order lexicographically by
+the pair $(p,e)$, that is by $p$ first and then by $e$; the three boundary families are
+ordered by their index $q$.  This is the order used by both
+sign strings, and the choice of $p$ before $e$ is essential: the printed bit strings are
+balanced only under the $(p,e)$ ordering, and the totals do not vanish under the
+$(e,p)$ ordering.  Expand each hexadecimal string to binary, retain exactly the first
 $\ell$ bits (including leading zeroes), and read $1$ as $+1$ and $0$ as $-1$.
 The columns $C,D$ are the signs of $\mu_j$ and $|w_j|$ from
 Lemma~\ref{lem:exact}.  A displayed switch $L_q:a$ or $L_q:b$ changes that unique
 row from the default mode $c$.  For
 $m=m_\rho+12(s_0+12Q)$ use the row $(\rho,s_0,r)$ below.
+The category list is fixed for the state, not recomputed from the rows present at the current
+parameter.  More precisely, for fixed $(\rho,s_0,r)$ take the union of the categories attained
+at $Q=0,1,\ldots,6$ and order that union by the rule above.  Its length is the printed $\ell$.
+All categories that can occur on the infinite tail are already present in this union: at $Q\ge1$
+both bulk intervals contain every compatible word-position and layer-parity class, while the
+boundary categories have fixed relative positions.  A category absent at $Q=0$ retains its place
+in the sign string and contributes zero.  Thus the same $\ell$ bits are used at every level;
+short base arrays must not be decoded by deleting the absent categories.
 \begingroup\scriptsize
 \setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
 \begin{longtable}{@{\extracolsep{\fill}}c@{\,}c@{\,}c@{\,}r@{\,}c@{\,}l@{\,}l@{}}
@@ -213,9 +226,27 @@ $m=m_\rho+12(s_0+12Q)$ use the row $(\rho,s_0,r)$ below.
 11&11&2&68&$L_{3}:a$&\texttt{CE588DFE77E4780C0}&\texttt{C6C31716D7B8CD385}\\
 11&11&3&69&$L_{20}:a$&\texttt{DC48EEE0BE0AC26B58}&\texttt{BE9EA431033EE087F0}\\
 \hline\end{longtable}\endgroup
-For each printed row and each of the two signed chains, the contribution of an ordered
-category is a polynomial in $Q$ of degree at most two.  The printed data give zero at
-$Q=1,\ldots,6$, while the value at $Q=0$ is checked separately; seven zeros therefore
-force both signed totals to vanish identically.  Lemma~\ref{lem:exact} then converts
-these two sign identities into zero column sums.  Thus the
-$192=4\cdot12\cdot4$ rows are the complete finite orientation certificate.
+For each printed row, both signed totals vanish at $Q=1,\ldots,6$.
+Lemma~\ref{lem:c4-packet-degree} supplies the degree bound used in the proof of
+Theorem~\ref{thm:c4full}; $Q=0$ is checked separately below.
+
+\medskip
+\noindent
+\emph{The separate check at $Q=0$.} At the base level the bulk packets may be truncated
+before their affine formulas stabilise, so the $Q=0$ values are recorded directly rather
+than interpolated. Decoding the same $192$ rows at $Q=0$, that is $m=m_\rho+12s_0$ and
+$n=4m$, gives $\sum\varepsilon_j\mu_j=\sum\eta_j|w_j|=0$ for every row; the tally is
+
+\begingroup\scriptsize
+\begin{longtable}{@{\,}c@{\quad}r@{\quad}r@{\quad}r@{}}
+\hline $\rho$&\text{rows}&$\sum\varepsilon_j\mu_j=0$&$\sum\eta_j|w_j|=0$\\\hline
+1&48&48&48\\
+5&48&48&48\\
+7&48&48&48\\
+11&48&48&48\\\hline
+\text{total}&192&192&192\\\hline\end{longtable}
+\endgroup
+
+\noindent
+so all $2\cdot192=384$ scalar base equations hold. Each entry is obtained by a finite
+integer calculation from the printed offsets and sign strings.

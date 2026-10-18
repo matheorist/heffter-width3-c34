@@ -3,14 +3,13 @@
 For each of 4 parameter residues, 12 step states, and 4 arrays, bulk signs are
 constant on (zone, period-48 position, layer parity); boundary signs are constant
 on their relative position.  Category sums are quadratic in Q.  CP-SAT finds
-signs making both independent signed sums zero, and finite differences verify
-the quadratic identity.
+signs making both independent signed sums zero. Finite differences provide
+sample diagnostics only; the manuscript and the combined symbolic audit establish
+the packet degree bounds and exact polynomial identities.
 """
 
 import json
 from pathlib import Path
-
-from ortools.sat.python import cp_model
 
 from generate_c4_all import PERIODIC_MINIMUM, corrected_triples, load_periodic_rule
 from generate_c4_certificate import find_modes, mode_values
@@ -91,6 +90,9 @@ def third_differences(values):
 
 
 def solve_signs(series):
+    # CP-SAT is needed only to search for new signs, not to check saved patterns.
+    from ortools.sat.python import cp_model
+
     categories = sorted({key for row in series for key in row}, key=str)
     # Every category sum must be a polynomial of degree at most 2 in Q.
     for key in categories:
